@@ -22,7 +22,7 @@ export default defineConfig({
         name: "TreatYourDate",
         short_name: "TreatYourDate",
         description: "Connect with food lovers and share meals",
-        theme_color: "#636AE8",
+        theme_color: "#ffffff",
         background_color: "#ffffff",
         display: "standalone",
         icons: [
