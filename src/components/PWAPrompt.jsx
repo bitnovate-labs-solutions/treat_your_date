@@ -1,18 +1,37 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Share } from "lucide-react";
 
 export function PWAPrompt() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const [showPrompt, setShowPrompt] = useState(false);
+  const [isIOS, setIsIOS] = useState(false);
 
   useEffect(() => {
-    window.addEventListener("beforeinstallprompt", (e) => {
-      e.preventDefault();
-      setDeferredPrompt(e);
-      setShowPrompt(true);
-    });
+    // Check if device is iOS
+    const isIOSDevice =
+      /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    setIsIOS(isIOSDevice);
+
+    // For non-iOS devices, listen for install prompt
+    if (!isIOSDevice) {
+      window.addEventListener("beforeinstallprompt", (e) => {
+        e.preventDefault();
+        setDeferredPrompt(e);
+        setShowPrompt(true);
+      });
+    } else {
+      // Show iOS prompt if not already installed
+      const isStandalone = window.matchMedia(
+        "(display-mode: standalone)"
+      ).matches;
+      if (!isStandalone) {
+        setShowPrompt(true);
+      }
+    }
   }, []);
 
+  // HANDLE INSTALL
   const handleInstallClick = async () => {
     if (!deferredPrompt) return;
 
@@ -32,15 +51,27 @@ export function PWAPrompt() {
       <div className="flex justify-between items-center">
         <div className="flex-1">
           <h3 className="font-semibold">Install TreatYourDate</h3>
-          <p className="text-sm text-gray-600">
-            Add to your home screen for better experience
-          </p>
+          {isIOS ? (
+            <div className="text-sm text-gray-600">
+              <p>To install this app:</p>
+              <ol className="ml-4 list-decimal">
+                <li>
+                  Tap the share button <Share className="w-4 h-4 inline" />
+                </li>
+                <li>Scroll down and tap "Add to Home Screen"</li>
+              </ol>
+            </div>
+          ) : (
+            <p className="text-sm text-gray-600">
+              Add to your home screen for better experience
+            </p>
+          )}
         </div>
         <div className="flex gap-2">
           <Button variant="ghost" onClick={() => setShowPrompt(false)}>
-            Later
+            {isIOS ? "Got it" : "Later"}
           </Button>
-          <Button onClick={handleInstallClick}>Install</Button>
+          {!isIOS && <Button onClick={handleInstallClick}>Install</Button>}
         </div>
       </div>
     </div>
