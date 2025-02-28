@@ -19,9 +19,13 @@ export default function Layout() {
   const queryClient = useQueryClient();
   const [activeTab, setActiveTab] = useState("menu");
 
+  // Only fetch profile if user is authenticated
   const { data: profile } = useQuery({
     queryKey: ["profile", user?.id],
     queryFn: async () => {
+      // Return null if no user
+      if (!user) return null;
+
       const { data, error } = await supabase
         .from("user_profiles")
         .select("role")
@@ -31,7 +35,7 @@ export default function Layout() {
       if (error) throw error;
       return data;
     },
-    enabled: !!user?.id,
+    enabled: !!user?.id, // Only run query if user exists
   });
 
   // HANDLE HEADER TAB CHANGE
@@ -45,6 +49,8 @@ export default function Layout() {
   const handleHomeClick = () => {
     if (profile?.role) {
       navigate(`/${profile.role}`);
+    } else {
+      navigate("/explore"); // Default to explore for non-authenticated users
     }
   };
 

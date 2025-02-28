@@ -9,10 +9,8 @@ import { PWAPrompt } from "./components/PWAPrompt";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      // staleTime: 1000 * 60 * 10, // 10 minutes
-      // cacheTime: 1000 * 60 * 60, // 1 hour
-      staleTime: Infinity, // 👈 Keep all query data fresh forever
-      cacheTime: Infinity, // 👈 Never delete from cache
+      staleTime: 1000 * 60 * 10, // 10 minutes
+      cacheTime: 1000 * 60 * 60, // 1 hour
       refetchOnWindowFocus: false,
       refetchOnMount: false,
       refetchOnReconnect: false,

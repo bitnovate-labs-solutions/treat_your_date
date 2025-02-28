@@ -6,9 +6,10 @@ import { ErrorBoundary } from "react-error-boundary";
 import { Suspense } from "react";
 import { ErrorFallback } from "@/components/error-fallback";
 import { RoleSelectionSkeleton } from "@/components/loading-skeleton";
+import { CardSkeleton } from "@/components/loading-skeleton";
 
 // Pages
-import Welcome from "@/pages/Welcome";
+import Welcome from "@/pages/Onboarding/Welcome";
 import Auth from "@/pages/Auth";
 import RoleSelection from "@/pages/RoleSelection";
 import Profile from "@/pages/Profile";
@@ -16,20 +17,27 @@ import Treater from "@/pages/Treater";
 import Treatee from "@/pages/Treatee/Treatee";
 import Bookmarks from "@/pages/Bookmarks";
 import Messages from "@/pages/Messages";
+import Explore from "@/pages/Explore";
 
 export default function AppRoutes() {
   const { user } = useAuth();
 
   return (
     <Routes>
-      {/* New users -> direct to Welcome page or Auth page */}
-      {/* If user but NO PROFILE or ROLE -> direct to RoleSelection page */}
-      <Route
-        path="/"
-        element={!user ? <Welcome /> : <Navigate to="role-selection" />}
-      />
-      {/* If user is LOGGED OUT => redirect to Auth page */}
-      {/* If user is LOGGED IN => redirect to Role Selection page */}
+      {/* Public routes */}
+      <Route path="/" element={<Welcome />} />
+      <Route element={<Layout />}>
+        <Route
+          path="/explore"
+          element={
+            <Suspense fallback={<CardSkeleton />}>
+              <Explore />
+            </Suspense>
+          }
+        />
+      </Route>
+
+      {/* Protected routes */}
       <Route
         path="/auth/*"
         element={!user ? <Auth /> : <Navigate to="/role-selection" />}
