@@ -7,7 +7,7 @@ import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-import Logo from "@/assets/images/welcome_logo.png";
+import Logo from "@/assets/images/tyd_logo.png";
 import { Mail, Lock } from "lucide-react";
 
 // Form email and password validation
@@ -87,7 +87,7 @@ export default function Auth() {
         <div className="w-full max-w-md mx-auto">
           <button
             onClick={() => setShowConfirmation(false)}
-            className="mb-8 text-gray-500 hover:text-gray-700 text-2xl"
+            className="mb-8 text-darkgray hover:text-darkgray-hover text-2xl"
           >
             ←
           </button>
@@ -139,7 +139,7 @@ export default function Auth() {
         {/* BACK BUTTON */}
         <button
           onClick={() => navigate(-1)}
-          className="mb-8 text-gray-500 hover:text-gray-700 text-2xl"
+          className="mb-8 text-darkgray hover:text-darkgray-hover text-2xl"
         >
           ←
         </button>
@@ -151,11 +151,11 @@ export default function Auth() {
           </div>
           <div className="text-center">
             {/* SIGN UP TITLE */}
-            <h1 className="text-[28px] font-semibold mb-2 text-gray-900">
+            <h1 className="text-[28px] font-semibold mb-2 text-darkgray-title">
               {activeTab === "login" ? "Welcome back!" : "Nice to see you!"}
             </h1>
             {/* SIGN IN DESCRIPTION */}
-            <p className="text-base text-gray-400">
+            <p className="text-base text-lightgray">
               {activeTab === "login"
                 ? "Log back into your account"
                 : "Create your account"}
@@ -166,8 +166,8 @@ export default function Auth() {
               <button
                 className={`pb-2 w-1/3 ${
                   activeTab === "signup"
-                    ? "text-[#636AE8] border-b-4 border-[#636AE8]"
-                    : "text-gray-500"
+                    ? "text-primary border-b-4 border-primary"
+                    : "text-darkgray"
                 }`}
                 onClick={() => setActiveTab("signup")}
               >
@@ -176,8 +176,8 @@ export default function Auth() {
               <button
                 className={`pb-2 w-1/3 ${
                   activeTab === "login"
-                    ? "text-[#636AE8] border-b-4 border-[#636AE8]"
-                    : "text-gray-500"
+                    ? "text-primary border-b-4 border-primary"
+                    : "text-darkgray"
                 }`}
                 onClick={() => setActiveTab("login")}
               >
@@ -190,7 +190,7 @@ export default function Auth() {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             {/* EMAIL */}
             <div className="relative">
-              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-lightgray" />
               <div className="space-y-2">
                 <Input
                   className="h-14 text-base rounded-xl border-gray-200 pl-12"
@@ -207,7 +207,7 @@ export default function Auth() {
 
             {/* PASSWORD */}
             <div className="relative">
-              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-lightgray" />
               <div className="space-y-2">
                 <Input
                   className="h-14 text-base rounded-xl border-gray-200 pl-12"
@@ -226,7 +226,7 @@ export default function Auth() {
             {/* BUTTON */}
             <Button
               type="submit"
-              className="w-full h-14 text-base bg-[#6366F1] hover:bg-[#4F46E5] text-white rounded-xl"
+              className="w-full h-14 text-base bg-primary hover:bg-primary-hover text-white rounded-xl"
               disabled={isLoading}
             >
               {isLoading

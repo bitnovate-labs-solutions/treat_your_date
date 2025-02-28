@@ -1,28 +1,30 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Calendar, Heart, User } from "lucide-react";
+import { useImageCache } from "@/hooks/useImageCache";
 
 export default function TreateeCard({ item, onLike, isLiked }) {
+  const cachedImageUrl = useImageCache(
+    item.image_url || item.restaurants?.image_url
+  );
+
   return (
     <Card className="overflow-hidden bg-white border-gray-200 shadow-md">
       {/* CARD HEADER */}
       <div className="relative w-full h-[130px] overflow-hidden">
         {/* CARD IMAGE */}
         <img
-          src={item.image_url || item.restaurants?.image_url}
+          src={cachedImageUrl}
           alt={item.name}
-          loading="eager"
-          decoding="async"
-          fetchPriority="high"
           className="absolute inset-0 w-full h-full object-cover"
         />
 
-        {/* Base dark overlay */}
+        {/* IMAGE OVERLAY */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
 
         <div className="absolute top-4 right-4 flex gap-2">
           {/* CARD LABEL */}
-          <span className="flex items-center bg-[#636AE8] text-white px-3 py-auto rounded-lg text-sm">
+          <span className="flex items-center bg-primary text-white px-3 py-auto rounded-lg text-sm">
             {item.meal_type} | SET A
           </span>
 
@@ -30,7 +32,7 @@ export default function TreateeCard({ item, onLike, isLiked }) {
           <Button
             variant="ghost"
             size="icon"
-            className="bg-white/80 rounded-lg"
+            className="bg-secondary/80 rounded-lg"
             onClick={() => onLike(item.id)}
           >
             <Heart
@@ -61,7 +63,7 @@ export default function TreateeCard({ item, onLike, isLiked }) {
         </div>
       </div>
 
-      {/* CARD FOOTER */}
+      {/* CARD CONTENT */}
       <CardContent className="py-2 px-4 h-[120px]">
         <div className="flex justify-between items-center">
           <div>
@@ -82,7 +84,7 @@ export default function TreateeCard({ item, onLike, isLiked }) {
                       />
                     ) : (
                       <div className="w-full h-full bg-[#EEF2FF] flex items-center justify-center">
-                        <span className="text-xs text-[#636AE8]">
+                        <span className="text-xs text-primary">
                           {selection.user_profiles?.display_name?.[0] || "?"}
                         </span>
                       </div>
@@ -91,18 +93,16 @@ export default function TreateeCard({ item, onLike, isLiked }) {
                 ))}
               </div>
               {/* Interested count */}
-              <div className="flex items-center gap-1 px-3 py-1.5 bg-[#fff1f2] rounded-lg">
-                <span className="text-sm text-rose-500">
-                  +{item.likes || 0}
-                </span>
-                <span className="text-sm text-rose-400 flex items-center">
+              <div className="flex items-center gap-1 px-3 py-1.5 bg-secondary rounded-lg">
+                <span className="text-sm text-primary">+{item.likes || 0}</span>
+                <span className="text-sm text-primary flex items-center">
                   <User size={15} className="mx-1" /> interested
                 </span>
               </div>
             </div>
           </div>
           {/* JOIN BUTTON */}
-          <Button className="bg-[#636AE8] hover:bg-[#4F46E5] text-white">
+          <Button className="bg-primary hover:bg-primary-hover text-white">
             Join
           </Button>
         </div>

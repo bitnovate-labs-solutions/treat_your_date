@@ -49,7 +49,7 @@ export default function Layout() {
   };
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="h-full flex flex-col w-full max-w-md mx-auto">
       {/* HEADER */}
       <AppHeader
         title="Food"
@@ -63,7 +63,7 @@ export default function Layout() {
       </main>
 
       {/* BOTTOM NAVIGATION BAR */}
-      <nav className="fixed bottom-0 left-0 right-0 z-10 rounded-t-2xl border-t border-gray-200 bg-white shadow-2xl">
+      <nav className="w-full max-w-md mx-auto fixed bottom-0 left-0 right-0 z-10 rounded-t-2xl border-t border-gray-200 bg-white shadow-2xl">
         <div className="container mx-auto px-4 shadow-lg h-[4.5rem]">
           <div className="flex justify-around py-4">
             {/* USER ICON (PROFILE) BUTTON */}

@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { useAuth } from "@/context/AuthContext";
 import { useState } from "react";
 import { Mail } from "lucide-react";
-import Logo from "@/assets/images/welcome_logo.png";
+import Logo from "@/assets/images/tyd_logo.png";
 
 export default function Welcome() {
   const navigate = useNavigate();
@@ -43,7 +43,7 @@ export default function Welcome() {
       <div className="w-full max-w-md mx-auto space-y-8">
         <div className="text-center space-y-4">
           {/* WELCOME TITLE */}
-          <h1 className="text-[32px] font-semibold text-gray-900">
+          <h1 className="text-[32px] font-semibold text-darkgray-title">
             Welcome to
             <br />
             TreatYourDate
@@ -55,7 +55,7 @@ export default function Welcome() {
           </div>
 
           {/* WELCOME DESCRIPTION */}
-          <p className="text-base text-gray-400 px-8">
+          <p className="text-base text-lightgray px-8">
             A place to dine and date.
             <br />
             Make the first connection in person over a meal.
@@ -65,7 +65,7 @@ export default function Welcome() {
         <div className="space-y-4">
           {/* BUTTON - GOOGLE */}
           <Button
-            className="w-full h-14 bg-[#636AE8] hover:bg-[#4F46E5] text-white rounded-2xl text-base"
+            className="w-full h-14 bg-primary hover:bg-primary-hover text-white rounded-2xl text-base"
             onClick={handleGoogleSignup}
             disabled={!agreedToTerms}
           >
@@ -82,7 +82,7 @@ export default function Welcome() {
           {/* BUTTON - SIGN UP WITH EMAIL */}
           <Button
             variant="outline"
-            className="w-full h-14 bg-[#EEF2FF] text-[#6366F1] border-[#E0E7FF] hover:bg-[#E0E7FF] rounded-2xl text-base"
+            className="w-full h-14 bg-secondary text-primary border-secondary-border hover:bg-secondary-hover rounded-2xl text-base"
             onClick={handleEmailSignup}
             disabled={!agreedToTerms}
           >
@@ -94,10 +94,10 @@ export default function Welcome() {
         <div className="h-1/5 flex flex-col justify-between">
           <div>
             {/* LOG IN */}
-            <p className="text-sm text-center text-[#6366F1]">
+            <p className="text-sm text-center text-primary">
               Already have an account?{" "}
               <button
-                className="text-[#6366F1] hover:underline font-bold underline"
+                className="text-primary hover:underline font-bold underline"
                 onClick={() => navigate("/auth", { state: { mode: "login" } })}
               >
                 Log in
@@ -109,13 +109,13 @@ export default function Welcome() {
           <div className="flex justify-center gap-2">
             <Checkbox
               id="terms"
-              className="my-auto data-[state=checked]:bg-[#6366F1] data-[state=checked]:text-white"
+              className="my-auto data-[state=checked]:bg-primary data-[state=checked]:text-white"
               checked={agreedToTerms}
               onCheckedChange={setAgreedToTerms}
             />
-            <label htmlFor="terms" className="text-sm text-gray-500">
+            <label htmlFor="terms" className="text-sm text-darkgray">
               I agree with{" "}
-              <button className="text-[#6366F1] hover:underline">
+              <button className="text-primary hover:underline">
                 Terms & Conditions
               </button>
             </label>
