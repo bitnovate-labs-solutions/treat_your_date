@@ -24,6 +24,7 @@ export default defineConfig({
         description: "Connect with food lovers and share meals",
         theme_color: "#ffffff",
         background_color: "#ffffff",
+        orientation: "portrait", // 👈 Lock to portrait mode
         display: "standalone",
         icons: [
           {
@@ -54,6 +55,21 @@ export default defineConfig({
             purpose: "maskable",
           },
         ],
+        shortcuts: [
+          {
+            name: "Home",
+            url: "/",
+            icons: [{ src: "/pwa-192x192.png", sizes: "192x192" }],
+          },
+        ],
+        protocol_handlers: [
+          {
+            protocol: "web+treatyourdate",
+            url: "/%s",
+          },
+        ],
+        categories: ["food", "social"],
+        prefer_related_applications: false,
       },
     }),
   ],
