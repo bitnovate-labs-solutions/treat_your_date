@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 // Import your onboarding images
 import OnboardingImage1 from "@/assets/images/tyd_logo.png";
 import OnboardingImage2 from "@/assets/images/welcome2.png";
-import OnboardingImage3 from "@/assets/images/welcome3.png";
+import OnboardingImage3 from "@/assets/images/treater.png";
 import { supabase } from "@/lib/supabase";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -22,21 +22,29 @@ const onboardingSteps = [
     image: OnboardingImage2,
   },
   {
-    title: "Where Generosity Meets Great Company!",
+    title: "Share a meal and make meaningful connections",
     description: (
-      <>
-        Ready to share a meal and make meaningful connections? Choose your role
-        and start your journey: <br />
-        <br />
-        <strong>Be a Treator</strong> <br />
-        Treat someone to a meal and enjoy great company <br />
-        <br />
-        <strong>Be a Treatee</strong> <br />
-        Request a meal and get invited by a Treator
-        <br /> <br />
-        Whichever role you choose, good food and good company are just a tap
-        away! <br /> Let’s get started!
-      </>
+      <div className="text-center">
+        <div className="flex flex-col space-y-4">
+          <div className="mt-4">
+            <strong className="block text-xl text-primary">Be a Treator</strong>
+            <p className="text-lightgray">
+              Treat someone to a meal and enjoy great company
+            </p>
+          </div>
+          <div>
+            <strong className="block text-xl text-primary">Be a Treatee</strong>
+            <p className="text-lightgray">
+              Request a meal and get invited by a Treator
+            </p>
+          </div>
+        </div>
+        <p className="mt-6">
+          Whichever role you choose, good food and good company are just a tap
+          away! <br />
+          Let’s get started!
+        </p>
+      </div>
     ),
     image: OnboardingImage3,
   },
@@ -100,12 +108,12 @@ export default function Welcome() {
       {/* Content */}
       <div className="flex-1 flex flex-col items-center justify-center p-4">
         {/* WELCOME IMAGE */}
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center mb-6">
           <img
             src={onboardingSteps[currentStep].image}
             alt="Welcome"
             loading={currentStep === 0 ? "eager" : "lazy"}
-            // className="w-full h-full object-cover rounded-2xl"
+            className="w-full h-full object-cover"
           />
         </div>
 
