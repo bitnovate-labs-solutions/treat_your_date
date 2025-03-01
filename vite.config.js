@@ -14,62 +14,91 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       strategies: "injectManifest",
-      srcDir: "public",
+      srcDir: "src",
       filename: "sw.js",
       registerType: "autoUpdate",
       includeAssets: ["favicon.ico", "apple-touch-icon.png", "mask-icon.svg"],
-      manifest: {
-        name: "TreatYourDate",
-        short_name: "TreatYourDate",
-        description: "Connect with food lovers and share meals",
-        theme_color: "#ffffff",
-        background_color: "#ffffff",
-        orientation: "portrait", // 👈 Lock to portrait mode
-        display: "standalone",
-        icons: [
+      manifest: false,
+      injectManifest: {
+        swSrc: "./src/sw.js",
+        swDest: "dist/sw.js",
+        globDirectory: "dist",
+        globPatterns: ["**/*.{js,css,html,ico,png,svg,webp,jpg,jpeg,json}"],
+      },
+      devOptions: {
+        enabled: true,
+        type: "module",
+      },
+      // manifest: { // We're using our custom manifest.json
+      //   name: "TreatYourDate",
+      //   short_name: "TreatYourDate",
+      //   description: "Connect with food lovers and share meals",
+      //   theme_color: "#ffffff",
+      //   background_color: "#ffffff",
+      //   orientation: "portrait", // 👈 Lock to portrait mode
+      //   start_url: "/",
+      //   display: "standalone",
+      //   icons: [
+      //     {
+      //       src: "pwa-64x64.png",
+      //       sizes: "64x64",
+      //       type: "image/png",
+      //     },
+      //     {
+      //       src: "pwa-192x192.png",
+      //       sizes: "192x192",
+      //       type: "image/png",
+      //     },
+      //     {
+      //       src: "pwa-512x512.png",
+      //       sizes: "512x512",
+      //       type: "image/png",
+      //     },
+      //     {
+      //       src: "pwa-512x512.png",
+      //       sizes: "512x512",
+      //       type: "image/png",
+      //       purpose: "any maskable",
+      //     },
+      //     {
+      //       src: "maskable-icon-512x512.png",
+      //       sizes: "512x512",
+      //       type: "image/png",
+      //       purpose: "maskable",
+      //     },
+      //   ],
+      //   shortcuts: [
+      //     {
+      //       name: "Home",
+      //       url: "/",
+      //       icons: [{ src: "/pwa-192x192.png", sizes: "192x192" }],
+      //     },
+      //   ],
+      //   protocol_handlers: [
+      //     {
+      //       protocol: "web+treatyourdate",
+      //       url: "/%s",
+      //     },
+      //   ],
+      //   categories: ["food", "social"],
+      //   prefer_related_applications: false,
+      // },
+      workbox: {
+        globPatterns: ["**/*"],
+        navigateFallback: "/index.html",
+        runtimeCaching: [
           {
-            src: "pwa-64x64.png",
-            sizes: "64x64",
-            type: "image/png",
-          },
-          {
-            src: "pwa-192x192.png",
-            sizes: "192x192",
-            type: "image/png",
-          },
-          {
-            src: "pwa-512x512.png",
-            sizes: "512x512",
-            type: "image/png",
-          },
-          {
-            src: "pwa-512x512.png",
-            sizes: "512x512",
-            type: "image/png",
-            purpose: "any maskable",
-          },
-          {
-            src: "maskable-icon-512x512.png",
-            sizes: "512x512",
-            type: "image/png",
-            purpose: "maskable",
+            urlPattern: /^https:\/\/.*\.supabase\.co\/.*/i,
+            handler: "NetworkFirst",
+            options: {
+              cacheName: "supabase-cache",
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 60 * 60 * 24, // 24 hours
+              },
+            },
           },
         ],
-        shortcuts: [
-          {
-            name: "Home",
-            url: "/",
-            icons: [{ src: "/pwa-192x192.png", sizes: "192x192" }],
-          },
-        ],
-        protocol_handlers: [
-          {
-            protocol: "web+treatyourdate",
-            url: "/%s",
-          },
-        ],
-        categories: ["food", "social"],
-        prefer_related_applications: false,
       },
     }),
   ],
