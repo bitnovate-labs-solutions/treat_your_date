@@ -11,40 +11,40 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const checkUserProfile = async (userId) => {
-    try {
-      const { data, error } = await supabase
-        .from("user_profiles")
-        .select("role")
-        .eq("user_id", userId)
-        .single();
-
-      if (error && error.code === "PGRST116") {
-        // No profile found, redirect to role selection
-        navigate("/role-selection", { replace: true });
-      } else if (error) {
-        console.error("Error checking user profile:", error);
-      } else if (data?.role) {
-        // Profile exists, navigate to their role page
-        navigate(`/${data.role}`, { replace: true });
-      }
-    } catch (error) {
-      console.error("Error in checkUserProfile:", error);
-    }
-  };
-
   useEffect(() => {
+    let mounted = true;
+
     // Get initial session
     const initializeAuth = async () => {
       try {
+        // Get initial session
         const {
           data: { session },
         } = await supabase.auth.getSession();
-        setUser(session?.user ?? null);
+        console.log("Session initialized:", session);
+
+        if (!mounted) return;
+
+        if (session?.user) {
+          setUser(session.user);
+          // const profile = await checkUserProfile(session.user.id);
+          // const currentPath = window.location.pathname;
+
+          // Only redirect if not already on create-profile
+          // if (!profile && currentPath !== "/create-profile") {
+          //   navigate("/create-profile", { replace: true });
+          // } else if (profile && currentPath === "/create-profile") {
+          //   navigate(`/${profile.role}`, { replace: true });
+          // }
+        } else {
+          setUser(null);
+        }
       } catch (error) {
-        console.error("Error getting session:", error);
+        console.error("Auth initialization error:", error);
       } finally {
-        setLoading(false);
+        if (mounted) {
+          setLoading(false);
+        }
       }
     };
 
@@ -53,54 +53,51 @@ export function AuthProvider({ children }) {
     // Listen for changes on auth state
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
-      console.log("Auth state changed:", event, session?.user?.id);
-      if (event === "SIGNED_IN") {
-        setUser(session.user);
-        // Only check profile if email is confirmed
-        if (session.user.email_confirmed_at) {
-          checkUserProfile(session.user.id);
-        }
-      } else if (event === "USER_UPDATED") {
-        setUser(session.user);
-      } else if (event === "SIGNED_OUT") {
-        setUser(null);
-        navigate("/auth", { state: { mode: "login" }, replace: true });
-      }
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
+      console.log("Auth state changed:", event); // Debug log
+      if (!mounted) return;
+
+      setUser(session?.user ?? null);
+
+      // if (session?.user) {
+      //   const profile = await checkUserProfile(session.user.id);
+      //   const currentPath = window.location.pathname;
+
+      //   if (!profile && currentPath !== "/create-profile") {
+      //     navigate("/create-profile", { replace: true });
+      //   }
+      // }
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
   }, []);
 
-  // SIGN IN
-  const signIn = async (credentials) => {
-    const { data, error } = await supabase.auth.signInWithPassword(credentials);
-    if (error) throw error;
-    await checkUserProfile(data.user.id);
-    return data;
-  };
+  // CHECK USER PROFILE
+  const checkUserProfile = async (userId) => {
+    try {
+      const { data: profile, error } = await supabase
+        .from("user_profiles")
+        .select("role")
+        .eq("user_id", userId)
+        .single();
 
-  // SIGN UP
-  const signUp = async (credentials) => {
-    const { data, error } = await supabase.auth.signUp(credentials);
-    if (error) throw error;
-    // // Only check profile if session exists (email already confirmed)
-    // if (data.session) {
-    //   await checkUserProfile(data.user.id);
-    // }
-    return data;
-  };
-
-  // SIGN OUT
-  const signOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) throw error;
+      if (error && error.code === "PGRST116") {
+        // No profile found - new user
+        return null;
+      } else if (error) {
+        throw error;
+      }
+      return profile;
+    } catch (error) {
+      console.error("Error in checkUserProfile:", error);
+      return null;
+    }
   };
 
   const value = {
-    signUp,
-    signIn,
-    signOut,
     signInWithGoogle: async () => {
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
@@ -111,12 +108,33 @@ export function AuthProvider({ children }) {
       if (error) throw error;
       return data;
     },
+    signOut: async () => {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      navigate("/", { replace: true });
+    },
     user,
+    checkUserProfile,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {!loading && children}
-    </AuthContext.Provider>
-  );
+  // LOADING ANIMATION
+  if (loading && !user) {
+    return (
+      <div
+        style={{
+          padding: "20px",
+          backgroundColor: "white",
+          color: "black",
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        Loading auth state...
+      </div>
+    );
+  }
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

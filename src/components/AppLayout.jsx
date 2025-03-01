@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   User,
@@ -7,36 +7,48 @@ import {
   MessagesSquare,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
-import { supabase } from "@/lib/supabase";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+
+import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import AppHeader from "./AppHeader";
+import { useUserProfile } from "@/hooks/useUserProfile";
 
 export default function Layout() {
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = useAuth();
   const queryClient = useQueryClient();
+  const { data: profile } = useUserProfile(user); // Fetch user_profile data
   const [activeTab, setActiveTab] = useState("menu");
 
-  // Only fetch profile if user is authenticated
-  const { data: profile } = useQuery({
-    queryKey: ["profile", user?.id],
-    queryFn: async () => {
-      // Return null if no user
-      if (!user) return null;
+  // If no profile exists and we're not on the create-profile or auth/callback path,
+  // redirect to create-profile
+  useEffect(() => {
+    const currentPath = location.pathname;
+    if (
+      user &&
+      !profile?.role &&
+      currentPath !== "/create-profile" &&
+      currentPath !== "/auth/callback"
+    ) {
+      navigate("/create-profile", { replace: true });
+    }
+  }, [user, profile, location.pathname, navigate]);
 
-      const { data, error } = await supabase
-        .from("user_profiles")
-        .select("role")
-        .eq("user_id", user.id)
-        .single();
-
-      if (error) throw error;
-      return data;
-    },
-    enabled: !!user?.id, // Only run query if user exists
-  });
+  // HANDLE PROTECTED ROUTES
+  const handleProtectedNavigation = (path) => {
+    if (!user) {
+      // Store current location before redirecting
+      navigate("/auth", {
+        state: {
+          mode: "login",
+          from: location.pathname,
+        },
+      });
+    } else {
+      navigate(path);
+    }
+  };
 
   // HANDLE HEADER TAB CHANGE
   const handleTabChange = (value) => {
@@ -76,13 +88,13 @@ export default function Layout() {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => navigate("/profile")}
+              onClick={() => handleProtectedNavigation("/profile")}
             >
               <User
                 className={`${
                   location.pathname === `/profile`
-                    ? "text-[#636AE8]"
-                    : "text-gray-500"
+                    ? "text-primary"
+                    : "text-darkgray"
                 }`}
               />
             </Button>
@@ -91,8 +103,8 @@ export default function Layout() {
               <UtensilsCrossed
                 className={`${
                   location.pathname === `/${profile?.role}`
-                    ? "text-[#636AE8]"
-                    : "text-gray-500"
+                    ? "text-primary"
+                    : "text-darkgray"
                 }`}
               />
             </Button>
@@ -100,17 +112,29 @@ export default function Layout() {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => navigate("/bookmarks")}
+              onClick={() => handleProtectedNavigation("/bookmarks")}
             >
-              <ShoppingCart className="h-6 w-6 text-gray-500" />
+              <ShoppingCart
+                className={`${
+                  location.pathname === `/bookmarks`
+                    ? "text-primary"
+                    : "text-darkgray"
+                }`}
+              />
             </Button>
             {/* MESSAGE ICON BUTTON */}
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => navigate("/messages")}
+              onClick={() => handleProtectedNavigation("/messages")}
             >
-              <MessagesSquare className="h-6 w-6 text-gray-500" />
+              <MessagesSquare
+                className={`${
+                  location.pathname === `/messages`
+                    ? "text-primary"
+                    : "text-darkgray"
+                }`}
+              />
             </Button>
           </div>
         </div>
