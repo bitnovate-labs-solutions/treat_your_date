@@ -14,77 +14,65 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       strategies: "injectManifest",
-      srcDir: "src",
+      srcDir: "public",
       filename: "sw.js",
       registerType: "autoUpdate",
       includeAssets: ["favicon.ico", "apple-touch-icon.png", "mask-icon.svg"],
-      manifest: false,
-      injectManifest: {
-        swSrc: "./src/sw.js",
-        swDest: "dist/sw.js",
-        globDirectory: "dist",
-        globPatterns: ["**/*.{js,css,html,ico,png,svg,webp,jpg,jpeg,json}"],
+      manifest: {
+        name: "TreatYourDate",
+        short_name: "TreatYourDate",
+        description: "Connect with food lovers and share meals",
+        theme_color: "#ffffff",
+        background_color: "#ffffff",
+        orientation: "portrait", // 👈 Lock to portrait mode
+        start_url: "/",
+        display: "standalone",
+        icons: [
+          {
+            src: "pwa-64x64.png",
+            sizes: "64x64",
+            type: "image/png",
+          },
+          {
+            src: "pwa-192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+          },
+          {
+            src: "pwa-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+          },
+          {
+            src: "pwa-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "any maskable",
+          },
+          {
+            src: "maskable-icon-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "maskable",
+          },
+        ],
+        shortcuts: [
+          {
+            name: "Home",
+            url: "/",
+            icons: [{ src: "/pwa-192x192.png", sizes: "192x192" }],
+          },
+        ],
+        protocol_handlers: [
+          {
+            protocol: "web+treatyourdate",
+            url: "/%s",
+          },
+        ],
+        categories: ["food", "social"],
+        prefer_related_applications: false,
       },
-      devOptions: {
-        enabled: true,
-        type: "module",
-      },
-      // manifest: { // We're using our custom manifest.json
-      //   name: "TreatYourDate",
-      //   short_name: "TreatYourDate",
-      //   description: "Connect with food lovers and share meals",
-      //   theme_color: "#ffffff",
-      //   background_color: "#ffffff",
-      //   orientation: "portrait", // 👈 Lock to portrait mode
-      //   start_url: "/",
-      //   display: "standalone",
-      //   icons: [
-      //     {
-      //       src: "pwa-64x64.png",
-      //       sizes: "64x64",
-      //       type: "image/png",
-      //     },
-      //     {
-      //       src: "pwa-192x192.png",
-      //       sizes: "192x192",
-      //       type: "image/png",
-      //     },
-      //     {
-      //       src: "pwa-512x512.png",
-      //       sizes: "512x512",
-      //       type: "image/png",
-      //     },
-      //     {
-      //       src: "pwa-512x512.png",
-      //       sizes: "512x512",
-      //       type: "image/png",
-      //       purpose: "any maskable",
-      //     },
-      //     {
-      //       src: "maskable-icon-512x512.png",
-      //       sizes: "512x512",
-      //       type: "image/png",
-      //       purpose: "maskable",
-      //     },
-      //   ],
-      //   shortcuts: [
-      //     {
-      //       name: "Home",
-      //       url: "/",
-      //       icons: [{ src: "/pwa-192x192.png", sizes: "192x192" }],
-      //     },
-      //   ],
-      //   protocol_handlers: [
-      //     {
-      //       protocol: "web+treatyourdate",
-      //       url: "/%s",
-      //     },
-      //   ],
-      //   categories: ["food", "social"],
-      //   prefer_related_applications: false,
-      // },
       workbox: {
-        globPatterns: ["**/*"],
         navigateFallback: "/index.html",
         runtimeCaching: [
           {

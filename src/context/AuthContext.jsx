@@ -99,21 +99,16 @@ export function AuthProvider({ children }) {
 
   const value = {
     signInWithGoogle: async () => {
-      // Check if app is installed as PWA
-      const isPWA = window.matchMedia("(display-mode: standalone)").matches;
-
-      // Get the current URL, handling both PWA and browser modes
-      const currentUrl = window.location.href;
-      const baseUrl = currentUrl.split("/").slice(0, 3).join("/");
-
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: `${baseUrl}/auth/callback`,
+          redirectTo: `${window.location.origin}/auth/callback`,
+          skipBrowserRedirect: true, // Prevent automatic redirect
           queryParams: {
-            // Pass PWA state to callback
-            isPWA: isPWA ? "true" : "false",
+            prompt: "select_account", // Always show account selector
+            access_type: "offline",
           },
+          flowType: "popup", // Use popup instead of redirect
         },
       });
       if (error) throw error;

@@ -8,27 +8,13 @@ export default function AuthCallback() {
 
   useEffect(() => {
     const handleCallback = async () => {
-      // Get the PWA state from URL params
-      const urlParams = new URLSearchParams(window.location.search);
-      const isPWA = urlParams.get("isPWA") === "true";
-
       if (user) {
         const profile = await checkUserProfile(user.id);
-        const redirectPath = !profile ? "/create-profile" : `/${profile.role}`;
-
-        if (isPWA) {
-          // For PWA, use window.location to force a full reload
-          window.location.href = redirectPath;
+        if (!profile) {
+          navigate("/create-profile", { replace: true });
         } else {
-          // For browser, use normal navigation
-          navigate(redirectPath, { replace: true });
+          navigate(`/${profile.role}`, { replace: true });
         }
-
-        // if (!profile) {
-        //   navigate("/create-profile", { replace: true });
-        // } else {
-        //   navigate(`/${profile.role}`, { replace: true });
-        // }
       }
     };
 

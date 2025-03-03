@@ -5,6 +5,7 @@ import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import Logo from "@/assets/images/tyd_logo.png";
+import Google from "@/assets/google.svg";
 import { supabase } from "@/lib/supabase";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -14,7 +15,7 @@ export default function Auth() {
   const { signInWithGoogle } = useAuth();
   const queryClient = useQueryClient();
   const from = location.state?.from || "/explore";
-  const [isAuthenticating, setIsAuthenticating] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // const prefetchData = async () => {
   //   try {
@@ -53,9 +54,9 @@ export default function Auth() {
   // };
 
   // HANDLE GOOGLE SIGN IN
-  const handleGoogleAuth = async () => {
+  const handleGoogleSignIn = async () => {
     try {
-      setIsAuthenticating(true); // Prevent navigation until auth is complete
+      setIsLoading(true); // Prevent navigation until auth is complete
 
       // Cache API responses before triggering Google auth
       const { data: foodData } = await supabase
@@ -88,7 +89,7 @@ export default function Auth() {
         description: "Please ensure you have enabled pop-ups for this site.",
       });
     } finally {
-      setIsAuthenticating(false);
+      setIsLoading(false);
     }
   };
 
@@ -99,7 +100,7 @@ export default function Auth() {
         <button
           onClick={() => navigate(-1)}
           className="mb-8 text-darkgray hover:text-darkgray-hover text-2xl"
-          disabled={isAuthenticating}
+          disabled={isLoading}
         >
           ←
         </button>
@@ -125,16 +126,20 @@ export default function Auth() {
           {/* GOOGLE AUTH BUTTON */}
           <Button
             className="w-full h-14 bg-primary hover:bg-primary-hover text-white rounded-2xl text-base"
-            onClick={handleGoogleAuth}
-            disabled={isAuthenticating}
+            onClick={handleGoogleSignIn}
+            disabled={isLoading ? true : undefined}
           >
-            <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
-              <path
-                fill="currentColor"
-                d="M21.35 10.04C21.49 10.67 21.56 11.32 21.56 12C21.56 17.5 17.16 21.9 11.66 21.9C6.16 21.9 1.76 17.5 1.76 12C1.76 6.5 6.16 2.1 11.66 2.1C14.56 2.1 17.16 3.2 19.06 5L16.16 7.9C15.06 6.8 13.46 6.1 11.66 6.1C8.36 6.1 5.66 8.8 5.66 12.1C5.66 15.4 8.36 18.1 11.66 18.1C14.46 18.1 16.76 16.3 17.46 13.9H11.66V10.1H21.36C21.36 10.1 21.35 10.04 21.35 10.04Z"
-              />
-            </svg>
-            Continue with Google
+            {isLoading ? (
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                Signing in...
+              </div>
+            ) : (
+              <>
+                <img src={Google} alt="Google" className="w-5 h-5" />
+                Continue with Google
+              </>
+            )}
           </Button>
         </div>
       </div>
