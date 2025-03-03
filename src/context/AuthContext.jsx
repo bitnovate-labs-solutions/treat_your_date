@@ -103,7 +103,7 @@ export function AuthProvider({ children }) {
         provider: "google",
         options: {
           redirectTo: `${window.location.origin}/auth/callback`,
-          skipBrowserRedirect: true, // Prevent automatic redirect
+          // skipBrowserRedirect: true, // Prevent automatic redirect
           queryParams: {
             prompt: "select_account", // Always show account selector
             access_type: "offline",
@@ -111,6 +111,7 @@ export function AuthProvider({ children }) {
           flowType: "popup", // Use popup instead of redirect
         },
       });
+
       if (error) throw error;
       return data;
     },
