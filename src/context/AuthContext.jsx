@@ -91,21 +91,21 @@ export function AuthProvider({ children }) {
     signInWithGoogle: async () => {
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
-        options: {
-          redirectTo: `${window.location.origin}/auth/callback`,
-          // redirectTo: window.location.origin,
-          // scopes: "email profile",
-          // redirectTo: `${redirectUrl}/auth/callback`,
-          // redirectTo: `https://chwihogbftrkzgfvvzzl.supabase.co/auth/v1/callback`,
-          // queryParams: {
-          //   isPWA: isPWA ? "true" : "false",
-          // },
-          // queryParams: {
-          //   prompt: "consent", // Always show account selector
-          //   access_type: "offline",
-          // },
-          // flowType: "popup", // Use popup instead of redirect
-        },
+        // options: {
+        //   redirectTo: `${window.location.origin}/auth/callback`,
+        //   // redirectTo: window.location.origin,
+        //   // scopes: "email profile",
+        //   // redirectTo: `${redirectUrl}/auth/callback`,
+        //   // redirectTo: `https://chwihogbftrkzgfvvzzl.supabase.co/auth/v1/callback`,
+        //   // queryParams: {
+        //   //   isPWA: isPWA ? "true" : "false",
+        //   // },
+        //   // queryParams: {
+        //   //   prompt: "consent", // Always show account selector
+        //   //   access_type: "offline",
+        //   // },
+        //   // flowType: "popup", // Use popup instead of redirect
+        // },
       });
 
       console.log("Auth response: ", { data, error });
