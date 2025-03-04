@@ -88,7 +88,7 @@ export function AuthProvider({ children }) {
         provider: "google",
         options: {
           redirectTo: `${baseUrl}/auth/callback`,
-          skipBrowserRedirect: false, // Force immediate redirect
+          // skipBrowserRedirect: false, // Force immediate redirect
           queryParams: {
             prompt: "select_account", // Always show account selector
             access_type: "offline",
