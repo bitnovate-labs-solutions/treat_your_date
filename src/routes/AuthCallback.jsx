@@ -1,10 +1,8 @@
 import { useEffect } from "react";
-// import { useAuth } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
 
 export default function AuthCallback() {
-  // const { user, checkUserProfile } = useAuth();
   const navigate = useNavigate();
 
   // useEffect(() => {
@@ -65,7 +63,7 @@ export default function AuthCallback() {
       } else if (userProfile.role === "treatee") {
         navigate("/treatee");
       } else {
-        navigate("/dashboard"); // Fallback route
+        navigate("/"); // Fallback route
       }
     };
 

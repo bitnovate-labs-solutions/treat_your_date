@@ -25,7 +25,7 @@ export default defineConfig({
         theme_color: "#ffffff",
         background_color: "#ffffff",
         orientation: "portrait", // 👈 Lock to portrait mode
-        start_url: "/",
+        // start_url: "/",
         display: "standalone",
         icons: [
           {
