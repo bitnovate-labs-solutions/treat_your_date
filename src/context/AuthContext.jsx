@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import { useNavigate } from "react-router-dom";
+import { error } from "console";
 
 const AuthContext = createContext({});
 
@@ -21,21 +22,12 @@ export function AuthProvider({ children }) {
         const {
           data: { session },
         } = await supabase.auth.getSession();
-        console.log("Session initialized:", session);
 
         if (!mounted) return;
 
         if (session?.user) {
           setUser(session.user);
-          // const profile = await checkUserProfile(session.user.id);
-          // const currentPath = window.location.pathname;
-
-          // Only redirect if not already on create-profile
-          // if (!profile && currentPath !== "/create-profile") {
-          //   navigate("/create-profile", { replace: true });
-          // } else if (profile && currentPath === "/create-profile") {
-          //   navigate(`/${profile.role}`, { replace: true });
-          // }
+          console.log("Error in checkUserProfile: ", error);
         } else {
           setUser(null);
         }
@@ -99,13 +91,12 @@ export function AuthProvider({ children }) {
 
   const value = {
     signInWithGoogle: async () => {
-      // const isPWA = window.matchMedia("(display-mode: standalone)").matches;
-      // const redirectUrl = `${window.location.origin}/auth/callback`;
-
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
           redirectTo: `${window.location.origin}/auth/callback`,
+          // redirectTo: window.location.origin,
+          // scopes: "email profile",
           // redirectTo: `${redirectUrl}/auth/callback`,
           // redirectTo: `https://chwihogbftrkzgfvvzzl.supabase.co/auth/v1/callback`,
           // queryParams: {
@@ -118,6 +109,8 @@ export function AuthProvider({ children }) {
           // flowType: "popup", // Use popup instead of redirect
         },
       });
+
+      console.log("Auth response: ", { data, error });
 
       if (error) throw error;
       return data;

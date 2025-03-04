@@ -10,13 +10,13 @@ export default function AuthCallback() {
   useEffect(() => {
     const handleCallback = async () => {
       try {
-        // Get the session
+        // First get the session
         const {
           data: { session },
         } = await supabase.auth.getSession();
 
         if (session?.user) {
-          // Check if user has a profile
+          // Then check if user has a profile
           const profile = await checkUserProfile(session.user.id);
 
           // If user has no profile, direct user to /create-profile page
@@ -25,8 +25,6 @@ export default function AuthCallback() {
           } else {
             navigate(`/${profile.role}`, { replace: true }); // else direct user to either /treator or /treatee page
           }
-        } else {
-          navigate("/auth", { replace: true });
         }
       } catch (error) {
         console.error("Callback error:", error);
