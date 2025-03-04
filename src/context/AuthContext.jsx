@@ -99,16 +99,23 @@ export function AuthProvider({ children }) {
 
   const value = {
     signInWithGoogle: async () => {
+      const isPWA = window.matchMedia("(display-mode: standalone)").matches;
+      // const redirectUrl = `${window.location.origin}/auth/callback`;
+
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: `${window.location.origin}/auth/callback`,
-          // skipBrowserRedirect: true, // Prevent automatic redirect
+          // redirectTo: `${window.location.origin}/auth/callback`,
+          // redirectTo: `${redirectUrl}/auth/callback`,
+          redirectTo: `https://chwihogbftrkzgfvvzzl.supabase.co/auth/v1/callback`,
           queryParams: {
-            prompt: "select_account", // Always show account selector
-            access_type: "offline",
+            isPWA: isPWA ? "true" : "false",
           },
-          flowType: "popup", // Use popup instead of redirect
+          // queryParams: {
+          //   prompt: "select_account", // Always show account selector
+          //   access_type: "offline",
+          // },
+          // flowType: "popup", // Use popup instead of redirect
         },
       });
 
