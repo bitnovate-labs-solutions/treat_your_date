@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/lib/supabase";
 
 export default function AuthCallback() {
   const { user, checkUserProfile } = useAuth();
@@ -8,13 +9,28 @@ export default function AuthCallback() {
 
   useEffect(() => {
     const handleCallback = async () => {
-      if (user) {
-        const profile = await checkUserProfile(user.id);
-        if (!profile) {
-          navigate("/create-profile", { replace: true });
+      try {
+        // Get the session
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+
+        if (session?.user) {
+          // Check if user has a profile
+          const profile = await checkUserProfile(session.user.id);
+
+          // If user has no profile, direct user to /create-profile page
+          if (!profile) {
+            navigate("/create-profile", { replace: true });
+          } else {
+            navigate(`/${profile.role}`, { replace: true }); // else direct user to either /treator or /treatee page
+          }
         } else {
-          navigate(`/${profile.role}`, { replace: true });
+          navigate("/auth", { replace: true });
         }
+      } catch (error) {
+        console.error("Callback error:", error);
+        navigate("/auth", { replace: true });
       }
     };
 

@@ -10,11 +10,11 @@ import { supabase } from "@/lib/supabase";
 import { useQueryClient } from "@tanstack/react-query";
 
 export default function Auth() {
-  const location = useLocation();
+  // const location = useLocation();
   const navigate = useNavigate();
   const { signInWithGoogle } = useAuth();
   const queryClient = useQueryClient();
-  const from = location.state?.from || "/explore";
+  // const from = location.state?.from || "/explore";
   const [isLoading, setIsLoading] = useState(false);
 
   // const prefetchData = async () => {
