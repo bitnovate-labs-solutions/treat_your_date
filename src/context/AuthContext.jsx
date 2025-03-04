@@ -100,10 +100,10 @@ export function AuthProvider({ children }) {
           // queryParams: {
           //   isPWA: isPWA ? "true" : "false",
           // },
-          queryParams: {
-            prompt: "consent", // Always show account selector
-            access_type: "offline",
-          },
+          // queryParams: {
+          //   prompt: "consent", // Always show account selector
+          //   access_type: "offline",
+          // },
           // flowType: "popup", // Use popup instead of redirect
         },
       });

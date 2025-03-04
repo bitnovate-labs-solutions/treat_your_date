@@ -23,8 +23,10 @@ export default function AuthCallback() {
           if (!profile) {
             navigate("/create-profile", { replace: true });
           } else {
-            navigate(`/${profile.role}`, { replace: true }); // else direct user to either /treator or /treatee page
+            navigate(`/${profile.role}`, { replace: true }); // else if existing user - redirect user to their role page
           }
+        } else {
+          navigate("/auth", { replace: true });
         }
       } catch (error) {
         console.error("Callback error:", error);

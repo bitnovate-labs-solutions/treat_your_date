@@ -75,8 +75,12 @@ export default function CreateProfile() {
       return data;
     },
     onSuccess: (data) => {
+      // Update cache
       queryClient.setQueryData(["profile", user.id], data);
+
+      // Redirect based on role
       navigate(`/${data.role}`, { replace: true });
+
       toast.success("Profile created successfully!");
     },
     onError: (error) => {
