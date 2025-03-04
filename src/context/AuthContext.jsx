@@ -1,7 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import { useNavigate } from "react-router-dom";
-import { error } from "console";
 
 const AuthContext = createContext({});
 
@@ -27,7 +26,6 @@ export function AuthProvider({ children }) {
 
         if (session?.user) {
           setUser(session.user);
-          console.log("Error in checkUserProfile: ", error);
         } else {
           setUser(null);
         }
