@@ -1,8 +1,8 @@
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import { useUserProfile } from "@/hooks/useUserProfile";
 
-export default function ProtectedRoute({ children }) {
+export default function ProtectedRoute() {
   const { user } = useAuth();
   const { data: profile, isLoading } = useUserProfile(user);
   const location = useLocation();
@@ -27,7 +27,7 @@ export default function ProtectedRoute({ children }) {
       return <Navigate to={`/${profile.role}`} replace />;
     }
     // Otherwise, show the create profile page
-    return children;
+    return <Outlet />;
   }
 
   // For all other protected routes...
@@ -36,5 +36,5 @@ export default function ProtectedRoute({ children }) {
     return <Navigate to="/create-profile" replace />;
   }
 
-  return children;
+  return <Outlet />;
 }

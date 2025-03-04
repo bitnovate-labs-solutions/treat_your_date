@@ -12,30 +12,27 @@ export function AuthProvider({ children }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    let mounted = true;
-
     // Get initial session
     const initializeAuth = async () => {
-      try {
-        // Get initial session
-        const {
-          data: { session },
-        } = await supabase.auth.getSession();
+      // Get initial session
+      const { data: session, error } = await supabase.auth.getSession();
 
-        if (!mounted) return;
+      if (error) console.error("Auth initialization error:", error);
+      setUser(session?.session?.user ?? null);
+      setLoading(false);
 
-        if (session?.user) {
-          setUser(session.user);
-        } else {
-          setUser(null);
-        }
-      } catch (error) {
-        console.error("Auth initialization error:", error);
-      } finally {
-        if (mounted) {
-          setLoading(false);
-        }
-      }
+      // if (session?.user) {
+      //   setUser(session.user);
+      // } else {
+      //   setUser(null);
+      // }
+      // } catch (error) {
+      //   console.error("Auth initialization error:", error);
+      // } finally {
+      //   if (mounted) {
+      //     setLoading(false);
+      //   }
+      // }
     };
 
     initializeAuth();
@@ -43,29 +40,17 @@ export function AuthProvider({ children }) {
     // Listen for changes on auth state
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (event, session) => {
+    } = supabase.auth.onAuthStateChange(async (_event, session) => {
       console.log("Auth state changed:", event); // Debug log
-      if (!mounted) return;
-
       setUser(session?.user ?? null);
-
-      // if (session?.user) {
-      //   const profile = await checkUserProfile(session.user.id);
-      //   const currentPath = window.location.pathname;
-
-      //   if (!profile && currentPath !== "/create-profile") {
-      //     navigate("/create-profile", { replace: true });
-      //   }
-      // }
     });
 
     return () => {
-      mounted = false;
       subscription.unsubscribe();
     };
   }, []);
 
-  // CHECK USER PROFILE
+  // CHECK USER PROFILE in 'user_profiles' table
   const checkUserProfile = async (userId) => {
     try {
       const { data: profile, error } = await supabase
@@ -74,12 +59,9 @@ export function AuthProvider({ children }) {
         .eq("user_id", userId)
         .single();
 
-      if (error && error.code === "PGRST116") {
-        // No profile found - new user
-        return null;
-      } else if (error) {
-        throw error;
-      }
+      if (error?.code === "PGRST116") return null; // No profile found - new user
+
+      if (error) throw error;
       return profile;
     } catch (error) {
       console.error("Error in checkUserProfile:", error);
@@ -91,21 +73,9 @@ export function AuthProvider({ children }) {
     signInWithGoogle: async () => {
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
-        // options: {
-        //   redirectTo: `${window.location.origin}/auth/callback`,
-        //   // redirectTo: window.location.origin,
-        //   // scopes: "email profile",
-        //   // redirectTo: `${redirectUrl}/auth/callback`,
-        //   // redirectTo: `https://chwihogbftrkzgfvvzzl.supabase.co/auth/v1/callback`,
-        //   // queryParams: {
-        //   //   isPWA: isPWA ? "true" : "false",
-        //   // },
-        //   // queryParams: {
-        //   //   prompt: "consent", // Always show account selector
-        //   //   access_type: "offline",
-        //   // },
-        //   // flowType: "popup", // Use popup instead of redirect
-        // },
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+        },
       });
 
       console.log("Auth response: ", { data, error });
@@ -116,7 +86,8 @@ export function AuthProvider({ children }) {
     signOut: async () => {
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
-      navigate("/", { replace: true });
+      setUser(null); // Ensure user state is cleared
+      navigate("/auth", { replace: true }); // Redirect to /auth after sign out. replace: true -> Prevents the user from going back to a protected page using the browser's back button.
     },
     user,
     checkUserProfile,

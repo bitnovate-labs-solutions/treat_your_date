@@ -1,10 +1,10 @@
-import { Routes, Route, Navigate, Outlet } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import ProtectedRoute from "./ProtectedRoute";
 import Layout from "@/components/AppLayout";
-import { ErrorBoundary } from "react-error-boundary";
+// import { ErrorBoundary } from "react-error-boundary";
 import { Suspense } from "react";
-import { ErrorFallback } from "@/components/error-fallback";
+// import { ErrorFallback } from "@/components/error-fallback";
 import { CardSkeleton } from "@/components/loading-skeleton";
 
 // Pages
@@ -17,7 +17,7 @@ import Bookmarks from "@/pages/Bookmarks";
 import Messages from "@/pages/Messages";
 import Explore from "@/pages/Explore";
 import CreateProfile from "@/pages/CreateProfile";
-import AuthCallback from "@/pages/AuthCallback";
+import AuthCallback from "@/routes/AuthCallback";
 
 export default function AppRoutes() {
   const { user } = useAuth();
@@ -26,15 +26,17 @@ export default function AppRoutes() {
     <Routes>
       {/* Public routes */}
       <Route path="/" element={<Welcome />} />
+      <Route path="/auth/callback" element={<AuthCallback />} />
+
+      {/* Authentication route */}
       <Route
         path="/auth/*"
         element={!user ? <Auth /> : <Navigate to="/create-profile" />}
       />
-      <Route path="/auth/callback" element={<AuthCallback />} />
 
-      {/* Layout-wrapped routes (both public and protected) */}
+      {/* Layout-wrapped routes (Public + Protected) */}
       <Route element={<Layout />}>
-        {/* Public route with layout */}
+        {/* Public route */}
         <Route
           path="/explore"
           element={
@@ -45,67 +47,13 @@ export default function AppRoutes() {
         />
 
         {/* Protected routes */}
-        {/* Once inside a protected route ( /treater, /treatee, /profile,...) -> ProtectedRoute.js will redirect users if they don't have a role */}
-        <Route
-          element={
-            user ? (
-              <Outlet />
-            ) : (
-              <Navigate to="/auth" state={{ mode: "login" }} />
-            )
-          }
-        >
-          <Route
-            path="/create-profile"
-            element={
-              <ErrorBoundary FallbackComponent={ErrorFallback}>
-                <ProtectedRoute>
-                  <CreateProfile />
-                </ProtectedRoute>
-              </ErrorBoundary>
-            }
-          />
-
-          <Route
-            path="/treater"
-            element={
-              <ProtectedRoute>
-                <Treater />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/treatee"
-            element={
-              <ProtectedRoute>
-                <Treatee />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/bookmarks"
-            element={
-              <ProtectedRoute>
-                <Bookmarks />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/messages"
-            element={
-              <ProtectedRoute>
-                <Messages />
-              </ProtectedRoute>
-            }
-          />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/create-profile" element={<CreateProfile />} />
+          <Route path="/treater" element={<Treater />} />
+          <Route path="/treatee" element={<Treatee />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/bookmarks" element={<Bookmarks />} />
+          <Route path="/messages" element={<Messages />} />
         </Route>
       </Route>
     </Routes>
