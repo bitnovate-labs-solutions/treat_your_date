@@ -17,20 +17,20 @@ export default defineConfig({
       srcDir: "public",
       filename: "sw.js",
       registerType: "autoUpdate",
-      includeAssets: [
-        "favicon.ico",
-        "apple-touch-icon-180x180.png",
-        "mask-icon.svg",
-      ],
+      // includeAssets: [
+      //   "favicon.ico",
+      //   "apple-touch-icon-180x180.png",
+      //   "mask-icon.svg",
+      // ],
       manifest: {
         name: "TreatYourDate",
-        short_name: "TreatYourDate",
+        short_name: "TYD",
         description: "Connect with food lovers and share meals",
         theme_color: "#ffffff",
         background_color: "#ffffff",
-        orientation: "portrait", // 👈 Lock to portrait mode
-        start_url: "/",
         display: "standalone",
+        start_url: "/",
+        orientation: "portrait", // 👈 Lock to portrait mode
         icons: [
           {
             src: "pwa-64x64.png",
@@ -78,7 +78,7 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
-        // navigateFallback: "/index.html",
+        navigateFallback: "/index.html",
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/.*\.supabase\.co\/.*/i,
