@@ -9,13 +9,14 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: "/",
   plugins: [
     react(),
     tailwindcss(),
     VitePWA({
       strategies: "injectManifest",
-      srcDir: "public",
-      filename: "sw.js",
+      // srcDir: "public",
+      // filename: "sw.js",
       registerType: "autoUpdate",
       includeAssets: [
         "favicon.ico",
@@ -93,5 +94,4 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base: "/",
 });
