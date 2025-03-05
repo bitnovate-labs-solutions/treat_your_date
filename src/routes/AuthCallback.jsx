@@ -63,7 +63,7 @@ export default function AuthCallback() {
       } else if (userProfile.role === "treatee") {
         navigate("/treatee");
       } else {
-        navigate("/dashboard"); // Fallback route
+        navigate("/"); // Fallback route
       }
     };
 
