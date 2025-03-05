@@ -17,6 +17,7 @@ export default defineConfig({
       strategies: "injectManifest",
       srcDir: "public",
       filename: "sw.js",
+      injectRegister: "script",
       includeAssets: [
         "favicon.ico",
         "apple-touch-icon-180x180.png",
@@ -24,6 +25,7 @@ export default defineConfig({
       ],
       devOptions: {
         enabled: true,
+        type: "module",
       },
       manifest: {
         name: "TreatYourDate",
