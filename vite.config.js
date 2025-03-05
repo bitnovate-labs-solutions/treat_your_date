@@ -25,7 +25,7 @@ export default defineConfig({
         theme_color: "#ffffff",
         background_color: "#ffffff",
         orientation: "portrait", // 👈 Lock to portrait mode
-        // start_url: "/",
+        start_url: "/",
         display: "standalone",
         icons: [
           {
@@ -73,6 +73,7 @@ export default defineConfig({
         prefer_related_applications: false,
       },
       workbox: {
+        globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
         navigateFallback: "/index.html",
         runtimeCaching: [
           {
