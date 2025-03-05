@@ -40,12 +40,12 @@ registerRoute(
 );
 
 // Handle OAuth redirects
-self.addEventListener("fetch", (event) => {
-  if (event.request.url.includes("/auth/callback")) {
-    event.respondWith(
-      fetch(event.request).then((response) => {
-        return response;
-      })
-    );
-  }
-});
+// self.addEventListener("fetch", (event) => {
+//   if (event.request.url.includes("/auth/callback")) {
+//     event.respondWith(
+//       fetch(event.request).then((response) => {
+//         return response;
+//       })
+//     );
+//   }
+// });
