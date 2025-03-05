@@ -56,21 +56,21 @@ export default defineConfig({
             purpose: "maskable",
           },
         ],
-        // shortcuts: [
-        //   {
-        //     name: "Home",
-        //     url: "/",
-        //     icons: [{ src: "/pwa-192x192.png", sizes: "192x192" }],
-        //   },
-        // ],
-        // protocol_handlers: [
-        //   {
-        //     protocol: "web+treatyourdate",
-        //     url: "/%s",
-        //   },
-        // ],
-        // categories: ["food", "social"],
-        // prefer_related_applications: false,
+        shortcuts: [
+          {
+            name: "Home",
+            url: "/",
+            icons: [{ src: "/pwa-192x192.png", sizes: "192x192" }],
+          },
+        ],
+        protocol_handlers: [
+          {
+            protocol: "web+treatyourdate",
+            url: "/%s",
+          },
+        ],
+        categories: ["food", "social"],
+        prefer_related_applications: false,
       },
       workbox: {
         globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
