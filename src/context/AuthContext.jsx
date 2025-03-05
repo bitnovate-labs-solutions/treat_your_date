@@ -79,7 +79,6 @@ export function AuthProvider({ children }) {
         provider: "google",
         options: {
           redirectTo: `${window.location.origin}/auth/callback`,
-          skipBrowserRedirect: false, // Force a full-page redirect
           // queryParams: {
           //   prompt: "select_account", // Always show account selector
           //   access_type: "offline",
