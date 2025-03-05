@@ -84,7 +84,7 @@ export function AuthProvider({ children }) {
             prompt: "select_account", // Always show account selector
             access_type: "offline",
             mobile: "1", // Avoid disabling mobile flow
-            display: "page", // Use full-page redirect instead of popup
+            display: isPWA ? "popup" : "page", // Use full-page redirect instead of popup
           },
         },
       });
