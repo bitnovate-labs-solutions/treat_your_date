@@ -14,10 +14,11 @@ export default defineConfig({
     react(),
     tailwindcss(),
     VitePWA({
-      strategies: "injectManifest",
-      srcDir: "public",
-      filename: "sw.js",
-      injectRegister: "script",
+      // strategies: "injectManifest",
+      // srcDir: "public",
+      // filename: "sw.js",
+      registerType: "autoUpdate", // ✅ Automatically updates service worker
+      injectRegister: "auto", // ✅ Ensures service worker is registered
       includeAssets: [
         "favicon.ico",
         "apple-touch-icon-180x180.png",
@@ -59,38 +60,23 @@ export default defineConfig({
             purpose: "maskable",
           },
         ],
-        // shortcuts: [
-        //   {
-        //     name: "Home",
-        //     url: "/",
-        //     icons: [{ src: "/pwa-192x192.png", sizes: "192x192" }],
-        //   },
-        // ],
-        // protocol_handlers: [
-        //   {
-        //     protocol: "web+treatyourdate",
-        //     url: "/%s",
-        //   },
-        // ],
-        // categories: ["food", "social"],
-        // prefer_related_applications: false,
       },
-      // workbox: {
-      //   globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
-      //   runtimeCaching: [
-      //     {
-      //       urlPattern: /^https:\/\/.*\.supabase\.co\/.*/i,
-      //       handler: "NetworkFirst",
-      //       options: {
-      //         cacheName: "supabase-cache",
-      //         expiration: {
-      //           maxEntries: 50,
-      //           maxAgeSeconds: 60 * 60 * 24, // 24 hours
-      //         },
-      //       },
-      //     },
-      //   ],
-      // },
+      workbox: {
+        globPatterns: ["**/*.{js,css,html,ico,png,svg}"], // ✅ Ensures assets are cached
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/.*\.supabase\.co\/.*/i, // ✅ Caches Supabase API responses
+            handler: "NetworkFirst",
+            options: {
+              cacheName: "supabase-cache",
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 60 * 60 * 24, // 24 hours
+              },
+            },
+          },
+        ],
+      },
     }),
   ],
   resolve: {
