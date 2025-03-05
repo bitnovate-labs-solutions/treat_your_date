@@ -17,7 +17,11 @@ export default defineConfig({
       srcDir: "public",
       filename: "sw.js",
       registerType: "autoUpdate",
-      includeAssets: ["favicon.ico", "apple-touch-icon.png", "mask-icon.svg"],
+      includeAssets: [
+        "favicon.ico",
+        "apple-touch-icon-180x180.png",
+        "mask-icon.svg",
+      ],
       manifest: {
         name: "TreatYourDate",
         short_name: "TreatYourDate",
@@ -56,21 +60,21 @@ export default defineConfig({
             purpose: "maskable",
           },
         ],
-        shortcuts: [
-          {
-            name: "Home",
-            url: "/",
-            icons: [{ src: "/pwa-192x192.png", sizes: "192x192" }],
-          },
-        ],
-        protocol_handlers: [
-          {
-            protocol: "web+treatyourdate",
-            url: "/%s",
-          },
-        ],
-        categories: ["food", "social"],
-        prefer_related_applications: false,
+        // shortcuts: [
+        //   {
+        //     name: "Home",
+        //     url: "/",
+        //     icons: [{ src: "/pwa-192x192.png", sizes: "192x192" }],
+        //   },
+        // ],
+        // protocol_handlers: [
+        //   {
+        //     protocol: "web+treatyourdate",
+        //     url: "/%s",
+        //   },
+        // ],
+        // categories: ["food", "social"],
+        // prefer_related_applications: false,
       },
       workbox: {
         globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
