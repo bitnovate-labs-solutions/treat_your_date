@@ -15,30 +15,17 @@ export function PWAPrompt() {
 
     // For non-iOS devices, listen for install prompt
     if (!isIOSDevice) {
-      const handleBeforeInstallPrompt = (e) => {
+      window.addEventListener("beforeinstallprompt", (e) => {
         e.preventDefault();
-
-        // Only show if user hasn't dismissed it before
-        if (!localStorage.getItem("pwaDismissed")) {
-          setDeferredPrompt(e);
-          setShowPrompt(true);
-        }
-      };
-      window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
-
-      return () => {
-        window.removeEventListener(
-          "beforeinstallprompt",
-          handleBeforeInstallPrompt
-        );
-      };
+        setDeferredPrompt(e);
+        setShowPrompt(true);
+      });
     } else {
       // Show iOS prompt if not already installed
-      // Check if running in standalone mode
       const isStandalone = window.matchMedia(
         "(display-mode: standalone)"
       ).matches;
-      if (!isStandalone && !localStorage.getItem("pwaDismissed")) {
+      if (!isStandalone) {
         setShowPrompt(true);
       }
     }
@@ -55,11 +42,6 @@ export function PWAPrompt() {
       setShowPrompt(false);
     }
     setDeferredPrompt(null);
-  };
-
-  const handleDismiss = () => {
-    setShowPrompt(false);
-    localStorage.setItem("pwaDismissed", "true");
   };
 
   if (!showPrompt) return null;
@@ -86,7 +68,7 @@ export function PWAPrompt() {
           )}
         </div>
         <div className="flex gap-2">
-          <Button variant="ghost" onClick={handleDismiss}>
+          <Button variant="ghost" onClick={() => setShowPrompt(false)}>
             {isIOS ? "Got it" : "Later"}
           </Button>
           {!isIOS && <Button onClick={handleInstallClick}>Install</Button>}

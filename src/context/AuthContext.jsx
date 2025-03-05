@@ -71,20 +71,10 @@ export function AuthProvider({ children }) {
 
   const value = {
     signInWithGoogle: async () => {
-      // Check if app is in PWA mode
-      // const isPWA = window.matchMedia("(display-mode: standalone)").matches;
-      // const baseUrl = `${window.location.origin}`;
-
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
           redirectTo: `${window.location.origin}/auth/callback`,
-          // queryParams: {
-          //   prompt: "select_account", // Always show account selector
-          //   access_type: "offline",
-          //   mobile: "1", // Avoid disabling mobile flow
-          //   display: isPWA ? "popup" : "page", // Use full-page redirect instead of popup
-          // },
         },
       });
 
