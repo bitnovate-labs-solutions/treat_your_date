@@ -14,15 +14,17 @@ export default defineConfig({
     react(),
     tailwindcss(),
     VitePWA({
-      strategies: "injectManifest", // required if you have / want a custom service worker (sw.js)
-      srcDir: "public", // required if you have / want a custom service worker (sw.js)
-      filename: "sw.js", // required if you have / want a custom service worker (sw.js)
-      // registerType: "autoUpdate",
+      strategies: "injectManifest",
+      srcDir: "public",
+      filename: "sw.js",
       includeAssets: [
         "favicon.ico",
         "apple-touch-icon-180x180.png",
         "mask-icon.svg",
       ],
+      devOptions: {
+        enabled: true,
+      },
       manifest: {
         name: "TreatYourDate",
         short_name: "TYD",
