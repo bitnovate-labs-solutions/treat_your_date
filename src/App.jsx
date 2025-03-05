@@ -4,7 +4,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AuthProvider } from "@/context/AuthContext";
 import { Toaster } from "@/components/ui/sonner";
 import AppRoutes from "@/routes/AppRoutes";
-import { PWAPrompt } from "./components/PWAPrompt";
+// import { PWAPrompt } from "./components/PWAPrompt";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,7 +27,7 @@ function App() {
         <AuthProvider>
           <AppRoutes />
           <Toaster />
-          <PWAPrompt />
+          {/* <PWAPrompt /> */}
           <ReactQueryDevtools initialIsOpen={false} />
         </AuthProvider>
       </BrowserRouter>
