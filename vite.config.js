@@ -96,5 +96,5 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base: "/", // Ensure correct base URL
+  base: "./", // Ensure correct base URL
 });

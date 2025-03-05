@@ -58,7 +58,7 @@ export function PWAPrompt() {
                 <li>
                   Tap the share button <Share className="w-4 h-4 inline" />
                 </li>
-                <li>Scroll down and tap "Add to Home Screen"</li>
+                <li>Scroll down and tap &quot;Add to Home Screen&quot;</li>
               </ol>
             </div>
           ) : (
