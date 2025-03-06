@@ -9,6 +9,9 @@ import OnboardingImage3 from "@/assets/images/treater.png";
 import { supabase } from "@/lib/supabase";
 import { useQueryClient } from "@tanstack/react-query";
 
+import { useAuth } from "@/context/AuthContext";
+import { useUserProfile } from "@/hooks/useUserProfile";
+
 const onboardingSteps = [
   {
     title: "Welcome to TreatYourDate",
@@ -87,13 +90,42 @@ export default function Welcome() {
   const [currentStep, setCurrentStep] = useState(0);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { user } = useAuth();
+  const { data: profile, isLoading } = useUserProfile(user);
+
+  // Check auth state and redirect if necessary
+  useEffect(() => {
+    if (user && !isLoading) {
+      if (profile?.role) {
+        // If user has a profile, redirect to their role page
+        navigate(`/${profile.role}`, { replace: true });
+      } else {
+        // If user is authenticated but no profile, redirect to create profile
+        navigate("/create-profile", { replace: true });
+      }
+    }
+  }, [user, profile, isLoading, navigate]);
 
   // Start prefetching data when component mounts
   useEffect(() => {
     prefetchData(queryClient);
   }, [queryClient]);
 
-  // HANDLE NEXT
+  // Show loading state while checking auth/profile
+  if (isLoading) {
+    return (
+      <div className="h-screen max-w-md mx-auto bg-white flex flex-col items-center justify-center px-6">
+        <img
+          src={OnboardingImage1}
+          alt="TreatYourDate Logo"
+          className="w-32 h-32 mb-4"
+        />
+        <p className="text-gray-600">Loading your profile...</p>
+      </div>
+    );
+  }
+
+  // If user is not authenticated, show onboarding
   const handleNext = () => {
     if (currentStep < onboardingSteps.length - 1) {
       setCurrentStep((prev) => prev + 1);

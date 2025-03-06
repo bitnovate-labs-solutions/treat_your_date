@@ -1,3 +1,12 @@
+// Custom hook
+// More efficient for performance as:
+// React Query automatically caches the profile data - reduces server load by reusing cached data,
+// Deduplication - prevents redundant API calls (multiple requests for the same data),
+// Handles automatic background updates - auto refresh data,
+// Shared state - profile data is shared across components
+// Error handling - built-in error handling and retry logic
+// Loading state - automatic loading state management
+
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
 

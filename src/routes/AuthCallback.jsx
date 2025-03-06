@@ -5,36 +5,6 @@ import { supabase } from "@/lib/supabase";
 export default function AuthCallback() {
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const handleCallback = async () => {
-  //     try {
-  //       // First get the session
-  //       const {
-  //         data: { session },
-  //       } = await supabase.auth.getSession();
-
-  //       if (session?.user) {
-  //         // Then check if user has a profile
-  //         const profile = await checkUserProfile(session.user.id);
-
-  //         // If user has no profile, direct user to /create-profile page
-  //         if (!profile) {
-  //           navigate("/create-profile", { replace: true });
-  //         } else {
-  //           navigate(`/${profile.role}`, { replace: true }); // else if existing user - redirect user to their role page
-  //         }
-  //       } else {
-  //         navigate("/auth", { replace: true });
-  //       }
-  //     } catch (error) {
-  //       console.error("Callback error:", error);
-  //       navigate("/auth", { replace: true });
-  //     }
-  //   };
-
-  //   handleCallback();
-  // }, [user, navigate, checkUserProfile]);
-
   useEffect(() => {
     const handleAuthRedirect = async () => {
       const { data: session, error } = await supabase.auth.getSession();
