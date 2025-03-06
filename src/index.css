@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 @theme {
   --color-primary: #ff637e; 
   --color-primary-hover: #ff2056; 
