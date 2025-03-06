@@ -15,7 +15,7 @@ export default function AppHeader({ title, activeTab, onTabChange }) {
 
   return (
     <div className="sticky top-0 bg-white border-b border-gray-200 shadow-md z-10">
-      <div className="container mx-auto pt-6">
+      <div className="container mx-auto pt-2">
         {/* HEADER TITLE */}
         <h1 className="text-xl font-bold mb-4 text-center">{title}</h1>
         {/* PAGE TABS */}
