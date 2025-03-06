@@ -22,19 +22,6 @@ export function AuthProvider({ children }) {
       if (error) console.error("Auth initialization error:", error);
       setUser(session?.session?.user ?? null);
       setLoading(false);
-
-      // if (session?.user) {
-      //   setUser(session.user);
-      // } else {
-      //   setUser(null);
-      // }
-      // } catch (error) {
-      //   console.error("Auth initialization error:", error);
-      // } finally {
-      //   if (mounted) {
-      //     setLoading(false);
-      //   }
-      // }
     };
 
     initializeAuth();
@@ -130,18 +117,25 @@ export function AuthProvider({ children }) {
   // LOADING ANIMATION
   if (loading && !user) {
     return (
-      <div
-        style={{
-          padding: "20px",
-          backgroundColor: "white",
-          color: "black",
-          minHeight: "100vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        Loading auth state...
+      <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6">
+        {/* Logo */}
+        <img
+          src="/src/assets/images/tyd_logo.png"
+          alt="TreatYourDate Logo"
+          className="w-32 h-32 mb-6 animate-pulse"
+        />
+
+        {/* Loading indicator */}
+        <div className="flex items-center gap-2">
+          <div className="w-2 h-2 bg-primary rounded-full animate-bounce [animation-delay:-0.3s]" />
+          <div className="w-2 h-2 bg-primary rounded-full animate-bounce [animation-delay:-0.15s]" />
+          <div className="w-2 h-2 bg-primary rounded-full animate-bounce" />
+        </div>
+
+        {/* Loading text */}
+        <p className="text-lightgray mt-4 text-sm">
+          Setting up your experience...
+        </p>
       </div>
     );
   }
