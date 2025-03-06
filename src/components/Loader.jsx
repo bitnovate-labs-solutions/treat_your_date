@@ -1,6 +1,22 @@
-import Logo from "@/assets/images/tyd_logo.png";
+import { useEffect, useState } from "react";
+
+// Media
+import Logo from "@/assets/tyd_logo.png";
 
 const Loader = () => {
+  const [show, setShow] = useState(true);
+
+  useEffect(() => {
+    // Minimum display time of 2 seconds
+    const timer = setTimeout(() => {
+      setShow(false);
+    }, 10000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!show) return null;
+
   return (
     <>
       <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6">
@@ -8,7 +24,7 @@ const Loader = () => {
         <img
           src={Logo}
           alt="TreatYourDate Logo"
-          className="w-32 h-32 mb-6 animate-pulse"
+          className="w-full h-32 mb-6 animate-pulse"
         />
 
         {/* Loading indicator */}

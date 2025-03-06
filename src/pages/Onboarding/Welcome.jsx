@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 // Import your onboarding images
-import OnboardingImage1 from "@/assets/images/tyd_logo.png";
+import OnboardingImage1 from "@/assets/tyd_logo.png";
 import OnboardingImage2 from "@/assets/images/welcome2.png";
 import OnboardingImage3 from "@/assets/images/treater.png";
 import { supabase } from "@/lib/supabase";

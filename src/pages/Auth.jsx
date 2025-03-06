@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import Logo from "@/assets/images/tyd_logo.png";
+import Logo from "@/assets/tyd_logo.png";
 import Google from "@/assets/google.svg";
 import { supabase } from "@/lib/supabase";
 import { useQueryClient } from "@tanstack/react-query";
