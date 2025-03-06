@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
+import Loader from "@/components/Loader";
 
 const AuthContext = createContext({});
 
@@ -116,28 +117,7 @@ export function AuthProvider({ children }) {
 
   // LOADING ANIMATION
   if (loading && !user) {
-    return (
-      <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6">
-        {/* Logo */}
-        <img
-          src="/src/assets/images/tyd_logo.png"
-          alt="TreatYourDate Logo"
-          className="w-32 h-32 mb-6 animate-pulse"
-        />
-
-        {/* Loading indicator */}
-        <div className="flex items-center gap-2">
-          <div className="w-2 h-2 bg-primary rounded-full animate-bounce [animation-delay:-0.3s]" />
-          <div className="w-2 h-2 bg-primary rounded-full animate-bounce [animation-delay:-0.15s]" />
-          <div className="w-2 h-2 bg-primary rounded-full animate-bounce" />
-        </div>
-
-        {/* Loading text */}
-        <p className="text-lightgray mt-4 text-sm">
-          Setting up your experience...
-        </p>
-      </div>
-    );
+    return <Loader />;
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
