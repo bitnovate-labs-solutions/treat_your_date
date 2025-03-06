@@ -95,7 +95,7 @@ export default function Auth() {
 
   return (
     <div className="h-screen flex flex-col bg-white py-12">
-      <div className="w-full max-w-md mx-auto">
+      <div className="w-full max-w-md mx-auto px-6">
         {/* BACK BUTTON */}
         <button
           onClick={() => navigate(-1)}
@@ -124,7 +124,7 @@ export default function Auth() {
           </div>
 
           {/* GOOGLE AUTH BUTTON */}
-          <div className="px-10">
+          <div className="px-4">
             <Button
               className="w-full h-14 bg-primary hover:bg-primary-hover text-white text-base rounded-full"
               onClick={handleGoogleSignIn}
