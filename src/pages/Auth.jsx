@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import { useAuth } from "@/context/AuthContext";
@@ -10,11 +10,9 @@ import { supabase } from "@/lib/supabase";
 import { useQueryClient } from "@tanstack/react-query";
 
 export default function Auth() {
-  // const location = useLocation();
   const navigate = useNavigate();
   const { signInWithGoogle } = useAuth();
   const queryClient = useQueryClient();
-  // const from = location.state?.from || "/explore";
   const [isLoading, setIsLoading] = useState(false);
 
   // const prefetchData = async () => {
@@ -97,13 +95,13 @@ export default function Auth() {
     <div className="h-screen flex flex-col bg-white py-12">
       <div className="w-full max-w-md mx-auto px-6">
         {/* BACK BUTTON */}
-        <button
+        <Button
           onClick={() => navigate(-1)}
-          className="mb-8 text-darkgray hover:text-darkgray-hover text-2xl"
+          className="bg-white mb-8 text-darkgray hover:text-darkgray-hover hover:bg-white text-2xl shadow-none"
           disabled={isLoading}
         >
           ←
-        </button>
+        </Button>
 
         <div className="space-y-8">
           {/* LOGO */}
@@ -113,7 +111,7 @@ export default function Auth() {
 
           <div className="text-center">
             {/* SIGN UP TITLE */}
-            <h1 className="text-[28px] font-semibold mb-2 text-darkgray-title">
+            <h1 className="text-2xl font-semibold mb-2 text-darkgray-title">
               Welcome to TreatYourDate
             </h1>
 
