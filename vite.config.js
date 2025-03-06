@@ -14,20 +14,13 @@ export default defineConfig({
     react(),
     tailwindcss(),
     VitePWA({
-      // strategies: "injectManifest",
-      // srcDir: "public",
-      // filename: "sw.js",
-      registerType: "autoUpdate", // ✅ Automatically updates service worker
-      injectRegister: "auto", // ✅ Ensures service worker is registered
-      includeAssets: [
-        "favicon.ico",
-        "apple-touch-icon-180x180.png",
-        "mask-icon.svg",
-      ],
+      registerType: "autoUpdate",
+      injectRegister: "auto",
       devOptions: {
         enabled: true,
         type: "module",
       },
+      includeAssets: ["favicon.ico", "apple-touch-icon.png", "mask-icon.svg"],
       manifest: {
         name: "TreatYourDate",
         short_name: "TYD",
@@ -38,11 +31,6 @@ export default defineConfig({
         start_url: "/",
         orientation: "portrait", // 👈 Lock to portrait mode
         icons: [
-          {
-            src: "pwa-64x64.png",
-            sizes: "64x64",
-            type: "image/png",
-          },
           {
             src: "pwa-192x192.png",
             sizes: "192x192",
