@@ -20,7 +20,7 @@ export default function AppHeader({
 
   return (
     <div className="sticky top-0 bg-white border-b border-gray-200 shadow-md z-10">
-      <div className="container mx-auto pt-6">
+      <div className="container mx-auto pt-1">
         {/* HEADER TITLE */}
         <h1 className="text-xl font-bold mb-4 text-center text-gray-800">
           {title}
