@@ -12,7 +12,7 @@ import Welcome from "@/pages/Welcome";
 import Auth from "@/pages/auth/Auth";
 import Profile from "@/pages/Profile";
 import Treater from "@/pages/Treater";
-import Treatee from "@/pages/treatee/Treatee";
+import Treatee from "@/pages/Treatee/Treatee";
 import Bookmarks from "@/pages/Bookmarks";
 import Messages from "@/pages/Messages";
 import Explore from "@/pages/Explore";
