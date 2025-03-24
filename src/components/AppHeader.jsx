@@ -20,9 +20,11 @@ export default function AppHeader({
 
   return (
     <div className="sticky top-0 bg-white border-b border-gray-200 shadow-md z-10">
-      <div className="container mx-auto pt-2">
+      <div className="container mx-auto pt-6">
         {/* HEADER TITLE */}
-        <h1 className="text-xl font-bold mb-4 text-center">{title}</h1>
+        <h1 className="text-xl font-bold mb-4 text-center text-gray-800">
+          {title}
+        </h1>
         {/* PAGE TABS */}
         <div className="space-y-2">
           {/* Only show TabList and filters if showTabsAndFilters is true and user is authenticated */}
@@ -33,25 +35,25 @@ export default function AppHeader({
                 onValueChange={onTabChange}
                 className="w-full px-4"
               >
-                <TabsList className="grid grid-cols-3 h-10 items-stretch">
+                <TabsList className="grid grid-cols-3 h-10 items-stretch px-8">
                   {/* MENU TAB */}
                   <TabsTrigger
                     value="menu"
-                    className="text-sm text-primary data-[state=active]:bg-primary data-[state=active]:text-white"
+                    className="text-sm text-primary data-[state=active]:bg-primary data-[state=active]:text-white rounded-r-none"
                   >
                     Menu
                   </TabsTrigger>
                   {/* PURCHASED TAB */}
                   <TabsTrigger
                     value="purchased"
-                    className="text-sm text-primary data-[state=active]:bg-primary data-[state=active]:text-white"
+                    className="text-sm text-primary data-[state=active]:bg-primary data-[state=active]:text-white rounded-none"
                   >
                     Purchased
                   </TabsTrigger>
                   {/* BOOKED TAB */}
                   <TabsTrigger
                     value="booked"
-                    className="text-sm text-primary data-[state=active]:bg-primary data-[state=active]:text-white"
+                    className="text-sm text-primary data-[state=active]:bg-primary data-[state=active]:text-white rounded-l-none"
                   >
                     Booked
                   </TabsTrigger>
@@ -59,12 +61,12 @@ export default function AppHeader({
               </Tabs>
 
               {/* FILTERS */}
-              <div className="flex justify-center gap-4 overflow-x-auto pb-4 mt-4">
+              <div className="flex justify-center gap-2 overflow-x-auto pb-4 mt-4">
                 {filters.map((filter) => (
                   <Button
                     key={filter.id}
-                    variant="secondary"
-                    className="rounded-2xl whitespace-nowrap bg-lightgray/20 text-[12px] px-4"
+                    variant="ghost"
+                    // className="rounded-2xl whitespace-nowrap bg-lightgray/20 text-[12px] px-4"
                   >
                     {filter.label}{" "}
                     {filter.icon && <filter.icon className="w-4 h-4 ml-1" />}
@@ -73,7 +75,7 @@ export default function AppHeader({
               </div>
             </>
           ) : (
-            <div className="py-4 bg-white"></div>
+            <div className="py-2 bg-white"></div>
           )}
         </div>
       </div>

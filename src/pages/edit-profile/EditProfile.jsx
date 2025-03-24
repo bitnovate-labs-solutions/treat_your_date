@@ -172,7 +172,7 @@ export default function EditProfile() {
         description: "Your profile has been updated successfully",
       });
 
-      navigate("/roles");
+      navigate("/profile");
     } catch (error) {
       toast.error("Error", {
         description: error.message,

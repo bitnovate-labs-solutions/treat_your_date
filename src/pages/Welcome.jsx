@@ -114,7 +114,7 @@ export default function Welcome() {
   // Show loading state while checking auth/profile
   if (isLoading) {
     return (
-      <div className="h-screen max-w-md mx-auto bg-white flex flex-col items-center justify-center px-6">
+      <div className="h-screen max-w-sm sm:max-w-md mx-auto bg-white flex flex-col items-center justify-center px-6">
         <img
           src={OnboardingImage1}
           alt="TreatYourDate Logo"

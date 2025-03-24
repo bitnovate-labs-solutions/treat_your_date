@@ -27,7 +27,7 @@ import {
   Twitter,
   Edit,
 } from "lucide-react";
-// import defaultImage from "@/assets/images/default-avatar.jpg";
+import defaultImage from "@/assets/images/default-avatar.jpg";
 
 // Error & Loading Handlers
 import { ErrorBoundary } from "react-error-boundary";
@@ -45,27 +45,6 @@ function UserProfile() {
 
   // Use custom caching hook
   const cachedImageUrl = useImageCache(profile?.avatar_url);
-  const defaultImage = "@/assets/images/default-avatar.jpg";
-
-  // FETCH IMAGE
-  // useEffect(() => {
-  //   if (profile?.avatar_url) {
-  //     // const imageUrl = `${profile.avatar_url}`;
-
-  //     // fetch(imageUrl, { method: "HEAD" })
-  //     fetch(cachedImageUrl, { method: "HEAD" })
-  //       .then((res) => {
-  //         if (res.ok) {
-  //           setImageSrc(cachedImageUrl);
-  //         } else {
-  //           setImageSrc(defaultImage);
-  //         }
-  //       })
-  //       .catch(() => setImageSrc(defaultImage));
-  //   } else {
-  //     setImageSrc(defaultImage);
-  //   }
-  // }, [profile?.avatar_url, cachedImageUrl]);
 
   if (isLoading) return <ProfileSkeleton />;
   if (error) return <ErrorFallback error={error} />;
@@ -97,8 +76,6 @@ function UserProfile() {
       day: "numeric",
     });
   };
-
-  console.log(profile);
 
   return (
     <div className="container mx-auto space-y-4">
