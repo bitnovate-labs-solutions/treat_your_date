@@ -177,7 +177,7 @@ export default function Auth() {
                 : "Create an account to start sharing and discovering amazing treats"}
             </p>
 
-            <div className="flex justify-center space-x-8 text-base mt-6">
+            <div className="grid grid-cols-2 space-x-1 text-base mt-6 px-2">
               <button
                 className={`pb-2 ${
                   activeTab === "signup"
@@ -204,7 +204,7 @@ export default function Auth() {
           {/* SIGN IN FORM */}
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
-            className="space-y-6"
+            className="space-y-5"
           >
             {/* NAME FIELD */}
             {activeTab === "signup" && (
@@ -212,7 +212,7 @@ export default function Auth() {
                 <div className="relative">
                   <User className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                   <Input
-                    className="text-base rounded-xl border-gray-200 pl-12"
+                    className="text-sm rounded-xl border-gray-200 pl-12"
                     placeholder="Name"
                     {...form.register("display_name")}
                   />
@@ -229,7 +229,7 @@ export default function Auth() {
               <div className="relative">
                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <Input
-                  className="text-base rounded-xl border-gray-200 pl-12"
+                  className="text-sm rounded-xl border-gray-200 pl-12"
                   placeholder="Email"
                   {...form.register("email")}
                 />
@@ -246,7 +246,7 @@ export default function Auth() {
               <div className="relative">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <Input
-                  className="text-base rounded-xl border-gray-200 pl-12"
+                  className="text-sm rounded-xl border-gray-200 pl-12"
                   type="password"
                   placeholder="Password"
                   {...form.register("password")}
@@ -267,7 +267,7 @@ export default function Auth() {
                 <div className="relative">
                   <KeyRound className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                   <Input
-                    className="text-base rounded-xl border-gray-200 pl-12"
+                    className="text-sm rounded-xl border-gray-200 pl-12"
                     type="password"
                     placeholder="Confirm Password"
                     {...form.register("confirmPassword")}
@@ -278,6 +278,24 @@ export default function Auth() {
                     {form.formState.errors.confirmPassword.message}
                   </p>
                 )}
+                {/* TERMS & CONDITIONS */}
+                <div className="text-center px-2">
+                  <p className="text-xs font-light text-gray-400 mt-6">
+                    By continuing, you agree to our{" "}
+                    <a href="#" className="text-primary font-semibold">
+                      Terms
+                    </a>
+                    . You acknowledge receipt and understanding of our{" "}
+                    <a href="#" className="text-primary font-semibold">
+                      Privacy Policy
+                    </a>{" "}
+                    and{" "}
+                    <a href="#" className="text-primary font-semibold">
+                      Cookie Notice
+                    </a>
+                    .
+                  </p>
+                </div>
               </div>
             )}
 
@@ -285,7 +303,7 @@ export default function Auth() {
               type="submit"
               variant="primary"
               disabled={isLoading}
-              className="mt-2 h-12 w-full rounded-xl bg-primary font-medium text-white hover:bg-primary-hover/90 shadow-xl"
+              className="mt-2 h-12 w-full rounded-xl bg-primary font-medium text-white hover:bg-primary-hover/90 shadow-2xl"
             >
               {isLoading
                 ? "Loading..."

@@ -82,7 +82,7 @@ function UserProfile() {
       <Card className="bg-white border-gray-200 shadow-md">
         {/* CARD HEADER */}
         <CardHeader>
-          <CardTitle className="text-2xl font-semibold text-gray-800 pt-2">
+          <CardTitle className="text-xl font-semibold text-gray-800 py-4">
             Welcome, {profile?.display_name || "User"}!
           </CardTitle>
           <p className="text-sm text-darkgray">
