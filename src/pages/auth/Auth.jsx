@@ -149,182 +149,191 @@ export default function Auth() {
   }
 
   return (
-    <div className="h-screen flex flex-col bg-white py-12">
-      <div className="w-full max-w-sm sm:max-w-md mx-auto px-6">
-        {/* LEFT CHEVRON */}
+    <div className="h-screen flex flex-col">
+      {/* LEFT CHEVRON */}
+      <div className="px-4">
         <ChevronLeft
           onClick={() => navigate(-1)}
-          className="text-gray-400"
+          className="text-gray-400 h-8 w-8 mt-1"
           disabled={isLoading}
         />
+      </div>
+      <div>
+        <div className="w-full max-w-sm sm:max-w-md mx-auto px-6">
+          <div className="space-y-8">
+            {/* LOGO */}
+            <div className="flex justify-center">
+              <img
+                src={Logo}
+                alt="TreatYourDate logo"
+                className="w-1/3 h-auto"
+              />
+            </div>
 
-        <div className="space-y-8">
-          {/* LOGO */}
-          <div className="flex justify-center">
-            <img src={Logo} alt="TreatYourDate logo" className="w-1/3 h-auto" />
-          </div>
-
-          <div className="text-center">
-            {/* <h1 className="text-2xl font-semibold mb-2 text-darkgray-title">
+            <div className="text-center">
+              {/* <h1 className="text-2xl font-semibold mb-2 text-darkgray-title">
               Welcome to TreatYourDate
             </h1> */}
-            <h1 className="text-[28px] font-semibold mb-2 text-gray-800">
-              {activeTab === "login" ? "Welcome back!" : "Join our community!"}
-            </h1>
-            <p className="text-lightgray text-sm">
-              {activeTab === "login"
-                ? "Great to see you again! Ready to continue your journey?"
-                : "Create an account to start sharing and discovering amazing treats"}
-            </p>
+              <h1 className="text-[28px] font-semibold mb-2 text-gray-800">
+                {activeTab === "login"
+                  ? "Welcome back!"
+                  : "Join our community!"}
+              </h1>
+              <p className="text-lightgray text-sm">
+                {activeTab === "login"
+                  ? "Great to see you again! Ready to continue your journey?"
+                  : "Create an account to start sharing and discovering amazing treats"}
+              </p>
 
-            <div className="grid grid-cols-2 space-x-1 text-base mt-6 px-2">
-              <button
-                className={`pb-2 ${
-                  activeTab === "signup"
-                    ? "text-primary border-b-2 border-primary"
-                    : "text-darkgray"
-                }`}
-                onClick={() => setActiveTab("signup")}
-              >
-                Sign Up
-              </button>
-              <button
-                className={`pb-2 ${
-                  activeTab === "login"
-                    ? "text-primary border-b-2 border-primary"
-                    : "text-darkgray"
-                }`}
-                onClick={() => setActiveTab("login")}
-              >
-                Log In
-              </button>
+              <div className="grid grid-cols-2 space-x-1 text-base mt-6 px-2">
+                <button
+                  className={`pb-2 ${
+                    activeTab === "signup"
+                      ? "text-primary border-b-2 border-primary"
+                      : "text-darkgray"
+                  }`}
+                  onClick={() => setActiveTab("signup")}
+                >
+                  Sign Up
+                </button>
+                <button
+                  className={`pb-2 ${
+                    activeTab === "login"
+                      ? "text-primary border-b-2 border-primary"
+                      : "text-darkgray"
+                  }`}
+                  onClick={() => setActiveTab("login")}
+                >
+                  Log In
+                </button>
+              </div>
             </div>
-          </div>
 
-          {/* SIGN IN FORM */}
-          <form
-            onSubmit={form.handleSubmit(handleSubmit)}
-            className="space-y-5"
-          >
-            {/* NAME FIELD */}
-            {activeTab === "signup" && (
+            {/* SIGN IN FORM */}
+            <form
+              onSubmit={form.handleSubmit(handleSubmit)}
+              className="space-y-5"
+            >
+              {/* NAME FIELD */}
+              {activeTab === "signup" && (
+                <div className="space-y-2">
+                  <div className="relative">
+                    <User className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                    <Input
+                      className="text-sm rounded-xl border-gray-200 pl-12"
+                      placeholder="Name"
+                      {...form.register("display_name")}
+                    />
+                  </div>
+                  {form.formState.errors.display_name && (
+                    <p className="text-sm text-primary px-1">
+                      {form.formState.errors.display_name.message}
+                    </p>
+                  )}
+                </div>
+              )}
+              {/* EMAIL FIELD */}
               <div className="space-y-2">
                 <div className="relative">
-                  <User className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                   <Input
                     className="text-sm rounded-xl border-gray-200 pl-12"
-                    placeholder="Name"
-                    {...form.register("display_name")}
+                    placeholder="Email"
+                    {...form.register("email")}
                   />
                 </div>
-                {form.formState.errors.display_name && (
+                {form.formState.errors.email && (
                   <p className="text-sm text-primary px-1">
-                    {form.formState.errors.display_name.message}
+                    {form.formState.errors.email.message}
                   </p>
                 )}
               </div>
-            )}
-            {/* EMAIL FIELD */}
-            <div className="space-y-2">
-              <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-                <Input
-                  className="text-sm rounded-xl border-gray-200 pl-12"
-                  placeholder="Email"
-                  {...form.register("email")}
-                />
-              </div>
-              {form.formState.errors.email && (
-                <p className="text-sm text-primary px-1">
-                  {form.formState.errors.email.message}
-                </p>
-              )}
-            </div>
 
-            {/* PASSWORD FIELD */}
-            <div className="space-y-2">
-              <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-                <Input
-                  className="text-sm rounded-xl border-gray-200 pl-12"
-                  type="password"
-                  placeholder="Password"
-                  {...form.register("password")}
-                  onFocus={() => setIsPasswordFocused(true)}
-                  onBlur={() => setIsPasswordFocused(false)}
-                />
-              </div>
-              {!isPasswordFocused && form.formState.errors.password && (
-                <p className="text-sm text-primary px-1">
-                  {form.formState.errors.password.message}
-                </p>
-              )}
-            </div>
-
-            {/* CONFIRM PASSWORD FIELD */}
-            {activeTab === "signup" && (
+              {/* PASSWORD FIELD */}
               <div className="space-y-2">
                 <div className="relative">
-                  <KeyRound className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                   <Input
                     className="text-sm rounded-xl border-gray-200 pl-12"
                     type="password"
-                    placeholder="Confirm Password"
-                    {...form.register("confirmPassword")}
+                    placeholder="Password"
+                    {...form.register("password")}
+                    onFocus={() => setIsPasswordFocused(true)}
+                    onBlur={() => setIsPasswordFocused(false)}
                   />
                 </div>
-                {form.formState.errors.confirmPassword && (
+                {!isPasswordFocused && form.formState.errors.password && (
                   <p className="text-sm text-primary px-1">
-                    {form.formState.errors.confirmPassword.message}
+                    {form.formState.errors.password.message}
                   </p>
                 )}
-                {/* TERMS & CONDITIONS */}
-                <div className="text-center px-2">
-                  <p className="text-xs font-light text-gray-400 mt-6">
-                    By continuing, you agree to our{" "}
-                    <a href="#" className="text-primary font-semibold">
-                      Terms
-                    </a>
-                    . You acknowledge receipt and understanding of our{" "}
-                    <a href="#" className="text-primary font-semibold">
-                      Privacy Policy
-                    </a>{" "}
-                    and{" "}
-                    <a href="#" className="text-primary font-semibold">
-                      Cookie Notice
-                    </a>
-                    .
-                  </p>
+              </div>
+
+              {/* CONFIRM PASSWORD FIELD */}
+              {activeTab === "signup" && (
+                <div className="space-y-2">
+                  <div className="relative">
+                    <KeyRound className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                    <Input
+                      className="text-sm rounded-xl border-gray-200 pl-12"
+                      type="password"
+                      placeholder="Confirm Password"
+                      {...form.register("confirmPassword")}
+                    />
+                  </div>
+                  {form.formState.errors.confirmPassword && (
+                    <p className="text-sm text-primary px-1">
+                      {form.formState.errors.confirmPassword.message}
+                    </p>
+                  )}
+                  {/* TERMS & CONDITIONS */}
+                  <div className="text-center px-2">
+                    <p className="text-xs font-light text-gray-400 mt-6">
+                      By continuing, you agree to our{" "}
+                      <a href="#" className="text-primary font-semibold">
+                        Terms
+                      </a>
+                      . You acknowledge receipt and understanding of our{" "}
+                      <a href="#" className="text-primary font-semibold">
+                        Privacy Policy
+                      </a>{" "}
+                      and{" "}
+                      <a href="#" className="text-primary font-semibold">
+                        Cookie Notice
+                      </a>
+                      .
+                    </p>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            <Button
-              type="submit"
-              variant="primary"
-              disabled={isLoading}
-              className="mt-2 h-12 w-full rounded-xl bg-primary font-medium text-white hover:bg-primary-hover/90 shadow-2xl"
-            >
-              {isLoading
-                ? "Loading..."
-                : activeTab === "login"
-                ? "Log In"
-                : "Sign Up"}
-            </Button>
+              <Button
+                type="submit"
+                variant="primary"
+                disabled={isLoading}
+                className="mt-2 h-12 w-full rounded-xl bg-primary font-medium text-white hover:bg-primary-hover/90 shadow-2xl"
+              >
+                {isLoading
+                  ? "Loading..."
+                  : activeTab === "login"
+                  ? "Log In"
+                  : "Sign Up"}
+              </Button>
 
-            {/* FORGOT PASSWORD */}
-            {activeTab === "login" && (
-              <div className="text-center">
-                <button
-                  type="button"
-                  onClick={handleResetPassword}
-                  className="text-sm text-primary hover:underline"
-                >
-                  Forgot your password?
-                </button>
-              </div>
-            )}
-          </form>
+              {/* FORGOT PASSWORD */}
+              {activeTab === "login" && (
+                <div className="text-center">
+                  <button
+                    type="button"
+                    onClick={handleResetPassword}
+                    className="text-sm text-primary hover:underline"
+                  >
+                    Forgot your password?
+                  </button>
+                </div>
+              )}
+            </form>
+          </div>
         </div>
       </div>
     </div>

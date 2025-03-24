@@ -25,7 +25,7 @@ export default function AppRoutes() {
 
   return (
     <Routes>
-      {/* Public routes */}
+      {/* PUBLIC ROUTES */}
       <Route path="/" element={<Welcome />} />
       <Route path="/auth/callback" element={<AuthCallback />} />
 
@@ -35,7 +35,7 @@ export default function AppRoutes() {
         element={!user ? <Auth /> : <Navigate to="/create-profile" />}
       />
 
-      {/* NO LAYOUT PROTECTED ROUTES */}
+      {/* PROTECTED ROUTES - WITHOUT LAYOUT */}
       <Route element={<ProtectedRoute />}>
         <Route path="/create-profile" element={<CreateProfile />} />
         <Route path="/edit-profile" element={<EditProfile />} />
@@ -53,7 +53,7 @@ export default function AppRoutes() {
           }
         />
 
-        {/* Protected routes + Layout */}
+        {/* PROTECTED ROUTES + LAYOUT  */}
         <Route element={<ProtectedRoute />}>
           {/* <Route path="/create-profile" element={<CreateProfile />} /> */}
           {/* <Route path="/edit-profile" element={<EditProfile />} /> */}
