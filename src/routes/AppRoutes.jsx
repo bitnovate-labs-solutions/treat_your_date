@@ -8,7 +8,7 @@ import { Suspense } from "react";
 import { CardSkeleton } from "@/components/loading-skeleton";
 
 // Pages
-import Welcome from "@/pages/onboarding/Welcome";
+import Welcome from "@/pages/Welcome";
 import Auth from "@/pages/auth/Auth";
 import Profile from "@/pages/Profile";
 import Treater from "@/pages/Treater";
