@@ -35,7 +35,7 @@ export default function AppHeader({
                 onValueChange={onTabChange}
                 className="w-full px-4"
               >
-                <TabsList className="grid grid-cols-3 h-10 items-stretch px-8">
+                <TabsList className="grid grid-cols-3 h-10 items-stretch px-2">
                   {/* MENU TAB */}
                   <TabsTrigger
                     value="menu"
@@ -61,7 +61,7 @@ export default function AppHeader({
               </Tabs>
 
               {/* FILTERS */}
-              <div className="flex justify-center gap-2 overflow-x-auto pb-4 mt-4">
+              <div className="flex justify-center gap-1 overflow-x-auto pb-4 mt-4">
                 {filters.map((filter) => (
                   <Button
                     key={filter.id}

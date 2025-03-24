@@ -67,7 +67,7 @@ export default function Layout() {
   };
 
   return (
-    <div className="h-full flex flex-col w-full max-w-sm sm:max-w-md mx-auto">
+    <div className="h-full flex flex-col w-full max-w-md mx-auto">
       {/* HEADER */}
       <AppHeader
         title={location.pathname === "/profile" ? "User Profile" : "Food"}

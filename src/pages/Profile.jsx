@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { useAuth } from "@/context/AuthContext";
 
 // UI Components
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";
@@ -80,7 +80,18 @@ function UserProfile() {
   return (
     <div className="container mx-auto space-y-4">
       <Card className="bg-white border-gray-200 shadow-md">
-        <CardContent className="space-y-4 pt-6">
+        {/* CARD HEADER */}
+        <CardHeader>
+          <CardTitle className="text-2xl font-semibold text-gray-800 pt-2">
+            Welcome, {profile?.display_name || "User"}!
+          </CardTitle>
+          <p className="text-sm text-darkgray">
+            Below is your profile image and how you will appear to others on the
+            swipe view.
+          </p>
+        </CardHeader>
+
+        <CardContent className="space-y-4 px-5">
           {/* PROFILE IMAGE */}
           <div className="h-[450px] w-full relative mb-8">
             {/* IMAGE */}
