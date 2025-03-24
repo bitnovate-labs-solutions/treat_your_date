@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -42,7 +42,7 @@ import { calculateProfileCompletion } from "@/utils/profileUtils";
 import { useQueryClient } from "@tanstack/react-query";
 
 export default function CreateProfile() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { user } = useAuth();
   const fileInputRef = useRef(null); // to track the file input element
   const queryClient = useQueryClient();
