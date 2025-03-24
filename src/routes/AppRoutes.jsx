@@ -8,15 +8,16 @@ import { Suspense } from "react";
 import { CardSkeleton } from "@/components/loading-skeleton";
 
 // Pages
-import Welcome from "@/pages/Onboarding/Welcome";
-import Auth from "@/pages/Auth";
+import Welcome from "@/pages/onboarding/Welcome";
+import Auth from "@/pages/auth/Auth";
 import Profile from "@/pages/Profile";
 import Treater from "@/pages/Treater";
-import Treatee from "@/pages/Treatee/Treatee";
+import Treatee from "@/pages/treatee/Treatee";
 import Bookmarks from "@/pages/Bookmarks";
 import Messages from "@/pages/Messages";
 import Explore from "@/pages/Explore";
 import CreateProfile from "@/pages/CreateProfile";
+import EditProfile from "@/pages/edit-profile/EditProfile";
 import AuthCallback from "@/routes/AuthCallback";
 
 export default function AppRoutes() {
@@ -34,9 +35,15 @@ export default function AppRoutes() {
         element={!user ? <Auth /> : <Navigate to="/create-profile" />}
       />
 
-      {/* Layout-wrapped routes (Public + Protected) */}
+      {/* NO LAYOUT PROTECTED ROUTES */}
+      <Route element={<ProtectedRoute />}>
+        <Route path="/create-profile" element={<CreateProfile />} />
+        <Route path="/edit-profile" element={<EditProfile />} />
+      </Route>
+
+      {/* LAYOUT-WRAPPED ROUTES */}
       <Route element={<Layout />}>
-        {/* Public route */}
+        {/* Public route + Layout */}
         <Route
           path="/explore"
           element={
@@ -46,9 +53,10 @@ export default function AppRoutes() {
           }
         />
 
-        {/* Protected routes */}
+        {/* Protected routes + Layout */}
         <Route element={<ProtectedRoute />}>
-          <Route path="/create-profile" element={<CreateProfile />} />
+          {/* <Route path="/create-profile" element={<CreateProfile />} /> */}
+          {/* <Route path="/edit-profile" element={<EditProfile />} /> */}
           <Route path="/treater" element={<Treater />} />
           <Route path="/treatee" element={<Treatee />} />
           <Route path="/profile" element={<Profile />} />

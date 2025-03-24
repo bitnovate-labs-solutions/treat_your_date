@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-
-// Media
 import Logo from "@/assets/tyd_logo.png";
 
 const Loader = () => {
@@ -24,7 +22,7 @@ const Loader = () => {
         <img
           src={Logo}
           alt="TreatYourDate Logo"
-          className="w-full h-32 mb-6 animate-pulse"
+          className="w-32 h-32 mb-6 animate-pulse"
         />
 
         {/* Loading indicator */}

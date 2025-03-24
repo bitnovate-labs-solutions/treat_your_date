@@ -8,7 +8,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 // Error and Loading Handlers
 import { ErrorBoundary } from "react-error-boundary";
-import { ErrorFallback } from "@/components/error-fallback";
+import { ErrorFallback } from "@/components/ErrorFallback";
 import { CardSkeleton } from "@/components/loading-skeleton";
 import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";

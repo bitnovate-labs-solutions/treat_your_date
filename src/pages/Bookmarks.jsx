@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ErrorBoundary } from "react-error-boundary";
-import { ErrorFallback } from "@/components/error-fallback";
+import { ErrorFallback } from "@/components/ErrorFallback";
 import { CardSkeleton } from "@/components/loading-skeleton";
 
 function BookmarkedItems() {

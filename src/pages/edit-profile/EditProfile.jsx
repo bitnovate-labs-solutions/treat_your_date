@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -10,6 +11,7 @@ import {
   GraduationCap,
   Ruler,
   Cigarette,
+  Cake,
   Wine,
   Dog,
   Baby,
@@ -18,17 +20,13 @@ import {
   Instagram,
   Facebook,
   Twitter,
-  Heart,
-  UtensilsCrossed,
-  Cake,
+  ChevronLeft,
 } from "lucide-react";
-
 import { useAuth } from "@/context/AuthContext";
 import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Progress } from "@/components/ui/progress";
 import {
   Select,
   SelectContent,
@@ -37,44 +35,42 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "sonner";
-import { createProfileSchema } from "@/lib/zod_schema";
-import { calculateProfileCompletion } from "@/utils/profileUtils";
-import { useQueryClient } from "@tanstack/react-query";
+import { editProfileSchema } from "@/lib/zod_schema";
+import { useUserProfile } from "@/hooks/useUserProfile";
 
-export default function CreateProfile() {
+export default function EditProfile() {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const fileInputRef = useRef(null); // to track the file input element
+  const { data: profile } = useUserProfile(user);
   const queryClient = useQueryClient();
+  const fileInputRef = useRef(null);
 
   // USESTATES
   const [isLoading, setIsLoading] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
-  const [completion, setCompletion] = useState(0);
   const [selectedInterests, setSelectedInterests] = useState([]);
   const [selectedLanguages, setSelectedLanguages] = useState([]);
-  const [selectedLanguage, setSelectedLanguage] = useState(""); // state to track the currently selected language
-  const [selectedRole, setSelectedRole] = useState("");
+  const [selectedLanguage, setSelectedLanguage] = useState("");
 
   // FORM INITIALIZATION
   const form = useForm({
-    resolver: zodResolver(createProfileSchema),
+    resolver: zodResolver(editProfileSchema),
     defaultValues: {
       age: "",
       about_me: "",
       occupation: "",
       education: "",
       location: "",
-      gender: "",
+      gender: profile?.gender || "",
       height: "",
-      smoking: "",
-      drinking: "",
-      pets: "",
-      children: "",
-      zodiac: "",
-      religion: "",
-      interests: selectedInterests,
-      languages: selectedLanguages,
+      smoking: profile?.smoking || "",
+      drinking: profile?.drinking || "",
+      pets: profile?.pets || "",
+      children: profile?.children || "",
+      zodiac: profile?.zodiac || "",
+      religion: profile?.religion || "",
+      interests: [],
+      languages: [],
       social_links: {
         instagram: "",
         facebook: "",
@@ -83,23 +79,41 @@ export default function CreateProfile() {
     },
   });
 
-  // Update completion whenever form values change
+  // LOAD PROFILE DATA
   useEffect(() => {
-    const formData = form.getValues();
-    const newCompletion = calculateProfileCompletion({
-      ...formData,
-      avatar_url: profileImage,
-      interests: selectedInterests,
-      languages: selectedLanguages,
-    });
-    setCompletion(newCompletion);
-  }, [form.watch(), profileImage, selectedInterests, selectedLanguages]);
+    if (profile) {
+      form.reset({
+        age: profile.age?.toString() || "",
+        about_me: profile.about_me || "",
+        occupation: profile.occupation || "",
+        education: profile.education || "",
+        location: profile.location || "",
+        gender: profile.gender || "",
+        height: profile.height || "",
+        smoking: profile.smoking || "",
+        drinking: profile.drinking || "",
+        pets: profile.pets || "",
+        children: profile.children || "",
+        zodiac: profile.zodiac || "",
+        religion: profile.religion || "",
+        interests: profile.interests || [],
+        languages: profile.languages || [],
+        social_links: profile.social_links || {
+          instagram: "",
+          facebook: "",
+          twitter: "",
+        },
+      });
+      setProfileImage(profile.avatar_url);
+      setSelectedInterests(profile.interests || []);
+      setSelectedLanguages(profile.languages || []);
+    }
+  }, [profile, form]);
 
   // HANDLE IMAGE UPLOAD
   const handleImageUpload = async (e) => {
     const file = e.target.files?.[0];
     if (file) {
-      // Handle image upload to Supabase storage
       const fileExt = file.name.split(".").pop();
       const fileName = `${user.id}-${Math.random()}.${fileExt}`;
 
@@ -121,31 +135,13 @@ export default function CreateProfile() {
     }
   };
 
-  // HANDLE SUBMIT
+  //   HANDLE SUBMIT
   const onSubmit = async (data) => {
     setIsLoading(true);
     try {
-      console.log("Selected role:", selectedRole); // Debug log
-
-      if (!selectedRole) {
-        toast.error("Role Required", {
-          description: "Please select a role to continue",
-        });
-        return;
-      }
-
-      // Update user metadata first
-      const { error: metadataError } = await supabase.auth.updateUser({
-        data: { profile_completed: true },
-      });
-
-      if (metadataError) throw metadataError;
-
-      // Then update profile
-      const { data: profile, error } = await supabase
+      const { error } = await supabase
         .from("user_profiles")
         .update({
-          role: selectedRole,
           age: parseInt(data.age),
           about_me: data.about_me,
           occupation: data.occupation,
@@ -169,24 +165,15 @@ export default function CreateProfile() {
 
       if (error) throw error;
 
-      console.log(
-        "Profile updated successfully, redirecting to:",
-        `/${selectedRole}`
-      ); // Debug log
+      // Invalidate profile cache to trigger a refetch
+      await queryClient.invalidateQueries(["profile", user.id]);
 
-      // Update React Query cache
-      queryClient.setQueryData(["profile", user.id], profile);
-
-      // Show success toast
-      toast.success("Profile created!", {
-        description: `Your profile has been set up successfully. Welcome ${selectedRole}!`,
-        duration: 2000,
+      toast.success("Profile updated!", {
+        description: "Your profile has been updated successfully",
       });
 
-      // Immediate hard redirect
-      window.location.href = `/${selectedRole}`;
+      navigate("/roles");
     } catch (error) {
-      console.error("Error in onSubmit:", error); // Debug log
       toast.error("Error", {
         description: error.message,
       });
@@ -197,42 +184,26 @@ export default function CreateProfile() {
 
   return (
     <div className="min-h-screen bg-white w-full max-w-sm sm:max-w-md mx-auto">
-      {/* EDIT PROFILE TITLE */}
       <div className="px-4 py-4 border-b border-b-gray-300">
         <div className="flex items-center">
-          {/* <button onClick={() => navigate(-1)} className="text-darkgray">
-            ←
-          </button> */}
+          {/* LEFT CHEVRON */}
+          <ChevronLeft onClick={() => navigate(-1)} className="text-gray-400" />
           <h1 className="flex-1 text-center font-semibold text-lg">
-            Create profile
+            Edit profile
           </h1>
         </div>
       </div>
 
       <div className="px-4 py-6">
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-sm text-darkgray">Profile completion</span>
-            <span className="text-sm font-medium">{completion}%</span>
-          </div>
-          {/* PROGRESS BAR */}
-          <Progress value={completion} className="h-2" />
-        </div>
-
         {/* FORMS */}
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           {/* AVATAR PHOTO SECTION */}
           <div>
-            {/* TITLE */}
-            <h2 className="text-xl font-semibold mb-2">Photo</h2>
-            <p className="text-sm text-lightgray mb-4">
-              Add a photo that clearly shows your face. This is how you appear
-              to others on the swipe view.
-            </p>
+            <h2 className="text-xl font-semibold mb-4">Photos</h2>
 
-            {/* AVATAR UPLOAD */}
+            {/* AVATAR UPDATE */}
             <div className="flex justify-center">
-              <label className="aspect-square bg-lightgray/20 rounded-lg overflow-hidden relative h-[500px]">
+              <label className="h-[500px] not-target:aspect-square bg-lightgray/20 rounded-lg overflow-hidden relative">
                 {profileImage ? (
                   <img
                     src={profileImage}
@@ -262,7 +233,6 @@ export default function CreateProfile() {
                   type="button"
                   onClick={() => {
                     setProfileImage(null);
-                    // when removing the photo, clear the profile image state and reset the file input value
                     if (fileInputRef.current) {
                       fileInputRef.current.value = "";
                     }
@@ -275,90 +245,13 @@ export default function CreateProfile() {
             )}
           </div>
 
-          {/* USER NAME AND EMAIL */}
-          <div className="text-center border-b border-lightgray/50 py-6">
-            <div className="space-y-2">
-              <h2 className="text-lg font-semibold text-darkgray">
-                Welcome, {user?.user_metadata?.name || "User"}
-              </h2>
-              <p className="text-lightgray">{user?.email}</p>
-            </div>
-          </div>
-
-          {/* ROLE SELECTION SECTION */}
-          <div>
-            <h2 className="text-xl font-semibold mb-4">Choose Your Role</h2>
-            <p className="text-sm text-gray-500 mb-4">
-              Select how you want to use TreatYourDate
-            </p>
-            <div className="grid grid-cols-2 gap-4 mb-8">
-              {/* TREATER BUTTON */}
-              <button
-                type="button"
-                className={`p-6 rounded-2xl border-2 transition-all ${
-                  selectedRole === "treater"
-                    ? "border-primary/90 bg-primary/90 shadow-xl"
-                    : "border-gray-100 hover:border-gray-200"
-                }`}
-                onClick={() => setSelectedRole("treater")}
-              >
-                <div
-                  className={`w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 ${
-                    selectedRole === "treater" ? "bg-white" : "bg-primary/20"
-                  }`}
-                >
-                  <UtensilsCrossed className="h-10 w-10 text-primary" />
-                </div>
-                <div
-                  className={`${
-                    selectedRole === "treater" ? "text-white" : "text-darkgray"
-                  }`}
-                >
-                  <h3 className="font-medium text-center">Treater</h3>
-                  <p className="text-xs text-center text-muted-foreground mt-1">
-                    The one who buys the meal
-                  </p>
-                </div>
-              </button>
-
-              {/* TREATEE BUTTON */}
-              <button
-                type="button"
-                className={`p-6 rounded-2xl border-2 transition-all ${
-                  selectedRole === "treatee"
-                    ? "border-primary/90 bg-primary/90 shadow-xl"
-                    : "border-gray-100 hover:border-gray-200"
-                }`}
-                onClick={() => setSelectedRole("treatee")}
-              >
-                <div
-                  className={`w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 ${
-                    selectedRole === "treatee" ? "bg-white" : "bg-primary/20"
-                  }`}
-                >
-                  <Heart className={`h-10 w-10 text-primary`} />
-                </div>
-                <div
-                  className={`${
-                    selectedRole === "treatee" ? "text-white" : "text-darkgray"
-                  }`}
-                >
-                  <h3 className="font-medium text-center">Treatee</h3>
-                  <p className="text-xs text-center text-muted-foreground mt-1">
-                    The one who gets the meal
-                  </p>
-                </div>
-              </button>
-            </div>
-          </div>
-
           {/* ABOUT ME SECTION ------------------------------ */}
           <div>
-            {/* TITLE */}
-            <h2 className="text-xl font-semibold mb-2">About me</h2>
-            <p className="text-sm text-lightgray mb-4">
+            <h2 className="text-xl font-semibold mb-4">About me</h2>
+            <p className="text-sm text-gray-500 mb-4">
               Make it easy for others to get a sense of who you are.
             </p>
+
             {/* TEXTAREA */}
             <Textarea
               placeholder="Share a few words about yourself, your interests, and what you're looking for in a connection..."
@@ -417,7 +310,7 @@ export default function CreateProfile() {
                   onValueChange={(value) => form.setValue("gender", value)}
                 >
                   <SelectTrigger className="h-auto bg-white border-none shadow-none text-darkgray">
-                    <SelectValue placeholder="Add" />
+                    <SelectValue />
                   </SelectTrigger>
                   <SelectContent className="bg-white border-lightgray/20">
                     <SelectItem value="Male">Male</SelectItem>
@@ -461,7 +354,7 @@ export default function CreateProfile() {
 
           {/* MOST PEOPLE ALSO WANT TO KNOW SECTION -------------------- */}
           <div>
-            <h2 className="text-sm text-lightgray mb-4">
+            <h2 className="text-sm text-gray-500 mb-4">
               Most people also want to know:
             </h2>
             <div className="space-y-3">
@@ -489,8 +382,11 @@ export default function CreateProfile() {
                   </span>
                 </div>
                 <Select
-                  value={form.watch("smoking")}
-                  onValueChange={(value) => form.setValue("smoking", value)}
+                  value={form.watch("smoking") || ""}
+                  onValueChange={(value) => {
+                    console.log("Setting smoking to:", value); // Debugging log
+                    form.setValue("smoking", value);
+                  }}
                 >
                   <SelectTrigger className="h-auto bg-white border-none shadow-none text-darkgray">
                     <SelectValue placeholder="Add" />
@@ -650,10 +546,6 @@ export default function CreateProfile() {
           {/* I ENJOY SECTION ------------------- */}
           <div>
             <h2 className="text-xl font-semibold mb-4">I enjoy</h2>
-            <p className="text-sm text-gray-500 mb-4">
-              Adding your interests is a great way to find like-minded
-              connections.
-            </p>
             <div className="space-y-3">
               {/* INTEREST SELECTION DROPDOWN */}
               <Select
@@ -847,8 +739,8 @@ export default function CreateProfile() {
 
           <Button
             type="submit"
-            className="mt-2 h-12 w-full rounded-xl bg-primary font-medium text-white hover:bg-primary-hover/90 shadow-xl"
             disabled={isLoading}
+            className="mt-2 h-12 w-full rounded-xl bg-primary font-medium text-white hover:bg-primary-hover/90 shadow-xl"
           >
             {isLoading ? "Saving..." : "Save Changes"}
           </Button>

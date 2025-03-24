@@ -5,6 +5,8 @@ import { toast } from "sonner";
 import { useAuth } from "@/context/AuthContext";
 import { useState } from "react";
 import { Mail } from "lucide-react";
+
+// ASSETS
 import Logo from "@/assets/images/tyd_logo.png";
 
 export default function Welcome() {
@@ -40,7 +42,7 @@ export default function Welcome() {
 
   return (
     <div className="h-screen flex flex-col justify-center bg-white px-6">
-      <div className="w-full max-w-md mx-auto space-y-8">
+      <div className="w-full max-w-sm sm:max-w-md mx-auto space-y-8">
         <div className="text-center space-y-4">
           {/* WELCOME TITLE */}
           <h1 className="text-[32px] font-semibold text-darkgray-title">

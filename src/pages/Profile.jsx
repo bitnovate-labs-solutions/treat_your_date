@@ -1,9 +1,9 @@
-import { Suspense, useEffect, useState } from "react";
+import { Suspense } from "react";
 // import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/context/AuthContext";
 
 // UI Components
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";
@@ -25,40 +25,47 @@ import {
   Instagram,
   Facebook,
   Twitter,
+  Edit,
 } from "lucide-react";
-import defaultImage from "@/assets/images/default-avatar.jpg";
+// import defaultImage from "@/assets/images/default-avatar.jpg";
 
 // Error & Loading Handlers
 import { ErrorBoundary } from "react-error-boundary";
-import { ErrorFallback } from "@/components/error-fallback";
+import { ErrorFallback } from "@/components/ErrorFallback";
 import { ProfileSkeleton } from "@/components/loading-skeleton";
 import { useUserProfile } from "@/hooks/useUserProfile";
+import { useNavigate } from "react-router-dom";
+import { useImageCache } from "@/hooks/useImageCache";
 
 function UserProfile() {
-  const [imageSrc, setImageSrc] = useState(null);
+  // const [imageSrc, setImageSrc] = useState(null);
   const { user, signOut } = useAuth();
   const { data: profile, isLoading, error } = useUserProfile(user); // Fetch data from user_profiles
+  const navigate = useNavigate();
+
+  // Use custom caching hook
+  const cachedImageUrl = useImageCache(profile?.avatar_url);
+  const defaultImage = "@/assets/images/default-avatar.jpg";
 
   // FETCH IMAGE
-  useEffect(() => {
-    if (profile?.photo) {
-      const imageUrl = `${
-        import.meta.env.VITE_SUPABASE_URL
-      }/storage/v1/object/public/user_avatars/${profile.photo}`;
+  // useEffect(() => {
+  //   if (profile?.avatar_url) {
+  //     // const imageUrl = `${profile.avatar_url}`;
 
-      fetch(imageUrl, { method: "HEAD" })
-        .then((res) => {
-          if (res.ok) {
-            setImageSrc(imageUrl);
-          } else {
-            setImageSrc(defaultImage);
-          }
-        })
-        .catch(() => setImageSrc(defaultImage));
-    } else {
-      setImageSrc(defaultImage);
-    }
-  }, [profile?.photo]);
+  //     // fetch(imageUrl, { method: "HEAD" })
+  //     fetch(cachedImageUrl, { method: "HEAD" })
+  //       .then((res) => {
+  //         if (res.ok) {
+  //           setImageSrc(cachedImageUrl);
+  //         } else {
+  //           setImageSrc(defaultImage);
+  //         }
+  //       })
+  //       .catch(() => setImageSrc(defaultImage));
+  //   } else {
+  //     setImageSrc(defaultImage);
+  //   }
+  // }, [profile?.avatar_url, cachedImageUrl]);
 
   if (isLoading) return <ProfileSkeleton />;
   if (error) return <ErrorFallback error={error} />;
@@ -66,6 +73,13 @@ function UserProfile() {
   // HANDLE SIGN OUT
   const handleSignOut = async () => {
     try {
+      // Remove all cached images
+      Object.keys(localStorage).forEach((key) => {
+        if (key.startsWith("img_cache_")) {
+          localStorage.removeItem(key);
+        }
+      });
+
       await signOut();
     } catch (error) {
       console.error("Sign-out error: ", error);
@@ -84,22 +98,18 @@ function UserProfile() {
     });
   };
 
+  console.log(profile);
+
   return (
     <div className="container mx-auto space-y-4">
       <Card className="bg-white border-gray-200 shadow-md">
-        {/* CARD HEADER */}
-        <CardHeader>
-          <CardTitle className="text-2xl font-bold text-center">
-            Profile
-          </CardTitle>
-        </CardHeader>
-
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-4 pt-6">
           {/* PROFILE IMAGE */}
           <div className="h-[450px] w-full relative mb-8">
             {/* IMAGE */}
             <img
-              src={imageSrc}
+              // src={imageSrc}
+              src={cachedImageUrl || defaultImage}
               alt="Profile"
               className="w-full h-full rounded-2xl object-cover border-1 border-gray-200 shadow-xl"
             />
@@ -141,6 +151,16 @@ function UserProfile() {
               </p>
             </div>
           </div>
+
+          {/* EDIT PROFILE BUTTON */}
+          <Button
+            variant="outline"
+            className="w-full mb-6 border-1 border-primary/50"
+            onClick={() => navigate("/edit-profile")}
+          >
+            <Edit className="mr-2 h-4 w-4 text-primary" />
+            <span className="text-primary">Edit Profile</span>
+          </Button>
 
           {/* Profile Details */}
           <div className="space-y-4">
@@ -298,15 +318,51 @@ function UserProfile() {
             </div>
 
             {/* INTERESTS */}
-            <div className="space-y-6 mb-8">
+            <div className="space-y-4 mb-8">
               <h3 className="text-lg font-bold">I enjoy</h3>
-              <p className="text-darkgray">{profile?.interests || "-"}</p>
+              {/* INTERESTS CAPSULES */}
+              {profile?.interests && profile.interests.length > 0 ? (
+                <div className="flex flex-wrap gap-2">
+                  {profile?.interests.map((interest) => (
+                    <div
+                      key={interest}
+                      className="flex items-center gap-2 bg-primary/80 rounded-full py-1.5 px-3"
+                    >
+                      <span className="text-sm font-light text-white">
+                        {interest}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-sm text-muted-foreground text-lightgray">
+                  No interests added yet
+                </p>
+              )}
             </div>
 
             {/* LANGUAGES */}
-            <div className="space-y-6 mb-8">
+            <div className="space-y-4 mb-8">
               <h3 className="text-lg font-bold">I communicate in</h3>
-              <p className="text-darkgray">{profile?.languages || "-"}</p>
+              {/* LANGUAGE CAPSULES */}
+              {profile?.languages && profile.languages.length > 0 ? (
+                <div className="flex flex-wrap gap-2">
+                  {profile?.languages.map((language) => (
+                    <div
+                      key={language}
+                      className="flex items-center gap-2 bg-primary/80 rounded-full py-1.5 px-4"
+                    >
+                      <span className="text-sm font-light text-white">
+                        {language}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-sm text-muted-foreground text-lightgray">
+                  No languages added yet
+                </p>
+              )}
             </div>
 
             {/* SOCIAL MEDIA */}
@@ -321,8 +377,8 @@ function UserProfile() {
                     Instagram
                   </span>
                 </div>
-                <p className="text-lightgray text-sm text-right capitalize overflow-ellipsis">
-                  {profile?.instagram || "-"}
+                <p className="text-lightgray text-sm text-right overflow-ellipsis">
+                  {profile?.social_links.instagram || "-"}
                 </p>
               </div>
 
@@ -334,8 +390,8 @@ function UserProfile() {
                     Facebook
                   </span>
                 </div>
-                <p className="text-lightgray text-sm text-right capitalize overflow-ellipsis">
-                  {profile?.facebook || "-"}
+                <p className="text-lightgray text-sm text-right overflow-ellipsis">
+                  {profile?.social_links.facebook || "-"}
                 </p>
               </div>
 
@@ -347,8 +403,8 @@ function UserProfile() {
                     Twitter
                   </span>
                 </div>
-                <p className="text-lightgray text-sm text-right capitalize overflow-ellipsis">
-                  {profile?.twitter || "-"}
+                <p className="text-lightgray text-sm text-right overflow-ellipsis">
+                  {profile?.social_links.twitter || "-"}
                 </p>
               </div>
             </div>

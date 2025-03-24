@@ -1,30 +1,35 @@
-import { useState, useEffect } from "react";
+import { useMemo, useEffect, useState } from "react";
 
 export function useImageCache(imageUrl) {
-  const [cachedUrl, setCachedUrl] = useState(null);
   const cacheKey = `img_cache_${imageUrl}`;
+
+  // 🔥 Read from localStorage first to avoid re-renders
+  const initialUrl = useMemo(
+    () => localStorage.getItem(cacheKey) || imageUrl,
+    [cacheKey, imageUrl]
+  );
+
+  const [cachedUrl, setCachedUrl] = useState(initialUrl);
 
   useEffect(() => {
     if (!imageUrl) return;
 
-    const cached = localStorage.getItem(cacheKey);
-    if (cached) {
-      setCachedUrl(cached);
-      return;
-    }
-
-    try {
-      localStorage.setItem(cacheKey, imageUrl);
-      setCachedUrl(imageUrl);
-    } catch (error) {
-      console.error("LocalStorage full, clearing cache...", error);
-      clearOldCache();
-      localStorage.setItem(cacheKey, imageUrl);
-      setCachedUrl(imageUrl);
-    }
+    // 🔥 Preload the image in the background
+    const img = new Image();
+    img.src = imageUrl;
+    img.onload = () => {
+      try {
+        localStorage.setItem(cacheKey, imageUrl);
+      } catch (error) {
+        console.error("LocalStorage full, clearing cache...", error);
+        clearOldCache();
+        localStorage.setItem(cacheKey, imageUrl);
+      }
+      setCachedUrl(imageUrl); // Update state only after preload
+    };
   }, [imageUrl, cacheKey]);
 
-  return cachedUrl || imageUrl;
+  return cachedUrl;
 }
 
 function clearOldCache() {
