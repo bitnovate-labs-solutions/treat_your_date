@@ -23,10 +23,8 @@ export function AuthProvider({ children }) {
         const {
           data: { session },
         } = await supabase.auth.getSession();
-        // const { data: session, error } = await supabase.auth.getSession();
 
         setUser(session?.user ?? null);
-        // if (error) console.error("Auth initialization error:", error);
       } catch (error) {
         console.error("Error getting session:", error);
       } finally {
@@ -71,11 +69,9 @@ export function AuthProvider({ children }) {
         .single();
 
       if (error && error?.code === "PGRST116") {
-        // No profile found, redirect to create profile
-        navigate("/create-profile", { replace: true });
+        navigate("/create-profile", { replace: true }); // No profile found, redirect to create profile
       } else if (profile?.role) {
-        // If we have a role, navigate to the role page
-        navigate(`/${profile.role}`, { replace: true });
+        navigate(`/${profile.role}`, { replace: true }); // If we have a role, navigate to the role page
       }
 
       if (error) throw error;
@@ -139,57 +135,6 @@ export function AuthProvider({ children }) {
   };
 
   const value = {
-    // SIGN IN WITH GOOGLE
-    // signInWithGoogle: async () => {
-    //   const { data, error } = await supabase.auth.signInWithOAuth({
-    //     provider: "google",
-    //     options: {
-    //       redirectTo: `${window.location.origin}/auth/callback`,
-    //     },
-    //   });
-
-    //   console.log("Auth response: ", { data, error });
-
-    //   if (error) throw error;
-    //   return data;
-    // },
-    // SIGN OUT
-    // signOut: async () => {
-    //   try {
-    //     // Clear React Query cache first
-    //     queryClient.clear();
-
-    //     // Sign out from supabase (this also handles Google OAuth sign-out)
-    //     const { error } = await supabase.auth.signOut({
-    //       scope: "global", // ensures complete sign-out including OAuth providers
-    //     });
-
-    //     if (error) throw error;
-
-    //     // Explicitly remove all Supabase-related items from localStorage
-    //     for (const key of Object.keys(localStorage)) {
-    //       if (key.startsWith("sb-")) {
-    //         localStorage.removeItem(key);
-    //       }
-    //     }
-
-    //     // Clear local state regardless of session status
-    //     setUser(null);
-
-    //     // Navigate to auth page after sign out
-    //     navigate("/auth", { replace: true });
-    //   } catch (error) {
-    //     console.error("Sign out error:", error);
-    //     // Still attempt to clear everything even if there's an error
-    //     for (const key of Object.keys(localStorage)) {
-    //       if (key.startsWith("sb-")) {
-    //         localStorage.removeItem(key);
-    //       }
-    //     }
-    //     setUser(null);
-    //     navigate("/auth", { replace: true });
-    //   }
-    // },
     signUp,
     signIn,
     signOut,

@@ -22,7 +22,7 @@ const Loader = () => {
         <img
           src={Logo}
           alt="TreatYourDate Logo"
-          className="w-32 h-32 mb-6 animate-pulse"
+          className="w-32 h-auto mb-6 animate-pulse"
         />
 
         {/* Loading indicator */}
