@@ -161,7 +161,7 @@ export default function Auth() {
         <div className="space-y-8">
           {/* LOGO */}
           <div className="flex justify-center">
-            <img src={Logo} alt="TreatYourDate logo" />
+            <img src={Logo} alt="TreatYourDate logo" className="w-1/3 h-auto" />
           </div>
 
           <div className="text-center">
