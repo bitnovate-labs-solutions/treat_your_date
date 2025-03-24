@@ -82,7 +82,7 @@ function UserProfile() {
       <Card className="bg-white border-gray-200 shadow-md">
         {/* CARD HEADER */}
         <CardHeader>
-          <CardTitle className="text-xl font-semibold text-gray-800 py-4">
+          <CardTitle className="text-base font-semibold text-gray-800 pb-2">
             Welcome, {profile?.display_name || "User"}!
           </CardTitle>
           <p className="text-sm text-darkgray">
@@ -91,7 +91,7 @@ function UserProfile() {
           </p>
         </CardHeader>
 
-        <CardContent className="space-y-4 px-5">
+        <CardContent className="space-y-4 px-4">
           {/* PROFILE IMAGE */}
           <div className="h-[450px] w-full relative mb-8">
             {/* IMAGE */}
@@ -140,24 +140,24 @@ function UserProfile() {
             </div>
           </div>
 
-          {/* EDIT PROFILE BUTTON */}
+          {/* EDIT PROFILE BUTTON -------------------- */}
           <Button
             variant="outline"
-            className="w-full mb-6 border-1 border-primary/50"
+            className="w-full mb-6 border-2 border-primary/50"
             onClick={() => navigate("/edit-profile")}
           >
             <Edit className="mr-2 h-4 w-4 text-primary" />
             <span className="text-primary">Edit Profile</span>
           </Button>
 
-          {/* Profile Details */}
           <div className="space-y-4">
+            {/* ABOUT ME SECTION -------------------- */}
             <div className="space-y-6 mb-8">
               <h3 className="text-lg font-bold">About Me</h3>
               <p className="text-darkgray">{profile?.about_me}</p>
             </div>
 
-            {/* MY DETAILS */}
+            {/* MY DETAILS SECTION -------------------- */}
             <div className="space-y-6 mb-8">
               <h3 className="text-lg font-bold">My Details</h3>
 
@@ -199,19 +199,6 @@ function UserProfile() {
                   {profile?.education || "-"}
                 </p>
               </div>
-
-              {/* Location */}
-              {/* <div className="flex justify-between">
-                <div className="flex items-center">
-                  <MapPin className="w-4 h-4 mr-4 my-auto text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">
-                    Location
-                  </span>
-                </div>
-                <p className="text-lightgray text-sm text-right capitalize overflow-ellipsis">
-                  {profile?.location || "-"}
-                </p>
-              </div> */}
 
               {/* Height */}
               <div className="flex justify-between">
@@ -305,7 +292,7 @@ function UserProfile() {
               </div>
             </div>
 
-            {/* INTERESTS */}
+            {/* INTERESTS SECTION -------------------- */}
             <div className="space-y-4 mb-8">
               <h3 className="text-lg font-bold">I enjoy</h3>
               {/* INTERESTS CAPSULES */}
@@ -314,11 +301,9 @@ function UserProfile() {
                   {profile?.interests.map((interest) => (
                     <div
                       key={interest}
-                      className="flex items-center gap-2 bg-primary/80 rounded-full py-1.5 px-3"
+                      className="flex items-center gap-2 bg-primary/80 rounded-full py-1 px-3"
                     >
-                      <span className="text-sm font-light text-white">
-                        {interest}
-                      </span>
+                      <span className="text-xs text-white">{interest}</span>
                     </div>
                   ))}
                 </div>
@@ -329,7 +314,7 @@ function UserProfile() {
               )}
             </div>
 
-            {/* LANGUAGES */}
+            {/* LANGUAGES SECTION -------------------- */}
             <div className="space-y-4 mb-8">
               <h3 className="text-lg font-bold">I communicate in</h3>
               {/* LANGUAGE CAPSULES */}
@@ -338,11 +323,9 @@ function UserProfile() {
                   {profile?.languages.map((language) => (
                     <div
                       key={language}
-                      className="flex items-center gap-2 bg-primary/80 rounded-full py-1.5 px-4"
+                      className="flex items-center gap-2 bg-primary/80 rounded-full py-1 px-3"
                     >
-                      <span className="text-sm font-light text-white">
-                        {language}
-                      </span>
+                      <span className="text-xs text-white">{language}</span>
                     </div>
                   ))}
                 </div>
@@ -353,7 +336,7 @@ function UserProfile() {
               )}
             </div>
 
-            {/* SOCIAL MEDIA */}
+            {/* SOCIAL LINKS SECTION -------------------- */}
             <div className="space-y-6 mb-8">
               <h3 className="text-lg font-bold">Linked accounts</h3>
 
@@ -397,20 +380,22 @@ function UserProfile() {
               </div>
             </div>
 
-            {/* MEMBER SINCE */}
+            {/* MEMBER SINCE -------------------- */}
             <div className="space-y-6 mb-8">
               <h3 className="text-lg font-bold">Member Since</h3>
               <p className="text-darkgray flex items-center gap-2">
                 <Calendar className="w-4 h-4" />
-                {formatDate(profile?.created_at)}
+                <span className="text-sm">
+                  {formatDate(profile?.created_at)}
+                </span>
               </p>
             </div>
           </div>
 
-          {/* SIGN OUT BUTTON */}
+          {/* SIGN OUT BUTTON -------------------- */}
           <div className="pt-6">
             <Button
-              className="w-full h-14 text-base bg-primary hover:bg-primary-hover text-white rounded-xl"
+              className="w-full h-14 text-base bg-primary hover:bg-primary-hover text-white shadow-2xl"
               onClick={handleSignOut}
             >
               <LogOut className="mr-2 h-4 w-4" />

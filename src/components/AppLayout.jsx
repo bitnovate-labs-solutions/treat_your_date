@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
-import { useQueryClient } from "@tanstack/react-query";
 import { useUserProfile } from "@/hooks/useUserProfile";
 
 // COMPONENTS
@@ -12,9 +11,11 @@ export default function Layout() {
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = useAuth();
-  const queryClient = useQueryClient();
+  const [title, setTitle] = useState("No Title");
+
+  const isProfilePage = location.pathname === "/profile";
+
   const { data: profile } = useUserProfile(user); // Fetch user_profile data
-  const [activeTab, setActiveTab] = useState("menu");
 
   // If no profile exists and we're not on the create-profile or auth/callback path,
   // redirect to create-profile
@@ -45,13 +46,6 @@ export default function Layout() {
     }
   };
 
-  // HANDLE HEADER TAB CHANGE
-  const handleTabChange = (value) => {
-    setActiveTab(value);
-    // Invalidate relevant queries based on tab
-    queryClient.invalidateQueries(["foodItems", value]);
-  };
-
   // HANDLE HOME PAGE VIEW
   const handleHomeClick = () => {
     if (profile?.role) {
@@ -61,15 +55,22 @@ export default function Layout() {
     }
   };
 
+  // MAP ROUTES TO TITLES HERE
+  useEffect(() => {
+    const titles = {
+      "/": "Home",
+      "/profile": "Profile",
+      "/bookmarks": "Bookmarks",
+      "/messages": "Messages",
+    };
+
+    setTitle(titles[location.pathname] || "Home"); // Set the title based on the current route, fallback to "Home"
+  }, [location.pathname]);
+
   return (
     <div className="h-full flex flex-col w-full max-w-md mx-auto">
       {/* HEADER */}
-      <AppHeader
-        title={location.pathname === "/profile" ? "User Profile" : "Food"}
-        activeTab={activeTab}
-        onTabChange={handleTabChange}
-        showTabsAndFilters={location.pathname !== "/profile"}
-      />
+      <AppHeader isProfilePage={isProfilePage} title={title} />
 
       {/* OUTLET - placeholder for rendering child routes (Page content goes here!) */}
       <main className="flex-1 overflow-y-auto pb-16 bg-gray-100">
