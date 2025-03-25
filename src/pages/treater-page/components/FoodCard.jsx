@@ -9,7 +9,7 @@ export default function FoodCard({
   onToggle,
   showExpandButton = true,
   showMenuItems = true,
-  additionalInfo = null,
+  // additionalInfo = null,
 }) {
   return (
     <Card
@@ -40,14 +40,14 @@ export default function FoodCard({
             <div className="flex justify-between items-start">
               <div>
                 <h3 className="text-sm font-bold text-gray-900">{item.name}</h3>
-                <p className="text-xs font-light text-lightgray">
+                <p className="text-xs font-light text-darkgray">
                   {item.cuisine_type}
                 </p>
               </div>
             </div>
 
             <div className="grid grid-cols-5">
-              <div className="mr-6 col-span-3">
+              <div className="mr-3 col-span-3">
                 <div className="flex items-center gap-2 mt-2">
                   <div className="flex items-center">
                     {/* RATING */}
@@ -69,7 +69,7 @@ export default function FoodCard({
                 <div className="mt-1">
                   <span className="inline-block px-2 py-1 bg-[#EEF2FF] text-[#6366F1] rounded-md text-xs">
                     {/* {item.location} */}
-                    Petaling Jaya
+                    Petaling Jayaxxxxx
                   </span>
                   {/* {additionalInfo} */}
                 </div>
@@ -102,7 +102,7 @@ export default function FoodCard({
 
       {/* CARD EXPANDED SECTION ------------------------------ */}
       {expanded && showMenuItems && (
-        <div className="p-2 space-y-6 pt-4">
+        <div className="p-2 space-y-3 pt-4">
           {[
             {
               name: "Chicken Sandwich",
@@ -122,11 +122,12 @@ export default function FoodCard({
           ].map((menuItem, index) => (
             <div
               key={index}
-              className="flex items-center justify-between p-2 rounded-lg hover:bg-gray-50"
+              className="flex items-center p-2 rounded-lg hover:bg-gray-50 border border-gray-300"
             >
               {/* CONTENT SECTION */}
               <div className="flex gap-3">
-                <div className="w-16 h-16 bg-gray-100 rounded-lg overflow-hidden">
+                {/* IMAGE */}
+                <div className="w-26 h-26 rounded-lg overflow-hidden">
                   <img
                     src={`https://images.unsplash.com/photo-${
                       1540189549336 + index
@@ -140,24 +141,30 @@ export default function FoodCard({
                     }}
                   />
                 </div>
-                <div>
-                  <h4 className="font-medium text-gray-900">{menuItem.name}</h4>
-                  <p className="text-sm text-gray-500">
+              </div>
+
+              <div className="flex flex-col w-full">
+                {/* MENU NAME AND DESCRIPTION */}
+                <div className="pl-3 pb-6">
+                  <h4 className="text-sm font-semibold text-gray-900">
+                    {menuItem.name}
+                  </h4>
+                  <p className="text-xs text-gray-500">
                     {menuItem.description}
                   </p>
                 </div>
-              </div>
 
-              <div className="flex items-center gap-4">
-                {/* PRICE*/}
-                <span className="px-3 py-1 bg-[#EEF2FF] text-[#6366F1] rounded-lg">
-                  ${menuItem.price}
-                </span>
+                <div className="flex items-center justify-between px-3">
+                  {/* PRICE*/}
+                  <span className="px-4 py-1 bg-[#EEF2FF] text-[#6366F1] rounded-lg">
+                    ${menuItem.price}
+                  </span>
 
-                {/* ADD BUTTON */}
-                <Button className="bg-[#6366F1] text-white hover:bg-[#4F46E5] rounded-xl">
-                  <Heart className="h-4 w-4 mr-1" /> Add
-                </Button>
+                  {/* ADD BUTTON */}
+                  <Button className="bg-[#6366F1] text-white hover:bg-[#4F46E5] rounded-xl">
+                    <Heart className="h-4 w-4 mr-1" /> Add
+                  </Button>
+                </div>
               </div>
             </div>
           ))}

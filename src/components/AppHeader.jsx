@@ -39,7 +39,7 @@ export default function AppHeader({ title, isProfilePage }) {
 
   return (
     <div className="sticky top-0 bg-white border-b border-gray-200 shadow-md z-10">
-      <div className="container mx-auto pt-1">
+      <div className="container mx-auto pt-3">
         {/* HEADER TITLE -------------------- */}
         <h1 className="text-lg font-bold mb-4 text-center text-gray-800">
           {title}
