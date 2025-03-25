@@ -62,7 +62,7 @@ export default function Auth() {
   const form = useForm({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      display_name: "",
+      name: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -222,12 +222,12 @@ export default function Auth() {
                     <Input
                       className="text-sm rounded-xl border-gray-200 pl-12"
                       placeholder="Name"
-                      {...form.register("display_name")}
+                      {...form.register("name")}
                     />
                   </div>
-                  {form.formState.errors.display_name && (
+                  {form.formState.errors.name && (
                     <p className="text-sm text-primary px-1">
-                      {form.formState.errors.display_name.message}
+                      {form.formState.errors.name.message}
                     </p>
                   )}
                 </div>
