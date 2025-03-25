@@ -103,7 +103,13 @@ export function AuthProvider({ children }) {
   // SIGN UP
   const signUp = async (credentials) => {
     try {
-      const { data, error } = await supabase.auth.signUp(credentials);
+      const { data, error } = await supabase.auth.signUp({
+        ...credentials,
+        options: {
+          data: { display_name: credentials.display_name }, // include display_name from sign up input
+        },
+      });
+      console.log("Data:", data);
       if (error) throw error; // Ensure errors are caught in catch block
 
       return data;
