@@ -78,7 +78,7 @@ export default function AppHeader({ title, isProfilePage }) {
               <div className="flex gap-2 overflow-x-auto pb-2 pl-4">
                 {/* SORT BY */}
                 <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
+                  <DropdownMenuTrigger asChild className="h-7">
                     <Button
                       variant="secondary"
                       className="rounded-full whitespace-nowrap text-[12px] font-light py-1"
@@ -88,7 +88,7 @@ export default function AppHeader({ title, isProfilePage }) {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
                     align="start"
-                    className="w-46 space-y-2 bg-white border-gray-100 shadow-xl text-darkgray py-4"
+                    className="w-46 bg-white border-gray-100 shadow-xl text-darkgray py-4"
                   >
                     {sortOptions.map((option) => (
                       <DropdownMenuItem
@@ -106,7 +106,7 @@ export default function AppHeader({ title, isProfilePage }) {
 
                 {/* CUISINE */}
                 <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
+                  <DropdownMenuTrigger asChild className="h-7">
                     <Button
                       variant="secondary"
                       className="rounded-full whitespace-nowrap text-[12px] font-light py-1"
@@ -121,7 +121,7 @@ export default function AppHeader({ title, isProfilePage }) {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
                     align="start"
-                    className="w-46 space-y-0.5 bg-white border-gray-100 shadow-xl text-darkgray py-4"
+                    className="w-46 bg-white border-gray-100 shadow-xl text-darkgray py-4"
                   >
                     <DropdownMenuLabel className="text-primary font-bold">
                       Cuisine Types
@@ -158,7 +158,7 @@ export default function AppHeader({ title, isProfilePage }) {
                 {/* FAVOURITE */}
                 <Button
                   variant="secondary"
-                  className="rounded-full whitespace-nowrap text-[12px] font-light py-1"
+                  className="rounded-full whitespace-nowrap text-[12px] font-light py-1 h-7"
                 >
                   Favorite
                 </Button>
@@ -166,7 +166,7 @@ export default function AppHeader({ title, isProfilePage }) {
                 {/* LOCATION */}
                 <Button
                   variant="secondary"
-                  className="rounded-full whitespace-nowrap text-[12px] font-light py-1"
+                  className="rounded-full whitespace-nowrap text-[12px] font-light py-1 h-7"
                 >
                   Location
                 </Button>
