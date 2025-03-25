@@ -254,7 +254,7 @@ export default function Auth() {
                 <div className="relative">
                   <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                   <Input
-                    className="text-sm rounded-xl border-gray-200 pl-12 [appearance:textfield]"
+                    className="text-sm rounded-xl border-gray-200 pl-12"
                     type="password"
                     placeholder="Password"
                     {...form.register("password")}
@@ -275,7 +275,7 @@ export default function Auth() {
                   <div className="relative">
                     <KeyRound className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                     <Input
-                      className="text-sm rounded-xl border-gray-200 pl-12 [appearance:textfield]"
+                      className="text-sm rounded-xl border-gray-200 pl-12"
                       type="password"
                       placeholder="Confirm Password"
                       {...form.register("confirmPassword")}
