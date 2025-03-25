@@ -77,23 +77,14 @@ function UserProfile() {
     });
   };
 
-  return (
-    <div className="container mx-auto space-y-4">
-      <Card className="bg-white border-gray-200 shadow-md">
-        {/* CARD HEADER */}
-        <CardHeader>
-          <CardTitle className="text-base font-semibold text-gray-800 pb-2">
-            Welcome, {profile?.display_name || "User"}!
-          </CardTitle>
-          <p className="text-sm text-darkgray">
-            Below is your profile image and how you will appear to others on the
-            swipe view.
-          </p>
-        </CardHeader>
+  console.log(profile);
 
-        <CardContent className="space-y-4 px-4">
+  return (
+    <div>
+      <Card className="bg-white border-gray-200 shadow-md rounded-none pb-12">
+        <CardContent className="space-y-4 p-4">
           {/* PROFILE IMAGE */}
-          <div className="h-[450px] w-full relative mb-8">
+          <div className="h-[450px] w-full relative">
             {/* IMAGE */}
             <img
               // src={imageSrc}
@@ -138,7 +129,28 @@ function UserProfile() {
                 {profile?.occupation || "-"}
               </p>
             </div>
+
+            {/* CODE FOR POSSIBLE FUTURE USE */}
+            {/* <p className="text-xs text-center text-darkgray mt-2">
+              This is how your profile will appear in the swipe view
+            </p> */}
           </div>
+
+          {/* HEADER TITLE */}
+          <CardHeader>
+            <CardTitle className="text-lg text-center font-semibold text-gray-800">
+              Hello, {profile?.display_name || "User"}!
+            </CardTitle>
+
+            <div className="flex justify-center">
+              <h6 className="text-center text-sm font-bold text-darkgray">
+                User ID:
+              </h6>
+              <span className="text-sm text-gray-400 ml-2">
+                {profile?.user_id.slice(0, 8)}
+              </span>
+            </div>
+          </CardHeader>
 
           {/* EDIT PROFILE BUTTON -------------------- */}
           <Button
@@ -150,7 +162,7 @@ function UserProfile() {
             <span className="text-primary">Edit Profile</span>
           </Button>
 
-          <div className="space-y-4">
+          <div className="space-y-4 mt-2">
             {/* ABOUT ME SECTION -------------------- */}
             <div className="space-y-6 mb-8">
               <h3 className="text-lg font-bold">About Me</h3>
@@ -411,13 +423,11 @@ function UserProfile() {
 export default function Profile() {
   return (
     <ScrollArea className="h-[calc(100vh-4rem)]">
-      <div className="container mx-auto p-2">
-        <ErrorBoundary FallbackComponent={ErrorFallback}>
-          <Suspense fallback={<ProfileSkeleton />}>
-            <UserProfile />
-          </Suspense>
-        </ErrorBoundary>
-      </div>
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <Suspense fallback={<ProfileSkeleton />}>
+          <UserProfile />
+        </Suspense>
+      </ErrorBoundary>
     </ScrollArea>
   );
 }

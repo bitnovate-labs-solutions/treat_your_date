@@ -88,7 +88,7 @@ export default function AppHeader({ title, isProfilePage }) {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
                     align="start"
-                    className="w-46 space-y-4 bg-white border-gray-100 shadow-xl text-darkgray pt-4"
+                    className="w-46 space-y-2 bg-white border-gray-100 shadow-xl text-darkgray py-4"
                   >
                     {sortOptions.map((option) => (
                       <DropdownMenuItem
@@ -121,7 +121,7 @@ export default function AppHeader({ title, isProfilePage }) {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
                     align="start"
-                    className="w-46 space-y-4 bg-white border-gray-100 shadow-xl text-darkgray pt-4"
+                    className="w-46 space-y-0.5 bg-white border-gray-100 shadow-xl text-darkgray py-4"
                   >
                     <DropdownMenuLabel className="text-primary font-bold">
                       Cuisine Types
