@@ -18,10 +18,10 @@ export default function FoodCard({
         expanded ? "bg-white" : "bg-white"
       )}
     >
-      <div className="p-4 border-none shadow-xl">
+      <div className="p-3 border-none shadow-xl">
         <div className="flex gap-4">
           {/* CARD IMAGE */}
-          <div className="w-32 h-32 rounded-lg overflow-hidden flex-shrink-0">
+          <div className="w-26 h-26 rounded-lg overflow-hidden flex-shrink-0">
             <img
               src={item.image_url}
               alt={item.name}
@@ -39,35 +39,35 @@ export default function FoodCard({
             {/* CARD TITLE */}
             <div className="flex justify-between items-start">
               <div>
-                <h3 className="text-lg font-semibold text-gray-900">
-                  {item.name}
-                </h3>
-                <p className="text-sm text-gray-500">{item.cuisine_type}</p>
+                <h3 className="text-sm font-bold text-gray-900">{item.name}</h3>
+                <p className="text-xs font-light text-lightgray">
+                  {item.cuisine_type}
+                </p>
               </div>
             </div>
 
-            <div className="flex">
-              <div className="mr-6">
-                <div className="flex items-center gap-2 mt-4">
+            <div className="grid grid-cols-5">
+              <div className="mr-6 col-span-3">
+                <div className="flex items-center gap-2 mt-2">
                   <div className="flex items-center">
                     {/* RATING */}
-                    <span className="text-sm text-darkgray">
+                    <span className="text-xs text-darkgray">
                       {item.rating.toFixed(1)}
                     </span>
                     {/* STAR ICON */}
-                    <Star className="h-4 w-4 text-yellow-400 ml-1" />
+                    <Star className="h-3 w-3 text-yellow-400 ml-1" />
                   </div>
                   <span className="text-darkgray text-xl">•</span>
                   {/* LIKES */}
                   <div className="flex items-center">
-                    <span className="text-sm text-darkgray">{item.likes}</span>
-                    <Heart className="h-4 w-4 text-pink-500 ml-1 fill-current" />
+                    <span className="text-xs text-darkgray">{item.likes}</span>
+                    <Heart className="h-3 w-3 text-pink-500 ml-1 fill-current" />
                   </div>
                 </div>
 
                 {/* CARD LOCATION */}
                 <div className="mt-1">
-                  <span className="inline-block px-3 py-1 bg-[#EEF2FF] text-[#6366F1] rounded-md text-sm">
+                  <span className="inline-block px-2 py-1 bg-[#EEF2FF] text-[#6366F1] rounded-md text-xs">
                     {/* {item.location} */}
                     Petaling Jaya
                   </span>
@@ -76,20 +76,20 @@ export default function FoodCard({
               </div>
 
               {/* EXPAND / HIDE BUTTON */}
-              <div className="flex items-end mx-auto">
+              <div className="flex items-end col-span-2">
                 {showExpandButton && (
                   <Button
                     // variant="secondary"
-                    className="bg-primary rounded-xl text-white hover:bg-secondary"
+                    className="w-20 h-10 bg-primary rounded-lg text-xs text-white hover:bg-secondary"
                     onClick={onToggle}
                   >
                     {expanded ? (
                       <>
-                        Hide <ChevronUp className="ml-2 h-4 w-4" />
+                        Hide <ChevronUp className="h-4 w-4" />
                       </>
                     ) : (
                       <>
-                        Expand <ChevronDown className="ml-2 h-4 w-4" />
+                        Expand <ChevronDown className="h-4 w-4" />
                       </>
                     )}
                   </Button>
