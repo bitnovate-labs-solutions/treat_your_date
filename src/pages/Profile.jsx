@@ -422,7 +422,7 @@ function UserProfile() {
 
 export default function Profile() {
   return (
-    <ScrollArea className="h-[calc(100vh-4rem)]">
+    <ScrollArea>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Suspense fallback={<ProfileSkeleton />}>
           <UserProfile />
