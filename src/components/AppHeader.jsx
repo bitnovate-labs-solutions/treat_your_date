@@ -13,14 +13,20 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function AppHeader({ title, isProfilePage }) {
-  const [activeTab, setActiveTab] = useState("menu");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const activeTab = searchParams.get("tab") || "menu";
   const [selectedSort, setSelectedSort] = useState("newest");
   const [selectedCuisine, setSelectedCuisine] = useState(null);
 
   const handleTabChange = (value) => {
-    setActiveTab(value);
+    const newSearchParams = new URLSearchParams(location.search);
+    newSearchParams.set("tab", value);
+    navigate(`${location.pathname}?${newSearchParams.toString()}`);
   };
 
   const handleSortChange = (value) => {
@@ -40,8 +46,7 @@ export default function AppHeader({ title, isProfilePage }) {
         </h1>
         {/* PAGE TABS -------------------- */}
         <div className="space-y-2">
-          {/* Only show TabList and filters if showTabsAndFilters is true and user is authenticated */}
-          {/* {showTabsAndFilters && user ? ( */}
+          {/* Only show TabList and filters if isProfilePage is true and user is authenticated */}
           {!isProfilePage && (
             <div className="space-y-2">
               <Tabs

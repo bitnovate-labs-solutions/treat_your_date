@@ -12,6 +12,10 @@ import { ErrorFallback } from "@/components/ErrorFallback";
 import { CardSkeleton } from "@/components/loading-skeleton";
 import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
+import { useLocation } from "react-router-dom";
+import Menu from "./subpages/Menu";
+import Purchased from "./subpages/Purchased";
+import Booked from "./subpages/Booked";
 
 // FOOD CARD COMPONENT
 
@@ -168,12 +172,29 @@ function FoodItems() {
 }
 
 export default function Treater() {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const activeTab = searchParams.get("tab") || "menu";
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case "menu":
+        return <Menu />;
+      case "purchased":
+        return <Purchased />;
+      case "booked":
+        return <Booked />;
+      default:
+        return <Menu />;
+    }
+  };
   return (
-    <ScrollArea className="h-[calc(100vh-4rem)]">
-      <div className="container mx-auto p-4">
+    <ScrollArea>
+      <div className="container mx-auto p-4 pb-12">
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           <Suspense fallback={<CardSkeleton />}>
-            <FoodItems />
+            {/* <FoodItems /> */}
+            {renderContent()}
           </Suspense>
         </ErrorBoundary>
       </div>
