@@ -105,10 +105,14 @@ function UserProfile() {
 
             <div className="flex absolute bottom-12 left-6">
               {/* Role */}
-              <div className="px-3 py-0.5 bg-blue-200 rounded-full mr-2">
-                <p className="text-blue-800 text-sm capitalize">
-                  {profile?.role || "-"}
-                </p>
+              <div
+                className={`px-3 py-0.5 rounded-full mr-2 ${
+                  profile?.role === "treater"
+                    ? "bg-blue-200 text-blue-800"
+                    : "bg-secondary text-primary"
+                }`}
+              >
+                <p className="text-sm capitalize">{profile?.role || "-"}</p>
               </div>
 
               {/* Location */}

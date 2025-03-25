@@ -29,12 +29,6 @@ export default defineConfig({
         background_color: "#ffffff",
         display: "standalone",
         start_url: "/",
-        shortcuts: [
-          {
-            name: "Open App",
-            url: "/",
-          },
-        ],
         orientation: "portrait", // 👈 Lock to portrait mode
         icons: [
           {

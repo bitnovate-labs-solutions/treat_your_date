@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
-import TreateeCard from "./Treatee/components/TreateeCard";
+import TreateeCard from "./treatee/components/TreateeCard";
 
 export default function Explore() {
   const queryClient = useQueryClient();

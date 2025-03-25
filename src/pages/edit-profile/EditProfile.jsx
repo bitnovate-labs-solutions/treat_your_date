@@ -44,7 +44,6 @@ export default function EditProfile() {
   const { data: profile } = useUserProfile(user);
   const queryClient = useQueryClient();
   const fileInputRef = useRef(null);
-
   // USESTATES
   const [isLoading, setIsLoading] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
@@ -56,6 +55,7 @@ export default function EditProfile() {
   const form = useForm({
     resolver: zodResolver(editProfileSchema),
     defaultValues: {
+      display_name: "",
       age: "",
       about_me: "",
       occupation: "",
@@ -83,6 +83,7 @@ export default function EditProfile() {
   useEffect(() => {
     if (profile) {
       form.reset({
+        display_name: profile.display_name || user?.user_metadata?.name || "",
         age: profile.age?.toString() || "",
         about_me: profile.about_me || "",
         occupation: profile.occupation || "",
@@ -142,6 +143,7 @@ export default function EditProfile() {
       const { error } = await supabase
         .from("user_profiles")
         .update({
+          display_name: data.display_name,
           age: parseInt(data.age),
           about_me: data.about_me,
           occupation: data.occupation,
@@ -242,6 +244,27 @@ export default function EditProfile() {
                   Remove photo
                 </button>
               </div>
+            )}
+          </div>
+
+          {/* DISPLAY NAME */}
+          <div>
+            <h2 className="text-xl font-semibold mb-4">Display Name</h2>
+            <p className="text-sm text-gray-500 mb-4">
+              This is how you&apos;ll appear to others on the platform.
+            </p>
+            <div className="relative">
+              <User className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+              <Input
+                className="h-10 text-base rounded-xl border-gray-200 pl-12 shadow-lg"
+                placeholder="Your display name"
+                {...form.register("display_name")}
+              />
+            </div>
+            {form.formState.errors.display_name && (
+              <p className="text-sm text-red-500 px-1 mt-2">
+                {form.formState.errors.display_name.message}
+              </p>
             )}
           </div>
 

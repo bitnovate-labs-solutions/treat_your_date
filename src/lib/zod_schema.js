@@ -74,6 +74,10 @@ export const createProfileSchema = z.object({
 });
 
 export const editProfileSchema = z.object({
+  display_name: z
+    .string()
+    .min(2, "Display name must be at least 2 characters")
+    .max(50, "Display name must be less than 50 characters"),
   age: z
     .string()
     .min(1, "Age is required")

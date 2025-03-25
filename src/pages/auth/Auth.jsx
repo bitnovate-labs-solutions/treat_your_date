@@ -309,9 +309,8 @@ export default function Auth() {
 
               <Button
                 type="submit"
-                variant="primary"
                 disabled={isLoading}
-                className="mt-2 h-12 w-full rounded-xl bg-primary font-medium text-white hover:bg-primary-hover/90 shadow-2xl"
+                className="mt-2 h-12 w-full bg-primary font-medium text-white hover:bg-primary-hover/90 shadow-2xl"
               >
                 {isLoading
                   ? "Loading..."
