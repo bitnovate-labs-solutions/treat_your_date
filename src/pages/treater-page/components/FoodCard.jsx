@@ -4,6 +4,7 @@ import { Star, ChevronDown, ChevronUp, Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import OrderCard from "@/pages/treater-page/components/OrderCard";
 import ImageWithFallback from "@/components/ImageWithFallback";
+import { generateMenuItems } from "@/lib/mockData";
 
 export default function FoodCard({
   item,
@@ -14,6 +15,9 @@ export default function FoodCard({
 }) {
   // PASS RESTAURANT NAME as PROP TO ORDER CARD
   const restaurantName = item.name;
+  
+  // Generate unique menu items for this restaurant
+  const restaurantMenuItems = generateMenuItems(3);
 
   return (
     <Card
@@ -105,32 +109,9 @@ export default function FoodCard({
       {/* CARD EXPANDED SECTION ------------------------------ */}
       {expanded && showMenuItems && (
         <div className="p-2 space-y-3 pt-3">
-          {/* TEMPORARY MOCK DATA */}
-          {[
-            {
-              name: "Chicken Sandwich",
-              description: "Chicken with mushroom & drinks",
-              price: 100,
-              image_url:
-                "https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-            },
-            {
-              name: "Chicken Chop",
-              description: "With fries, vege & drinks",
-              price: 149,
-              image_url:
-                "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-            },
-            {
-              name: "Chicken Wings",
-              description: "With potatoes & drinks",
-              price: 199,
-              image_url:
-                "https://images.unsplash.com/photo-1608039755401-742074f0548d?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-            },
-          ].map((menuItem) => (
+          {restaurantMenuItems.map((menuItem) => (
             <OrderCard
-              key={menuItem.id}
+              key={menuItem.name}
               item={menuItem}
               restaurantName={restaurantName}
             />

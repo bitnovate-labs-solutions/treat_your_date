@@ -10,17 +10,19 @@ export default function OrderSuccess() {
   const navigate = useNavigate();
 
   return (
-    <div className="fixed inset-0 bg-gray-100 flex flex-col items-center justify-center px-6">
-      <div className="max-w-md w-full text-center space-y-6">
-        <div className="relative w-64 h-64 mx-auto">
-          <img src={SuccessImage} alt="Success" className="w-full h-full" />
+    <div className="fixed inset-0 bg-white flex flex-col items-center justify-center px-6">
+      <div className="max-w-md w-full text-center">
+        <div className="relative w-45 h-45 mx-auto">
+          <img
+            src={SuccessImage}
+            alt="Success"
+            className="w-full h-full opacity-50"
+          />
         </div>
 
         <div className="space-y-2">
-          <h2 className="text-2xl font-semibold text-gray-900">
-            Order Success
-          </h2>
-          <p className="text-lightgray mb-20">
+          <h2 className="text-xl font-bold text-gray-900">Order Success</h2>
+          <p className="text-sm text-lightgray mb-20">
             Your order will be sent to your address. <br /> Thank you for order.
           </p>
         </div>

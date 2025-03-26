@@ -59,16 +59,12 @@ const useCartStore = create(
         }
       },
       // UPDATE ITEM QUANTITY
-      updateQuantity: (itemId, delta) => {
+      updateQuantity: (itemKey, delta) => {
         const items = get().items;
-        const itemToUpdate = items.find((i) => i.id === itemId);
-        if (!itemToUpdate) return;
-
-        const itemKey = `${itemToUpdate.id}-${itemToUpdate.name}-${itemToUpdate.price}`;
         set({
           items: items
             .map((item) =>
-              `${item.id}-${item.name}-${item.price}` === itemKey
+              item.itemKey === itemKey
                 ? { ...item, quantity: Math.max(0, item.quantity + delta) }
                 : item
             )

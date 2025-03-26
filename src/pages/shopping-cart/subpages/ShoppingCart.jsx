@@ -70,7 +70,7 @@ export default function ShoppingCart({ onSuccess }) {
         ) : (
           <>
             {/* SHOPPING CART ADDED ITEMS */}
-            <div className="space-y-4 mb-8 p-4">
+            <div className="space-y-4 p-4 pb-45">
               {items.map((item) => (
                 <div
                   key={item.id}
@@ -114,14 +114,14 @@ export default function ShoppingCart({ onSuccess }) {
                     {/* + / - QUANTITY BUTTONS */}
                     <div className="flex flex-col items-center gap-2 ml-5">
                       <button
-                        onClick={() => updateQuantity(item.id, -1)}
+                        onClick={() => updateQuantity(item.itemKey, -1)}
                         className="w-5 h-5 flex items-center justify-center rounded-sm bg-white border border-gray-300"
                       >
                         <Minus className="h-4 w-4 text-gray-600" />
                       </button>
                       <span className="w-8 text-center">{item.quantity}</span>
                       <button
-                        onClick={() => updateQuantity(item.id, 1)}
+                        onClick={() => updateQuantity(item.itemKey, 1)}
                         className="w-5 h-5 flex items-center justify-center rounded-sm bg-white border border-gray-300"
                       >
                         <Plus className="h-4 w-4 text-gray-600" />
@@ -148,7 +148,7 @@ export default function ShoppingCart({ onSuccess }) {
               <Button
                 onClick={onSuccess}
                 size="lg"
-                className="w-full bg-primary hover:bg-primary-hover text-white shadow-md mb-12"
+                className="w-full bg-primary hover:bg-primary-hover text-white shadow-md mb-8"
               >
                 Order Now
               </Button>
@@ -159,20 +159,3 @@ export default function ShoppingCart({ onSuccess }) {
     </div>
   );
 }
-
-//  {/* ORDER NOW SECTION */}
-//  <div className="w-full fixed bottom-20 px-6 border-t border-lightgray/30 shadow-2xl bg-white">
-//  <div className="pt-6 mb-8">
-//    {/* TOTAL PRICE */}
-//    <div className="flex justify-between items-center mb-4">
-//      <span className="text-gray-600">Total</span>
-//      <span className="text-base font-semibold">RM {total}</span>
-//    </div>
-
-//    {/* ORDER NOW BUTTON */}
-//    <Button
-//      onClick={onSuccess}
-//      className="w-full h-12 bg-primary hover:bg-red-500 text-white drop-shadow-xl"
-//    >
-//      Order Now
-//    </Button>
