@@ -1,11 +1,15 @@
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 // import { supabase } from "@/lib/supabase";
 import { mockApi } from "@/lib/mockData";
 
 // COMPONENTS
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import FoodCard from "../components/FoodCard";
 
 export default function Purchased() {
+  const [expandedId, setExpandedId] = useState(null);
+
   const { data: purchasedItems } = useQuery({
     queryKey: ["foodItems", "purchased"],
     queryFn: mockApi.getPurchasedItems,
@@ -27,30 +31,28 @@ export default function Purchased() {
   //   });
 
   return (
-    <div className="container mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {purchasedItems?.map((item) => (
-          <Card key={item.id} className="bg-white shadow-lg border-none">
-            <CardHeader>
-              <CardTitle>{item.name}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground">{item.description}</p>
-              <p className="text-sm mt-2 text-muted-foreground">
-                {item.location}
-              </p>
-              <div className="mt-4 text-sm text-muted-foreground">
-                Purchased on: {new Date(item.purchased_at).toLocaleDateString()}
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-        {purchasedItems?.length === 0 && (
-          <div className="col-span-full text-center py-8 text-muted-foreground">
-            No purchased items yet
-          </div>
-        )}
-      </div>
+    <div className="space-y-4">
+      {purchasedItems?.map((item) => (
+        <FoodCard
+          key={item.id}
+          item={item}
+          expanded={expandedId === item.id}
+          onToggle={() =>
+            setExpandedId(expandedId === item.id ? null : item.id)
+          }
+          showMenuItems={false}
+          additionalInfo={
+            <div className="text-sm text-gray-500">
+              Purchased on: {new Date(item.purchased_at).toLocaleDateString()}
+            </div>
+          }
+        />
+      ))}
+      {purchasedItems?.length === 0 && (
+        <div className="col-span-full text-center py-8 text-muted-foreground">
+          No purchased items yet
+        </div>
+      )}
     </div>
   );
 }

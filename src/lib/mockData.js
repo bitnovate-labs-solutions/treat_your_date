@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import { states } from "./constants";
 
 // Generate a list of mock food items
 const generateFoodItems = (count, status = "available") => {
@@ -17,7 +18,8 @@ const generateFoodItems = (count, status = "available") => {
       "Indian Thali",
     ]),
     description: faker.lorem.sentence(),
-    location: faker.location.streetAddress(),
+    // location: faker.location.streetAddress(),
+    location: faker.helpers.arrayElement(states).label,
     price: faker.number.float({ min: 20, max: 200, precision: 0.01 }),
     rating: Math.round(faker.number.float({ min: 4.0, max: 5.0 }) * 10) / 10,
     likes: faker.number.int({ min: 5, max: 30 }),
@@ -66,6 +68,13 @@ export const mockApi = {
     // Simulate network delay
     await new Promise((resolve) => setTimeout(resolve, 500));
     return mockData.menu;
+  },
+  getCartItems: async () => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    return mockData.menu.slice(0, 3).map((item) => ({
+      ...item,
+      quantity: 1,
+    }));
   },
   getPurchasedItems: async () => {
     await new Promise((resolve) => setTimeout(resolve, 500));

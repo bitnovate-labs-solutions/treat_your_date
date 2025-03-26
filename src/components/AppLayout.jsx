@@ -13,7 +13,9 @@ export default function Layout() {
   const { user } = useAuth();
   const [title, setTitle] = useState("No Title");
 
-  const isProfilePage = location.pathname === "/profile";
+  // Define Home Page route
+  const isHomePage =
+    location.pathname === "/treater" || location.pathname === "/treatee";
 
   const { data: profile } = useUserProfile(user); // Fetch user_profile data
 
@@ -60,7 +62,7 @@ export default function Layout() {
     const titles = {
       "/": "Home",
       "/profile": "Profile",
-      "/bookmarks": "Bookmarks",
+      "/my-cart": "My Cart",
       "/messages": "Messages",
     };
 
@@ -70,7 +72,7 @@ export default function Layout() {
   return (
     <div className="h-full flex flex-col w-full max-w-md mx-auto">
       {/* HEADER */}
-      <AppHeader isProfilePage={isProfilePage} title={title} />
+      <AppHeader isHomePage={isHomePage} title={title} />
 
       {/* OUTLET - placeholder for rendering child routes (Page content goes here!) */}
       <main className="flex-1 overflow-y-auto pb-16 bg-gray-100">

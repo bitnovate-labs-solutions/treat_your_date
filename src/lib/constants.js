@@ -1,15 +1,3 @@
-export const sortOptions = [
-  { value: "newest", label: "Newest" },
-  { value: "oldest", label: "Oldest" },
-  { value: "trending", label: "Trending" },
-  { value: "highest-rated", label: "Highest Rated" },
-  { value: "lowest-rated", label: "Lowest Rated" },
-  { value: "price-low-high", label: "Price: Low to High" },
-  { value: "price-high-low", label: "Price: High to Low" },
-  { value: "a-z", label: "Alphabetical (A-Z)" },
-  { value: "z-a", label: "Alphabetical (Z-A)" },
-];
-
 export const cuisineTypes = [
   { value: "american", label: "American" },
   { value: "chinese", label: "Chinese" },
@@ -31,4 +19,35 @@ export const foodCategories = [
   { value: "halal", label: "Halal" },
   { value: "non-halal", label: "Non-Halal" },
   { value: "kosher", label: "Kosher" },
+];
+
+export const sortOptions = [
+  { value: "newest", label: "Newest" },
+  { value: "oldest", label: "Oldest" },
+  { value: "trending", label: "Trending" },
+  { value: "highest-rated", label: "Highest Rated" },
+  { value: "lowest-rated", label: "Lowest Rated" },
+  { value: "price-low-high", label: "Price: Low to High" },
+  { value: "price-high-low", label: "Price: High to Low" },
+  { value: "a-z", label: "Alphabetical (A-Z)" },
+  { value: "z-a", label: "Alphabetical (Z-A)" },
+];
+
+export const states = [
+  { value: "johor", label: "Johor" },
+  { value: "kedah", label: "Kedah" },
+  { value: "kelantan", label: "Kelantan" },
+  { value: "melaka", label: "Melaka" },
+  { value: "negeri-sembilan", label: "Negeri Sembilan" },
+  { value: "pahang", label: "Pahang" },
+  { value: "penang", label: "Penang" },
+  { value: "perak", label: "Perak" },
+  { value: "perlis", label: "Perlis" },
+  { value: "sabah", label: "Sabah" },
+  { value: "sarawak", label: "Sarawak" },
+  { value: "selangor", label: "Selangor" },
+  { value: "terengganu", label: "Terengganu" },
+  { value: "kuala-lumpur", label: "Kuala Lumpur" },
+  { value: "labuan", label: "Labuan" },
+  { value: "putrajaya", label: "Putrajaya" },
 ];

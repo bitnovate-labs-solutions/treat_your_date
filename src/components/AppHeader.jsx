@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { cuisineTypes, foodCategories, sortOptions } from "@/lib/constants";
+import {
+  cuisineTypes,
+  foodCategories,
+  sortOptions,
+  states,
+} from "@/lib/constants";
+import { useLocation, useNavigate } from "react-router-dom";
 
 // COMPONENTS
 import { ChevronDown } from "lucide-react";
@@ -10,12 +16,10 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { useLocation, useNavigate } from "react-router-dom";
 
-export default function AppHeader({ title, isProfilePage }) {
+export default function AppHeader({ title, isHomePage }) {
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -46,8 +50,8 @@ export default function AppHeader({ title, isProfilePage }) {
         </h1>
         {/* PAGE TABS -------------------- */}
         <div className="space-y-2">
-          {/* Only show TabList and filters if isProfilePage is true and user is authenticated */}
-          {!isProfilePage && (
+          {/* Only show TabList and filters if isProfilePage is false and user is authenticated */}
+          {isHomePage && (
             <div className="space-y-2">
               <Tabs
                 value={activeTab}
@@ -142,9 +146,30 @@ export default function AppHeader({ title, isProfilePage }) {
                         {option.label}
                       </DropdownMenuItem>
                     ))}
-                    <DropdownMenuSeparator className="bg-gray-300 mb-4" />
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
+                {/* FOOD CATEGORIES */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild className="h-7">
+                    <Button
+                      variant="secondary"
+                      className="rounded-full whitespace-nowrap text-[12px] font-light py-1"
+                    >
+                      {selectedCuisine
+                        ? [...cuisineTypes, ...foodCategories].find(
+                            (c) => c.value === selectedCuisine
+                          )?.label
+                        : "Category"}
+                      <ChevronDown className="w-4 h-4 mr-1" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent
+                    align="start"
+                    className="w-46 bg-white border-gray-100 shadow-xl text-darkgray py-4"
+                  >
                     <DropdownMenuLabel className="text-primary font-bold">
-                      Food Categories
+                      Food Category
                     </DropdownMenuLabel>
                     {foodCategories.map((option) => (
                       <DropdownMenuItem
@@ -169,12 +194,26 @@ export default function AppHeader({ title, isProfilePage }) {
                 </Button>
 
                 {/* LOCATION */}
-                <Button
-                  variant="secondary"
-                  className="rounded-full whitespace-nowrap text-[12px] font-light py-1 h-7"
-                >
-                  Location
-                </Button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="secondary"
+                      className="rounded-full whitespace-nowrap text-[12px] font-light py-1 h-7"
+                    >
+                      Location
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent
+                    align="start"
+                    className="w-40 bg-white border-gray-100 shadow-xl text-darkgray py-4"
+                  >
+                    {states.map((state) => (
+                      <DropdownMenuItem key={state.value} onClick={() => {}}>
+                        {state.label}
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             </div>
           )}

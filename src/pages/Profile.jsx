@@ -409,9 +409,10 @@ function UserProfile() {
           </div>
 
           {/* SIGN OUT BUTTON -------------------- */}
-          <div className="pt-6">
+          <div className="px-2">
             <Button
-              className="w-full h-14 text-base bg-primary hover:bg-primary-hover text-white shadow-2xl"
+              size="lg"
+              className="w-full bg-primary hover:bg-primary-hover text-white shadow-md"
               onClick={handleSignOut}
             >
               <LogOut className="mr-2 h-4 w-4" />

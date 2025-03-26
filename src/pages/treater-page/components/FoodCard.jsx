@@ -2,6 +2,8 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Star, ChevronDown, ChevronUp, Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
+import OrderCard from "@/pages/treater-page/components/OrderCard";
+import ImageWithFallback from "@/components/ImageWithFallback";
 
 export default function FoodCard({
   item,
@@ -9,8 +11,10 @@ export default function FoodCard({
   onToggle,
   showExpandButton = true,
   showMenuItems = true,
-  // additionalInfo = null,
 }) {
+  // PASS RESTAURANT NAME as PROP TO ORDER CARD
+  const restaurantName = item.name;
+
   return (
     <Card
       className={cn(
@@ -18,19 +22,15 @@ export default function FoodCard({
         expanded ? "bg-white" : "bg-white"
       )}
     >
-      <div className="p-3 border-none shadow-xl">
-        <div className="flex gap-4">
+      <div className="p-3 border-none">
+        <div className="flex gap-3">
           {/* CARD IMAGE */}
           <div className="w-26 h-26 rounded-lg overflow-hidden flex-shrink-0">
-            <img
+            <ImageWithFallback
               src={item.image_url}
               alt={item.name}
-              className="w-full h-full object-cover"
               loading="lazy"
-              onError={(e) => {
-                e.target.src =
-                  "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80";
-              }}
+              className="w-full h-full object-cover"
             />
           </div>
 
@@ -47,7 +47,7 @@ export default function FoodCard({
             </div>
 
             <div className="grid grid-cols-5">
-              <div className="mr-3 col-span-3">
+              <div className="mr-2 col-span-3">
                 <div className="flex items-center gap-2 mt-2">
                   <div className="flex items-center">
                     {/* RATING */}
@@ -69,18 +69,20 @@ export default function FoodCard({
                 <div className="mt-1">
                   <span className="inline-block px-2 py-1 bg-[#EEF2FF] text-[#6366F1] rounded-md text-xs">
                     {/* {item.location} */}
-                    Petaling Jayaxxxxx
+                    Petaling Jaya
                   </span>
-                  {/* {additionalInfo} */}
                 </div>
               </div>
 
               {/* EXPAND / HIDE BUTTON */}
-              <div className="flex items-end col-span-2">
+              <div className="flex items-end col-span-2 ml-2">
                 {showExpandButton && (
                   <Button
-                    // variant="secondary"
-                    className="w-20 h-10 bg-primary rounded-lg text-xs text-white hover:bg-secondary"
+                    className={`w-20 h-8 rounded-lg text-xs hover:bg-secondary ${
+                      expanded
+                        ? "bg-white border-1 border-primary text-primary"
+                        : " bg-primary text-white"
+                    }`}
                     onClick={onToggle}
                   >
                     {expanded ? (
@@ -102,71 +104,36 @@ export default function FoodCard({
 
       {/* CARD EXPANDED SECTION ------------------------------ */}
       {expanded && showMenuItems && (
-        <div className="p-2 space-y-3 pt-4">
+        <div className="p-2 space-y-3 pt-3">
+          {/* TEMPORARY MOCK DATA */}
           {[
             {
               name: "Chicken Sandwich",
               description: "Chicken with mushroom & drinks",
               price: 100,
+              image_url:
+                "https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             },
             {
               name: "Chicken Chop",
               description: "With fries, vege & drinks",
               price: 149,
+              image_url:
+                "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             },
             {
               name: "Chicken Wings",
               description: "With potatoes & drinks",
               price: 199,
+              image_url:
+                "https://images.unsplash.com/photo-1608039755401-742074f0548d?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             },
-          ].map((menuItem, index) => (
-            <div
-              key={index}
-              className="flex items-center p-2 rounded-lg hover:bg-gray-50 border border-gray-300"
-            >
-              {/* CONTENT SECTION */}
-              <div className="flex gap-3">
-                {/* IMAGE */}
-                <div className="w-26 h-26 rounded-lg overflow-hidden">
-                  <img
-                    src={`https://images.unsplash.com/photo-${
-                      1540189549336 + index
-                    }?auto=format&fit=crop&w=400&q=80`}
-                    alt={menuItem.name}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                    onError={(e) => {
-                      e.target.src =
-                        "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=400&q=80";
-                    }}
-                  />
-                </div>
-              </div>
-
-              <div className="flex flex-col w-full">
-                {/* MENU NAME AND DESCRIPTION */}
-                <div className="pl-3 pb-6">
-                  <h4 className="text-sm font-semibold text-gray-900">
-                    {menuItem.name}
-                  </h4>
-                  <p className="text-xs text-gray-500">
-                    {menuItem.description}
-                  </p>
-                </div>
-
-                <div className="flex items-center justify-between px-3">
-                  {/* PRICE*/}
-                  <span className="px-4 py-1 bg-[#EEF2FF] text-[#6366F1] rounded-lg">
-                    ${menuItem.price}
-                  </span>
-
-                  {/* ADD BUTTON */}
-                  <Button className="bg-[#6366F1] text-white hover:bg-[#4F46E5] rounded-xl">
-                    <Heart className="h-4 w-4 mr-1" /> Add
-                  </Button>
-                </div>
-              </div>
-            </div>
+          ].map((menuItem) => (
+            <OrderCard
+              key={menuItem.id}
+              item={menuItem}
+              restaurantName={restaurantName}
+            />
           ))}
         </div>
       )}

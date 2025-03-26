@@ -42,11 +42,11 @@ const AppNav = ({ profile, handleHomeClick, handleProtectedNavigation }) => {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => handleProtectedNavigation("/bookmarks")}
+              onClick={() => handleProtectedNavigation("/my-cart")}
             >
               <ShoppingCart
                 className={`${
-                  location.pathname === `/bookmarks`
+                  location.pathname === `/my-cart`
                     ? "text-primary"
                     : "text-darkgray"
                 }`}

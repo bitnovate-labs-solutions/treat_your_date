@@ -13,7 +13,7 @@ import Auth from "@/pages/auth/Auth";
 import Profile from "@/pages/Profile";
 import Treater from "@/pages/treater-page/Treater";
 import Treatee from "@/pages/treatee-page/Treatee";
-import Bookmarks from "@/pages/Bookmarks";
+import ShoppingCart from "@/pages/shopping-cart/Cart";
 import Messages from "@/pages/Messages";
 import Explore from "@/pages/Explore";
 import CreateProfile from "@/pages/CreateProfile";
@@ -60,7 +60,7 @@ export default function AppRoutes() {
           <Route path="/treater" element={<Treater />} />
           <Route path="/treatee" element={<Treatee />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/bookmarks" element={<Bookmarks />} />
+          <Route path="/my-cart" element={<ShoppingCart />} />
           <Route path="/messages" element={<Messages />} />
         </Route>
       </Route>

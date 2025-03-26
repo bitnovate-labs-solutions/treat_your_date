@@ -847,7 +847,8 @@ export default function CreateProfile() {
 
           <Button
             type="submit"
-            className="mt-2 h-12 w-full rounded-xl bg-primary font-medium text-white hover:bg-primary-hover/90 shadow-xl"
+            size="lg"
+            className="mt-2 h-12 w-full bg-primary font-medium text-white hover:bg-primary-hover/90 shadow-xl"
             disabled={isLoading}
           >
             {isLoading ? "Saving..." : "Save Changes"}
