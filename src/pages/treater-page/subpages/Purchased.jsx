@@ -49,7 +49,7 @@ export default function Purchased() {
         />
       ))}
       {purchasedItems?.length === 0 && (
-        <div className="col-span-full text-center py-8 text-muted-foreground">
+        <div className="col-span-full text-center py-8 text-muted-foreground text-darkgray">
           No purchased items yet
         </div>
       )}

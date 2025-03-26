@@ -77,12 +77,10 @@ function UserProfile() {
     });
   };
 
-  console.log(profile);
-
   return (
     <div>
-      <Card className="bg-white border-gray-200 shadow-md rounded-none pb-12">
-        <CardContent className="space-y-4 p-4">
+      <Card className="bg-white border-gray-200 rounded-none">
+        <CardContent className="space-y-4 p-5">
           {/* PROFILE IMAGE */}
           <div className="h-[450px] w-full relative">
             {/* IMAGE */}

@@ -191,7 +191,7 @@ export default function Treater() {
 
   return (
     <ScrollArea>
-      <div className="container mx-auto p-3 pb-10">
+      <div>
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           <Suspense fallback={<CardSkeleton />}>
             {/* <FoodItems /> */}

@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 // import { useQueryClient, useMutation } from "@tanstack/react-query";
@@ -7,8 +8,20 @@ import ImageWithFallback from "@/components/ImageWithFallback";
 import { Card, CardFooter, CardHeader } from "@/components/ui/card";
 
 export default function OrderCard({ item, restaurantName }) {
-  const addItem = useCartStore((state) => state.addItem); // use Zustand useCartStore to add items
+  const [isInCart, setIsInCart] = useState(false);
+  const { items, addItem, removeItem } = useCartStore();
 
+  // Check if item is in cart whenever items change
+  useEffect(() => {
+    const itemInCart = items.some(
+      (cartItem) =>
+        cartItem.name === item.name &&
+        cartItem.restaurantName === restaurantName
+    );
+    setIsInCart(itemInCart);
+  }, [items, item.name, restaurantName]);
+
+  // HANDLE ADD TO CART
   const handleAddToCart = () => {
     const itemsWithRestaurantName = {
       ...item,
@@ -17,7 +30,7 @@ export default function OrderCard({ item, restaurantName }) {
 
     addItem(itemsWithRestaurantName);
     toast.success("Added to cart", {
-      duration: 1000, // Closes after 2 seconds
+      duration: 1000,
     });
   };
 
@@ -61,11 +74,13 @@ export default function OrderCard({ item, restaurantName }) {
         <CardFooter className="flex items-center justify-between p-0">
           <span className="text-[#6366F1] font-medium">RM {item.price}</span>
           <Button
-            className="bg-[#6366F1] text-white hover:bg-[#4F46E5] rounded-xl"
+            className={`h-8 bg-[#6366F1] text-white hover:bg-[#4F46E5] rounded-lg ${
+              isInCart ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600 px-6"
+            }`}
+            disabled={isInCart}
             onClick={handleAddToCart}
           >
-            <Heart className="h-4 w-4 mr-1" />
-            Add
+            <span className="text-sm">{isInCart ? "Added" : "Add"}</span>
           </Button>
         </CardFooter>
       </CardHeader>

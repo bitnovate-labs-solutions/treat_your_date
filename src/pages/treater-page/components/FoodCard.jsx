@@ -4,7 +4,6 @@ import { Star, ChevronDown, ChevronUp, Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import OrderCard from "@/pages/treater-page/components/OrderCard";
 import ImageWithFallback from "@/components/ImageWithFallback";
-import { generateMenuItems } from "@/lib/mockData";
 
 export default function FoodCard({
   item,
@@ -16,8 +15,8 @@ export default function FoodCard({
   // PASS RESTAURANT NAME as PROP TO ORDER CARD
   const restaurantName = item.name;
   
-  // Generate unique menu items for this restaurant
-  const restaurantMenuItems = generateMenuItems(3);
+  // Use menu items from the food item
+  const restaurantMenuItems = item.menu_items || [];
 
   return (
     <Card
@@ -72,8 +71,7 @@ export default function FoodCard({
                 {/* CARD LOCATION */}
                 <div className="mt-1">
                   <span className="inline-block px-2 py-1 bg-[#EEF2FF] text-[#6366F1] rounded-md text-xs">
-                    {/* {item.location} */}
-                    Petaling Jaya
+                    {item.location}
                   </span>
                 </div>
               </div>

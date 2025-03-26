@@ -3,8 +3,8 @@
 
 // Manages cart items with:
 // addItem(item): Adds an item to the cart or increases its quantity if it already exists.
-// removeItem(itemId): Removes an item from the cart.
-// updateQuantity(itemId, delta): Increases or decreases item quantity. If quantity drops to 0, it removes the item.
+// removeItem(itemKey): Removes an item from the cart.
+// updateQuantity(itemKey, delta): Increases or decreases item quantity. If quantity drops to 0, it removes the item.
 // clearCart(): Empties the cart.
 // getTotal(): Calculates the total cost of all items.
 
@@ -18,19 +18,12 @@ const useCartStore = create(
       items: [],
       // ADD ITEM
       addItem: (item) => {
-        // XXXXXXXXXXXXXXXXX ---------- const currentItems = get().items;
         const items = get().items;
         // Create a unique identifier for each item
         const itemKey = `${item.id}-${item.name}-${item.price}`;
         const existingItem = items.find(
           (i) => `${i.id}-${i.name}-${i.price}` === itemKey
         );
-
-        // XXXXXXXXXXXXXXXXX ---------- const existingItem = currentItems.find(
-        //   // Check for unique items by comparing multiple properties (id, name, and price) instead of just the id
-        //   (i) =>
-        //     i.id === item.id && i.name === item.name && i.price === item.price
-        // );
 
         if (existingItem) {
           set({
@@ -45,18 +38,11 @@ const useCartStore = create(
         }
       },
       // REMOVE ITEM
-      removeItem: (id) => {
+      removeItem: (itemKey) => {
         const items = get().items;
-        const itemToRemove = items.find((i) => i.id === id);
-        if (itemToRemove) {
-          set({
-            items: items.filter(
-              (i) =>
-                `${i.id}-${i.name}-${i.price}` !==
-                `${itemToRemove.id}-${itemToRemove.name}-${itemToRemove.price}`
-            ),
-          });
-        }
+        set({
+          items: items.filter((i) => i.itemKey !== itemKey),
+        });
       },
       // UPDATE ITEM QUANTITY
       updateQuantity: (itemKey, delta) => {

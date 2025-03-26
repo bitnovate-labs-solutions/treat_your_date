@@ -73,7 +73,7 @@ export default function ShoppingCart({ onSuccess }) {
             <div className="space-y-4 p-4 pb-45">
               {items.map((item) => (
                 <div
-                  key={item.id}
+                  key={item.itemKey}
                   className="flex items-start gap-3 bg-white shadow-lg p-4 rounded-xl"
                 >
                   {/* CARD IMAGE */}
@@ -96,19 +96,25 @@ export default function ShoppingCart({ onSuccess }) {
                           {item.name}
                         </h3>
                       </div>
-                      {/* ITEM PRICE */}
-                      <div>
-                        <p className="text-gray-600">RM {item.price}</p>
-                      </div>
 
-                      {/* DELETE BUTTON */}
-                      {/* <button
-                        // onClick={() => updateQuantity(item.id, -item.quantity)}
-                        onClick={() => removeItem(item.id)}
-                        className="text-red-500 hover:text-red-600 text-right"
-                      >
-                        <Trash2 className="h-5 w-5" />
-                      </button> */}
+                      <div className="grid grid-cols-2">
+                        {/* ITEM PRICE */}
+                        <div>
+                          <p className="text-gray-600 font-bold">
+                            RM {item.price}
+                          </p>
+                        </div>
+
+                        {/* DELETE BUTTON */}
+                        <div className="flex justify-center">
+                          <button
+                            onClick={() => removeItem(item.itemKey)}
+                            className="text-red-500 hover:text-red-600 text-right"
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </button>
+                        </div>
+                      </div>
                     </div>
 
                     {/* + / - QUANTITY BUTTONS */}

@@ -70,12 +70,12 @@ export default function Layout() {
   }, [location.pathname]);
 
   return (
-    <div className="h-full flex flex-col w-full max-w-md mx-auto">
+    <div className="flex flex-col min-h-screen w-full max-w-md mx-auto bg-gray-100">
       {/* HEADER */}
       <AppHeader isHomePage={isHomePage} title={title} />
 
       {/* OUTLET - placeholder for rendering child routes (Page content goes here!) */}
-      <main className="flex-1 overflow-y-auto pb-16 bg-gray-100">
+      <main className={`flex-1 ${isHomePage ? "pb-26 p-3" : "pb-20 p-0"}`}>
         <Outlet />
       </main>
 
