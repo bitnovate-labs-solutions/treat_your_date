@@ -57,7 +57,7 @@ export default function ShoppingCart({ onSuccess }) {
       <div className="max-w-md mx-auto">
         {/* SHOPPING CART EMPTY PAGE */}
         {items.length === 0 ? (
-          <div className="fixed inset-0 text-center py-80 px-6">
+          <div className="min-h-screen flex flex-col items-center justify-center px-6">
             <p className="text-lightgray mb-4">Your cart is empty</p>
             <Button
               size="lg"
@@ -70,7 +70,7 @@ export default function ShoppingCart({ onSuccess }) {
         ) : (
           <>
             {/* SHOPPING CART ADDED ITEMS */}
-            <div className="space-y-4 p-4 pb-45">
+            <div className="space-y-4 p-4">
               {items.map((item) => (
                 <div
                   key={item.itemKey}
@@ -139,9 +139,9 @@ export default function ShoppingCart({ onSuccess }) {
             </div>
 
             {/* ORDER NOW SECTION */}
-            <div className="max-w-md w-full fixed bottom-20 px-6 border-t border-lightgray/20 shadow-lg bg-white">
+            <div className="fixed bottom-20 left-0 right-0 max-w-md mx-auto border-t border-lightgray/20 shadow-lg bg-white">
               {/* TOTAL PRICE */}
-              <div className="pt-6 mb-8">
+              <div className="pt-6 px-6">
                 <div className="flex justify-between items-center mb-4">
                   <span className="text-gray-600">Total</span>
                   <span className="text-base font-semibold">
@@ -151,13 +151,15 @@ export default function ShoppingCart({ onSuccess }) {
               </div>
 
               {/* ORDER NOW BUTTON */}
-              <Button
-                onClick={onSuccess}
-                size="lg"
-                className="w-full bg-primary hover:bg-primary-hover text-white shadow-md mb-8"
-              >
-                Order Now
-              </Button>
+              <div className="px-6 pb-6">
+                <Button
+                  onClick={onSuccess}
+                  size="lg"
+                  className="w-full bg-primary hover:bg-primary-hover text-white shadow-md"
+                >
+                  Order Now
+                </Button>
+              </div>
             </div>
           </>
         )}
