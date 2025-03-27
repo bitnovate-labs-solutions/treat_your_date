@@ -268,7 +268,7 @@ export default function AppHeader({ title, isHomePage, isProfilePage }) {
                   <DropdownMenuTrigger asChild>
                     <Button
                       variant="outline"
-                      className="rounded-full whitespace-nowrap text-[12px] font-light py-1 h-7 border-none bg-secondary hover:bg-secondary/80"
+                      className="rounded-full whitespace-nowrap text-[12px] font-light py-1 h-7 border-none bg-secondary hover:bg-secondary/80 pr-2"
                     >
                       Location
                       <ChevronDown className="w-4 h-4 ml-1" />
@@ -276,7 +276,7 @@ export default function AppHeader({ title, isHomePage, isProfilePage }) {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
                     align="start"
-                    className="w-35 bg-white border-gray-100 shadow-2xl rounded-xl text-darkgray py-4 mr-4"
+                    className="w-35 bg-white border-gray-100 shadow-2xl rounded-xl text-darkgray py-4 mr-2"
                   >
                     {states.map((state) => (
                       <DropdownMenuItem key={state.value} onClick={() => {}}>
