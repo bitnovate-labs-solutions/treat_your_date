@@ -173,7 +173,7 @@ export default function Treatee() {
 
   return (
     <ScrollArea>
-      <div className="container mx-auto p-4 pb-12">
+      <div className="bg-transparent py-4">
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           <Suspense fallback={<CardSkeleton />}>
             {/* <FoodItems /> */}

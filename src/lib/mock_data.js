@@ -205,11 +205,86 @@ const purchasedItems = [
     status: "purchased",
     created_at: "2024-03-10T11:00:00Z",
     purchased_at: "2024-03-11T14:30:00Z",
+    purchase_date: "2024-03-11",
     booked_at: null,
     user_profiles: {
       display_name: "green_plate",
     },
     menu_items: [],
+    purchased_by: [
+      {
+        id: 1,
+        user_profiles: {
+          display_name: "John",
+          avatar_url: "https://i.pravatar.cc/150?img=1",
+          status: "online",
+        },
+        purchased_at: "2024-03-11T14:30:00Z"
+      },
+      {
+        id: 2,
+        user_profiles: {
+          display_name: "Mike",
+          avatar_url: "https://i.pravatar.cc/150?img=2",
+          status: "away",
+        },
+        purchased_at: "2024-03-11T14:35:00Z"
+      },
+      {
+        id: 3,
+        user_profiles: {
+          display_name: "Sarah",
+          avatar_url: "https://i.pravatar.cc/150?img=3",
+          status: "offline",
+        },
+        purchased_at: "2024-03-11T14:40:00Z"
+      },
+      {
+        id: 9,
+        user_profiles: {
+          display_name: "Emma",
+          avatar_url: "https://i.pravatar.cc/150?img=9",
+          status: "online",
+        },
+        purchased_at: "2024-03-11T14:45:00Z"
+      },
+      {
+        id: 10,
+        user_profiles: {
+          display_name: "Alex",
+          avatar_url: "https://i.pravatar.cc/150?img=10",
+          status: "away",
+        },
+        purchased_at: "2024-03-11T14:50:00Z"
+      },
+      {
+        id: 11,
+        user_profiles: {
+          display_name: "Sophie",
+          avatar_url: "https://i.pravatar.cc/150?img=11",
+          status: "online",
+        },
+        purchased_at: "2024-03-11T14:55:00Z"
+      },
+      {
+        id: 12,
+        user_profiles: {
+          display_name: "James",
+          avatar_url: "https://i.pravatar.cc/150?img=12",
+          status: "offline",
+        },
+        purchased_at: "2024-03-11T15:00:00Z"
+      },
+      {
+        id: 13,
+        user_profiles: {
+          display_name: "Olivia",
+          avatar_url: "https://i.pravatar.cc/150?img=13",
+          status: "online",
+        },
+        purchased_at: "2024-03-11T15:05:00Z"
+      }
+    ],
   },
   {
     id: "6",
@@ -225,11 +300,77 @@ const purchasedItems = [
     status: "purchased",
     created_at: "2024-03-09T13:00:00Z",
     purchased_at: "2024-03-10T16:45:00Z",
+    purchase_date: "2024-03-10",
     booked_at: null,
     user_profiles: {
       display_name: "bbq_master",
     },
     menu_items: [],
+    purchased_by: [
+      {
+        id: 6,
+        user_profiles: {
+          display_name: "David",
+          avatar_url: "https://i.pravatar.cc/150?img=6",
+          status: "online",
+        },
+        purchased_at: "2024-03-10T16:45:00Z"
+      },
+      {
+        id: 7,
+        user_profiles: {
+          display_name: "Lisa",
+          avatar_url: "https://i.pravatar.cc/150?img=7",
+          status: "away",
+        },
+        purchased_at: "2024-03-10T16:50:00Z"
+      },
+      {
+        id: 8,
+        user_profiles: {
+          display_name: "Tom",
+          avatar_url: "https://i.pravatar.cc/150?img=8",
+          status: "offline",
+        },
+        purchased_at: "2024-03-10T16:55:00Z"
+      },
+      {
+        id: 14,
+        user_profiles: {
+          display_name: "Rachel",
+          avatar_url: "https://i.pravatar.cc/150?img=14",
+          status: "online",
+        },
+        purchased_at: "2024-03-10T17:00:00Z"
+      },
+      {
+        id: 15,
+        user_profiles: {
+          display_name: "Michael",
+          avatar_url: "https://i.pravatar.cc/150?img=15",
+          status: "away",
+        },
+        purchased_at: "2024-03-10T17:05:00Z"
+      },
+      {
+        id: 16,
+        user_profiles: {
+          display_name: "Sophia",
+          avatar_url: "https://i.pravatar.cc/150?img=16",
+          status: "online",
+        },
+        purchased_at: "2024-03-10T17:10:00Z"
+      },
+      {
+        id: 17,
+        user_profiles: {
+          display_name: "Daniel",
+          avatar_url: "https://i.pravatar.cc/150?img=17",
+          status: "offline",
+        },
+        purchased_at: "2024-03-10T17:15:00Z"
+      }
+    ],
   },
 ];
 
