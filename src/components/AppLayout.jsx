@@ -68,7 +68,7 @@ export default function Layout({ title }) {
       />
 
       {/* OUTLET - placeholder for rendering child routes (Page content goes here!) */}
-      <main className={`flex-1 ${isHomePage ? "pb-26 px-3" : "pb-20 p-0"}`}>
+      <main className={`flex-1 ${isHomePage ? "px-3" : "p-0"}`}>
         <Outlet />
       </main>
 

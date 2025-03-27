@@ -104,7 +104,7 @@ const Connect = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
+    <div className="min-h-full bg-gray-100 p-4 mb-22">
       <div className="max-w-md mx-auto">
         <div {...handlers} className="relative">
           <Card className="overflow-hidden border-none shadow-2xl rounded-2xl">

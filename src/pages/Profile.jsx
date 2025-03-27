@@ -57,7 +57,7 @@ function UserProfile() {
 
   return (
     <div>
-      <Card className="bg-white border-gray-200 rounded-none">
+      <Card className="bg-white border-gray-200 rounded-none pb-20">
         <CardContent className="space-y-4 p-5">
           {/* PROFILE IMAGE */}
           <div className="h-[450px] w-full relative">
