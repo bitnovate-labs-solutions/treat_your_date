@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 // import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";

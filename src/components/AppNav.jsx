@@ -9,7 +9,6 @@ import { Button } from "./ui/button";
 const AppNav = ({ profile, handleHomeClick, handleProtectedNavigation }) => {
   return (
     <div>
-      {" "}
       {/* BOTTOM NAVIGATION BAR */}
       <nav className="w-full max-w-md mx-auto fixed bottom-0 left-0 right-0 z-10 rounded-t-2xl border-t border-gray-200 bg-white shadow-2xl">
         <div className="container mx-auto px-4 shadow-lg h-[5.5rem]">
