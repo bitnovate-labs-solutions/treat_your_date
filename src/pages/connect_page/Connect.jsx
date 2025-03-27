@@ -109,10 +109,7 @@ const Connect = () => {
         <div {...handlers} className="relative">
           <Card className="overflow-hidden border-none shadow-2xl rounded-2xl">
             {/* PROFILE IMAGE */}
-            <div
-              className="h-[600px] w-full relative cursor-pointer"
-              onClick={() => !isSwiping && setShowDetails(!showDetails)}
-            >
+            <div className="h-[600px] w-full relative">
               <img
                 src={cachedImageUrl || defaultImage}
                 alt="Profile"
@@ -174,7 +171,12 @@ const Connect = () => {
               </div>
 
               {/* VIEW DETAILS BUTTON */}
-              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-t-md px-5 py-1">
+              <div
+                className={`absolute bottom-0 right-0.5 flex items-center gap-2 bg-white/30 backdrop-blur-sm rounded-tl-md px-4 py-1 cursor-pointer ${
+                  showDetails ? "hidden" : "rounded-br-xl"
+                }`}
+                onClick={() => !isSwiping && setShowDetails(!showDetails)}
+              >
                 <span className="text-white text-sm">View Details</span>
                 <ChevronDown
                   className={`w-4 h-4 text-white transition-transform duration-200 ${
