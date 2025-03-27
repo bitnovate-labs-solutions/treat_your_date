@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 // import { mockApi } from "@/lib/mockData";
 import useCartStore from "@/lib/cart_store";
 import ImageWithFallback from "@/components/ImageWithFallback";
+import EmptyCart from "@/assets/images/empty_cart.png";
 
 export default function ShoppingCart({ onSuccess }) {
   const navigate = useNavigate();
@@ -57,8 +58,12 @@ export default function ShoppingCart({ onSuccess }) {
       <div className="max-w-md mx-auto">
         {/* SHOPPING CART EMPTY PAGE */}
         {items.length === 0 ? (
-          <div className="min-h-screen flex flex-col items-center justify-center px-6">
-            <p className="text-lightgray mb-4">Your cart is empty</p>
+          <div className="fixed inset-0 flex flex-col items-center justify-center px-6">
+            <ImageWithFallback src={EmptyCart} className="w-50 h-auto mb-6" />
+            <p className="text-lightgray text-sm">Your cart is empty</p>
+            <p className="text-lightgray text-sm mb-10 text-center px-10">
+              Browser products and add to cart to place on order!
+            </p>
             <Button
               size="lg"
               onClick={() => navigate("/")}
