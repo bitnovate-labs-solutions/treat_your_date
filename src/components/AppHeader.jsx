@@ -93,7 +93,7 @@ export default function AppHeader({ title, isHomePage, isProfilePage }) {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
                   align="end"
-                  className="w-30 bg-white border-gray-100 drop-shadow-2xl mr-2 space-y-2 py-4 rounded-xl"
+                  className="w-30 bg-white border-gray-100 shadow-2xl mr-2 space-y-2 py-4 rounded-xl"
                 >
                   {/* SIGN OUT BUTTON */}
                   <DropdownMenuItem
@@ -168,7 +168,7 @@ export default function AppHeader({ title, isHomePage, isProfilePage }) {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
                     align="start"
-                    className="w-46 bg-white border-gray-100 shadow-xl text-darkgray py-4"
+                    className="w-40 bg-white border-gray-100 shadow-2xl rounded-xl text-darkgray py-4"
                   >
                     {sortOptions.map((option) => (
                       <DropdownMenuItem
@@ -200,7 +200,7 @@ export default function AppHeader({ title, isHomePage, isProfilePage }) {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
                     align="start"
-                    className="w-46 bg-white border-gray-100 shadow-xl text-darkgray py-4"
+                    className="w-40 bg-white border-gray-100 shadow-2xl rounded-xl text-darkgray py-4"
                   >
                     <DropdownMenuLabel className="text-primary font-bold">
                       Cuisine Types
@@ -236,7 +236,7 @@ export default function AppHeader({ title, isHomePage, isProfilePage }) {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
                     align="start"
-                    className="w-46 bg-white border-gray-100 shadow-xl text-darkgray py-4"
+                    className="w-35 bg-white border-gray-100 shadow-2xl rounded-xl text-darkgray py-4"
                   >
                     <DropdownMenuLabel className="text-primary font-bold">
                       Food Category
@@ -276,7 +276,7 @@ export default function AppHeader({ title, isHomePage, isProfilePage }) {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
                     align="start"
-                    className="w-40 bg-white border-gray-100 shadow-xl text-darkgray py-4"
+                    className="w-40 bg-white border-gray-100 shadow-2xl rounded-xl text-darkgray py-4"
                   >
                     {states.map((state) => (
                       <DropdownMenuItem key={state.value} onClick={() => {}}>
