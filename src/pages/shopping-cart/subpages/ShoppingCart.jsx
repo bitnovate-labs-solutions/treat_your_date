@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 // import { useQuery } from "@tanstack/react-query";
 // import { mockApi } from "@/lib/mockData";
-import useCartStore from "@/lib/cartStore";
+import useCartStore from "@/lib/cart_store";
 import ImageWithFallback from "@/components/ImageWithFallback";
 
 export default function ShoppingCart({ onSuccess }) {

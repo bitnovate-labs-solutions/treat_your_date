@@ -3,7 +3,7 @@ import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 // import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
-import useCartStore from "@/lib/cartStore";
+import useCartStore from "@/lib/cart_store";
 import ImageWithFallback from "@/components/ImageWithFallback";
 import { Card, CardFooter, CardHeader } from "@/components/ui/card";
 

@@ -13,9 +13,11 @@ export default function Layout() {
   const { user } = useAuth();
   const [title, setTitle] = useState("No Title");
 
-  // Define Home Page route
+  // Define page routes for Header
   const isHomePage =
     location.pathname === "/treater" || location.pathname === "/treatee";
+  const isProfilePage =
+    location.pathname === "/treater" || location.pathname === "/profile";
 
   const { data: profile } = useUserProfile(user); // Fetch user_profile data
 
@@ -72,7 +74,11 @@ export default function Layout() {
   return (
     <div className="flex flex-col min-h-screen w-full max-w-md mx-auto bg-gray-100">
       {/* HEADER */}
-      <AppHeader isHomePage={isHomePage} title={title} />
+      <AppHeader
+        isHomePage={isHomePage}
+        isProfilePage={isProfilePage}
+        title={title}
+      />
 
       {/* OUTLET - placeholder for rendering child routes (Page content goes here!) */}
       <main className={`flex-1 ${isHomePage ? "pb-26 p-3" : "pb-20 p-0"}`}>

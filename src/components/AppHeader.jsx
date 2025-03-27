@@ -8,7 +8,7 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 
 // COMPONENTS
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, LogOut, Settings2 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Tabs, TabsList, TabsTrigger } from "./ui/tabs";
 import {
@@ -18,36 +18,113 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { useAuth } from "@/context/AuthContext";
+import { toast } from "sonner";
 
-export default function AppHeader({ title, isHomePage }) {
+export default function AppHeader({
+  title,
+  isHomePage,
+  isProfilePage,
+  onSortChange,
+}) {
+  const { signOut } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const activeTab = searchParams.get("tab") || "menu";
   const [selectedSort, setSelectedSort] = useState("newest");
   const [selectedCuisine, setSelectedCuisine] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
+  // HANDLE TAB CHANGE
   const handleTabChange = (value) => {
     const newSearchParams = new URLSearchParams(location.search);
     newSearchParams.set("tab", value);
     navigate(`${location.pathname}?${newSearchParams.toString()}`);
   };
 
+  // HANDLE SORT CHANGE
   const handleSortChange = (value) => {
     setSelectedSort(value);
+    if (onSortChange) {
+      onSortChange(value);
+    }
   };
 
+  // HANDLE CUISINE CHANGE
   const handleCuisineChange = (value) => {
     setSelectedCuisine(value);
   };
 
+  // HANDLE CATEGORY CHANGE
+  const handleCategoryChange = (value) => {
+    setSelectedCategory(value);
+  };
+
+  // HANDLE SIGN OUT
+  const handleSignOut = async () => {
+    try {
+      // Remove all cached images
+      Object.keys(localStorage).forEach((key) => {
+        if (key.startsWith("img_cache_")) {
+          localStorage.removeItem(key);
+        }
+      });
+
+      await signOut();
+    } catch (error) {
+      console.error("Sign-out error: ", error);
+      toast.error("Error", {
+        description: "Failed to sign out. Please try again.",
+      });
+    }
+  };
+
   return (
     <div className="sticky top-0 bg-white border-b border-gray-200 shadow-md z-10">
-      <div className="container mx-auto pt-3">
-        {/* HEADER TITLE -------------------- */}
-        <h1 className="text-lg font-bold mb-4 text-center text-gray-800">
-          {title}
-        </h1>
+      <div className="pt-3">
+        <div className="grid grid-cols-5">
+          <div className="col-start-2 col-span-3">
+            {/* HEADER TITLE -------------------- */}
+            <h1 className="text-lg font-bold mb-4 text-center text-gray-800">
+              {title}
+            </h1>
+          </div>
+
+          {/* SIGN OUT BUTTON -------------------- */}
+          {isProfilePage && !isHomePage && (
+            <div>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button className="bg-white hover:bg-white text-primary w-full h-7 shadow-none">
+                    <Settings2 />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  align="end"
+                  className="w-30 bg-white border-gray-100 drop-shadow-2xl mr-2 space-y-2 py-4 rounded-xl"
+                >
+                  {/* SIGN OUT BUTTON */}
+                  <DropdownMenuItem
+                    onClick={handleSignOut}
+                    className="text-primary"
+                  >
+                    <LogOut />
+                    Sign Out
+                  </DropdownMenuItem>
+
+                  {/* VERSION NUMBER */}
+                  <DropdownMenuItem
+                    onClick={handleSignOut}
+                    className="text-lightgray"
+                  >
+                    Version: 1.0.0
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          )}
+        </div>
         {/* PAGE TABS -------------------- */}
         <div className="space-y-2">
           {/* Only show TabList and filters if isProfilePage is false and user is authenticated */}
@@ -89,10 +166,13 @@ export default function AppHeader({ title, isHomePage }) {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild className="h-7">
                     <Button
-                      variant="secondary"
-                      className="rounded-full whitespace-nowrap text-[12px] font-light py-1"
+                      variant="outline"
+                      className="rounded-full whitespace-nowrap text-[12px] font-light py-1 border-none bg-secondary hover:bg-secondary/80"
                     >
-                      Sort by <ChevronDown className="w-4 h-4 ml-1" />
+                      {sortOptions.find(
+                        (option) => option.value === selectedSort
+                      )?.label || "Sort by"}{" "}
+                      <ChevronDown className="w-4 h-4 ml-1" />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
@@ -117,15 +197,14 @@ export default function AppHeader({ title, isHomePage }) {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild className="h-7">
                     <Button
-                      variant="secondary"
-                      className="rounded-full whitespace-nowrap text-[12px] font-light py-1"
+                      variant="outline"
+                      className="rounded-full whitespace-nowrap text-[12px] font-light py-1 border-none bg-secondary hover:bg-secondary/80"
                     >
                       {selectedCuisine
-                        ? [...cuisineTypes, ...foodCategories].find(
-                            (c) => c.value === selectedCuisine
-                          )?.label
+                        ? cuisineTypes.find((c) => c.value === selectedCuisine)
+                            ?.label
                         : "Cuisine"}
-                      <ChevronDown className="w-4 h-4 mr-1" />
+                      <ChevronDown className="w-4 h-4 ml-1" />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
@@ -153,15 +232,15 @@ export default function AppHeader({ title, isHomePage }) {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild className="h-7">
                     <Button
-                      variant="secondary"
-                      className="rounded-full whitespace-nowrap text-[12px] font-light py-1"
+                      variant="outline"
+                      className="rounded-full whitespace-nowrap text-[12px] font-light py-1 border-none bg-secondary hover:bg-secondary/80"
                     >
-                      {selectedCuisine
-                        ? [...cuisineTypes, ...foodCategories].find(
-                            (c) => c.value === selectedCuisine
+                      {selectedCategory
+                        ? foodCategories.find(
+                            (c) => c.value === selectedCategory
                           )?.label
                         : "Category"}
-                      <ChevronDown className="w-4 h-4 mr-1" />
+                      <ChevronDown className="w-4 h-4 ml-1" />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
@@ -175,9 +254,9 @@ export default function AppHeader({ title, isHomePage }) {
                       <DropdownMenuItem
                         key={option.value}
                         className={
-                          selectedCuisine === option.value ? "bg-accent" : ""
+                          selectedCategory === option.value ? "bg-accent" : ""
                         }
-                        onClick={() => handleCuisineChange(option.value)}
+                        onClick={() => handleCategoryChange(option.value)}
                       >
                         {option.label}
                       </DropdownMenuItem>
@@ -187,8 +266,8 @@ export default function AppHeader({ title, isHomePage }) {
 
                 {/* FAVOURITE */}
                 <Button
-                  variant="secondary"
-                  className="rounded-full whitespace-nowrap text-[12px] font-light py-1 h-7"
+                  variant="outline"
+                  className="rounded-full whitespace-nowrap text-[12px] font-light py-1 h-7 border-none bg-secondary hover:bg-secondary/80"
                 >
                   Favorite
                 </Button>
@@ -197,10 +276,11 @@ export default function AppHeader({ title, isHomePage }) {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button
-                      variant="secondary"
-                      className="rounded-full whitespace-nowrap text-[12px] font-light py-1 h-7"
+                      variant="outline"
+                      className="rounded-full whitespace-nowrap text-[12px] font-light py-1 h-7 border-none bg-secondary hover:bg-secondary/80"
                     >
                       Location
+                      <ChevronDown className="w-4 h-4 ml-1" />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent

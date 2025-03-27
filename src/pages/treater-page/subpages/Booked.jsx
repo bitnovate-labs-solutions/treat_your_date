@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 // import { supabase } from "@/lib/supabase";
-import { mockApi } from "@/lib/mockData";
+import { mockApi } from "@/lib/mock_data";
 import FoodCard from "../components/FoodCard";
 
 // COMPONENTS

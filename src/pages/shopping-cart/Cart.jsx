@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ShoppingCart from "./subpages/ShoppingCart";
 import OrderSuccess from "./subpages/OrderSuccess";
-import useCartStore from "@/lib/cartStore";
+import useCartStore from "@/lib/cart_store";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 // import { mockApi } from "@/lib/mockData";

@@ -25,12 +25,12 @@ export const sortOptions = [
   { value: "newest", label: "Newest" },
   { value: "oldest", label: "Oldest" },
   { value: "trending", label: "Trending" },
-  { value: "highest-rated", label: "Highest Rated" },
-  { value: "lowest-rated", label: "Lowest Rated" },
-  { value: "price-low-high", label: "Price: Low to High" },
-  { value: "price-high-low", label: "Price: High to Low" },
-  { value: "a-z", label: "Alphabetical (A-Z)" },
-  { value: "z-a", label: "Alphabetical (Z-A)" },
+  { value: "rating_high", label: "Highest Rating" },
+  { value: "rating_low", label: "Lowest Rating" },
+  { value: "price_high", label: "Price: High to Low" },
+  { value: "price_low", label: "Price: Low to High" },
+  { value: "name_asc", label: "Name: A to Z" },
+  { value: "name_desc", label: "Name: Z to A" },
 ];
 
 export const states = [

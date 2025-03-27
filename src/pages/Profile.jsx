@@ -4,11 +4,8 @@ import { useAuth } from "@/context/AuthContext";
 
 // UI Components
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { toast } from "sonner";
 import {
-  LogOut,
   Mail,
   Calendar,
   Folder,
@@ -39,7 +36,7 @@ import { useImageCache } from "@/hooks/useImageCache";
 
 function UserProfile() {
   // const [imageSrc, setImageSrc] = useState(null);
-  const { user, signOut } = useAuth();
+  const { user } = useAuth();
   const { data: profile, isLoading, error } = useUserProfile(user); // Fetch data from user_profiles
   const navigate = useNavigate();
 
@@ -48,25 +45,6 @@ function UserProfile() {
 
   if (isLoading) return <ProfileSkeleton />;
   if (error) return <ErrorFallback error={error} />;
-
-  // HANDLE SIGN OUT
-  const handleSignOut = async () => {
-    try {
-      // Remove all cached images
-      Object.keys(localStorage).forEach((key) => {
-        if (key.startsWith("img_cache_")) {
-          localStorage.removeItem(key);
-        }
-      });
-
-      await signOut();
-    } catch (error) {
-      console.error("Sign-out error: ", error);
-      toast.error("Error", {
-        description: "Failed to sign out. Please try again.",
-      });
-    }
-  };
 
   // Format date to be more readable
   const formatDate = (dateString) => {
@@ -132,14 +110,22 @@ function UserProfile() {
               </p>
             </div>
 
+            {/* EDIT PROFILE BUTTON -------------------- */}
+            <div className="bg-white rounded-full absolute bottom-5 right-5 p-3 border-gray-100">
+              <Edit
+                className="h-4 w-4 text-primary"
+                onClick={() => navigate("/edit-profile")}
+              />
+            </div>
+
             {/* CODE FOR POSSIBLE FUTURE USE */}
-            {/* <p className="text-xs text-center text-darkgray mt-2">
+            <p className="text-xs text-center text-darkgray mt-3">
               This is how your profile will appear in the swipe view
-            </p> */}
+            </p>
           </div>
 
           {/* HEADER TITLE */}
-          <CardHeader>
+          <CardHeader className="border border-gray-100 shadow-xl rounded-2xl py-5 mt-12">
             <CardTitle className="text-lg text-center font-semibold text-gray-800">
               Hello, {profile?.display_name || "User"}!
             </CardTitle>
@@ -154,17 +140,7 @@ function UserProfile() {
             </div>
           </CardHeader>
 
-          {/* EDIT PROFILE BUTTON -------------------- */}
-          <Button
-            variant="outline"
-            className="w-full mb-6 border-2 border-primary/50"
-            onClick={() => navigate("/edit-profile")}
-          >
-            <Edit className="mr-2 h-4 w-4 text-primary" />
-            <span className="text-primary">Edit Profile</span>
-          </Button>
-
-          <div className="space-y-4 mt-2">
+          <div className="space-y-4 mt-8">
             {/* ABOUT ME SECTION -------------------- */}
             <div className="space-y-6 mb-8">
               <h3 className="text-lg font-bold">About Me</h3>
@@ -404,18 +380,6 @@ function UserProfile() {
                 </span>
               </p>
             </div>
-          </div>
-
-          {/* SIGN OUT BUTTON -------------------- */}
-          <div className="px-2">
-            <Button
-              size="lg"
-              className="w-full bg-primary hover:bg-primary-hover text-white shadow-md"
-              onClick={handleSignOut}
-            >
-              <LogOut className="mr-2 h-4 w-4" />
-              Sign Out
-            </Button>
           </div>
         </CardContent>
       </Card>
