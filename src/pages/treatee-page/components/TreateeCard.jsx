@@ -59,7 +59,9 @@ export default function TreateeCard({ item, onLike, isLiked, additionalInfo }) {
         <div className="w-full absolute bottom-0 flex justify-between mb-2 px-4 text-white">
           <div>
             <h3 className="text-xl font-semibold">{item.name}</h3>
-            <p className="text-sm text-white/80">{item.location}</p>
+            <p className="text-sm text-white/80">
+              {item.name}, {item.location}
+            </p>
           </div>
           <div className="text-xs text-gray-300 flex items-center">
             <span className="mr-2">

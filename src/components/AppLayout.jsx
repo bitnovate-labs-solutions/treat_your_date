@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import { useUserProfile } from "@/hooks/useUserProfile";
@@ -7,11 +7,10 @@ import { useUserProfile } from "@/hooks/useUserProfile";
 import AppHeader from "./AppHeader";
 import AppNav from "./AppNav";
 
-export default function Layout() {
+export default function Layout({ title }) {
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = useAuth();
-  const [title, setTitle] = useState("No Title");
 
   // Define page routes for Header
   const isHomePage =
@@ -58,18 +57,6 @@ export default function Layout() {
       navigate("/explore"); // Default to explore for non-authenticated users
     }
   };
-
-  // MAP ROUTES TO TITLES HERE
-  useEffect(() => {
-    const titles = {
-      "/": "Home",
-      "/profile": "Profile",
-      "/my-cart": "My Cart",
-      "/messages": "Messages",
-    };
-
-    setTitle(titles[location.pathname] || "Home"); // Set the title based on the current route, fallback to "Home"
-  }, [location.pathname]);
 
   return (
     <div className="flex flex-col min-h-screen w-full max-w-md mx-auto bg-gray-100">

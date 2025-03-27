@@ -72,7 +72,7 @@ function UserProfile() {
             {/* IMAGE OVERLAY */}
             <div className="rounded-2xl shadow-xl absolute inset-0 bg-gradient-to-t from-black/80 via-black/5 to-black/10" />
 
-            {/* Name */}
+            {/* USER NAME */}
             <div className="flex absolute bottom-20 left-6 text-white text-2xl font-bold">
               <p>{profile?.display_name || "-"}</p>
               <span>,</span>
@@ -80,7 +80,7 @@ function UserProfile() {
             </div>
 
             <div className="flex absolute bottom-12 left-6">
-              {/* Role */}
+              {/* USER ROLE */}
               <div
                 className={`px-3 py-0.5 rounded-full mr-2 ${
                   profile?.role === "treater"
@@ -91,7 +91,7 @@ function UserProfile() {
                 <p className="text-sm capitalize">{profile?.role || "-"}</p>
               </div>
 
-              {/* Location */}
+              {/* USER LOCATION */}
               <div className="flex gap-1 px-3 py-0.5 bg-emerald-100 rounded-full">
                 <MapPin className="text-emerald-900 w-4 h-4 mr-1 my-auto" />
                 <p className="text-emerald-900 text-sm capitalize">
@@ -100,7 +100,7 @@ function UserProfile() {
               </div>
             </div>
 
-            {/* Occupation */}
+            {/* USER OCCUPATION */}
             <div className="flex absolute bottom-5 left-6">
               <div className="flex items-center">
                 <Folder className="w-4 h-4 mr-2 my-auto text-white" />

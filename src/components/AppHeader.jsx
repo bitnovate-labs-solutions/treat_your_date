@@ -16,7 +16,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from "./ui/dropdown-menu";
@@ -277,12 +276,12 @@ export default function AppHeader({ title, isHomePage, isProfilePage }) {
                 </DropdownMenu>
 
                 {/* FAVOURITE */}
-                {/* <Button
+                <Button
                   variant="outline"
                   className="rounded-full whitespace-nowrap text-[12px] font-light py-1 h-7 border-none bg-secondary hover:bg-secondary/80"
                 >
                   Favorite
-                </Button> */}
+                </Button>
 
                 {/* LOCATION */}
                 <DropdownMenu>

@@ -13,12 +13,13 @@ import Auth from "@/pages/auth/Auth";
 import Profile from "@/pages/Profile";
 import Treater from "@/pages/treater-page/Treater";
 import Treatee from "@/pages/treatee-page/Treatee";
-import ShoppingCart from "@/pages/shopping-cart/Cart";
+import ShoppingCart from "@/pages/cart_page/Cart";
 import Messages from "@/pages/Messages";
 import Explore from "@/pages/Explore";
 import CreateProfile from "@/pages/CreateProfile";
 import EditProfile from "@/pages/edit-profile/EditProfile";
 import AuthCallback from "@/routes/AuthCallback";
+import Connect from "@/pages/connect_page/Connect";
 
 export default function AppRoutes() {
   const { user } = useAuth();
@@ -42,25 +43,42 @@ export default function AppRoutes() {
       </Route>
 
       {/* LAYOUT-WRAPPED ROUTES */}
-      <Route element={<Layout />}>
-        {/* Public route + Layout */}
-        <Route
-          path="/explore"
-          element={
-            <Suspense fallback={<CardSkeleton />}>
-              <Explore />
-            </Suspense>
-          }
-        />
 
-        {/* PROTECTED ROUTES + LAYOUT  */}
-        <Route element={<ProtectedRoute />}>
-          {/* <Route path="/create-profile" element={<CreateProfile />} /> */}
-          {/* <Route path="/edit-profile" element={<EditProfile />} /> */}
+      <Route
+        path="/explore"
+        element={
+          <Suspense fallback={<CardSkeleton />}>
+            <Explore />
+          </Suspense>
+        }
+      />
+
+      {/* PROTECTED ROUTES + LAYOUT  */}
+      <Route element={<ProtectedRoute />}>
+        {/* <Route path="/create-profile" element={<CreateProfile />} /> */}
+        {/* <Route path="/edit-profile" element={<EditProfile />} /> */}
+
+        {/* TREATER */}
+        <Route element={<Layout title="Welcome back, Treater!" />}>
           <Route path="/treater" element={<Treater />} />
+        </Route>
+        {/* TREATEE */}
+        <Route element={<Layout title="Welcome back, Treatee!" />}>
           <Route path="/treatee" element={<Treatee />} />
+        </Route>
+        {/* PROFILE */}
+        <Route element={<Layout title="Profile" />}>
           <Route path="/profile" element={<Profile />} />
+        </Route>
+        {/* SHOPPING CART */}
+        <Route element={<Layout title="My Cart" />}>
           <Route path="/my-cart" element={<ShoppingCart />} />
+        </Route>
+        {/* CONNECT */}
+        <Route element={<Layout title="Connect" />}>
+          <Route path="/connect" element={<Connect />} />
+        </Route>
+        <Route element={<Layout title="Messages" />}>
           <Route path="/messages" element={<Messages />} />
         </Route>
       </Route>

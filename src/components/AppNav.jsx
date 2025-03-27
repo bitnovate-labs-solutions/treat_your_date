@@ -3,6 +3,7 @@ import {
   ShoppingCart,
   User,
   UtensilsCrossed,
+  UserSearch,
 } from "lucide-react";
 import { Button } from "./ui/button";
 
@@ -37,19 +38,33 @@ const AppNav = ({ profile, handleHomeClick, handleProtectedNavigation }) => {
                 }`}
               />
             </Button>
-            {/* SHOPPING CART ICON BUTTON */}
+            {/* SHOPPING CART/SEARCH ICON BUTTON */}
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => handleProtectedNavigation("/my-cart")}
+              onClick={() =>
+                handleProtectedNavigation(
+                  profile?.role === "treatee" ? "/connect" : "/my-cart"
+                )
+              }
             >
-              <ShoppingCart
-                className={`${
-                  location.pathname === `/my-cart`
-                    ? "text-primary"
-                    : "text-darkgray"
-                }`}
-              />
+              {profile?.role === "treatee" ? (
+                <UserSearch
+                  className={`${
+                    location.pathname === `/connect`
+                      ? "text-primary"
+                      : "text-darkgray"
+                  }`}
+                />
+              ) : (
+                <ShoppingCart
+                  className={`${
+                    location.pathname === `/my-cart`
+                      ? "text-primary"
+                      : "text-darkgray"
+                  }`}
+                />
+              )}
             </Button>
             {/* MESSAGE ICON BUTTON */}
             <Button
