@@ -49,6 +49,7 @@ const Connect = () => {
   const currentUser = potentialMatches?.[currentIndex];
   const cachedImageUrl = useImageCache(currentUser?.avatar_url);
 
+  // HANDLE SWIPE
   const handleSwipe = useCallback(
     (direction) => {
       if (!currentUser || isSwiping) return;
@@ -58,12 +59,10 @@ const Connect = () => {
       setDirection(direction === "right" ? 1 : -1);
 
       if (direction === "right") {
-        // Like user
-        toast.success("Liked!");
+        toast.success("Liked!", { duration: 1000 });
         setSwipedUsers((prev) => [...prev, currentUser.user_id]);
       } else if (direction === "left") {
-        // Pass user
-        toast.info("Passed");
+        toast.info("Passed", { duration: 1000 });
         setSwipedUsers((prev) => [...prev, currentUser.user_id]);
       }
 
@@ -77,6 +76,7 @@ const Connect = () => {
     [currentUser, isSwiping]
   );
 
+  // SWIPE HANDLERS
   const handlers = useSwipeable({
     onSwipedLeft: () => handleSwipe("left"),
     onSwipedRight: () => handleSwipe("right"),
@@ -88,13 +88,13 @@ const Connect = () => {
     },
     onTouchMoveOrOnMouseMove: (e) => {
       if (!touchStart) return;
-      
+
       const currentX = e.touches ? e.touches[0].clientX : e.clientX;
       const currentY = e.touches ? e.touches[0].clientY : e.clientY;
-      
+
       const deltaX = Math.abs(currentX - touchStart.x);
       const deltaY = Math.abs(currentY - touchStart.y);
-      
+
       // Only close details if the movement is more horizontal than vertical
       if (deltaX > deltaY && showDetails) {
         setShowDetails(false);
@@ -121,7 +121,7 @@ const Connect = () => {
   }
 
   return (
-    <div className="min-h-full bg-gray-100 p-4 mb-22">
+    <div className="min-h-full bg-gray-100 p-3 mb-22">
       <div className="max-w-md mx-auto">
         <div {...handlers} className="relative">
           <AnimatePresence mode="wait">
@@ -153,16 +153,12 @@ const Connect = () => {
               drag="x"
               dragConstraints={{ left: 0, right: 0 }}
               dragElastic={0.7}
-              onDragEnd={(e, { offset, velocity }) => {
-                const swipe = offset.x * velocity.x;
-                if (Math.abs(swipe) > 10000) {
-                  handleSwipe(swipe > 0 ? "right" : "left");
-                }
-              }}
+              dragMomentum={false}
+              dragDirectionLock
             >
               <Card className="overflow-hidden border-none shadow-2xl rounded-2xl">
                 {/* PROFILE IMAGE */}
-                <div className="h-[600px] w-full relative">
+                <div className="h-[620px] w-full relative">
                   <img
                     src={cachedImageUrl || defaultImage}
                     alt="Profile"
@@ -225,14 +221,11 @@ const Connect = () => {
 
                   {/* VIEW DETAILS BUTTON */}
                   <div
-                    className={`absolute bottom-0 right-0.5 flex items-center gap-2 bg-white/30 backdrop-blur-sm rounded-tl-md px-4 py-1 cursor-pointer ${
-                      showDetails ? "hidden" : "rounded-br-xl"
-                    }`}
+                    className="absolute bottom-3 right-3 flex items-center gap-2 bg-white/30 backdrop-blur-sm rounded-full p-3 cursor-pointer"
                     onClick={() => !isSwiping && setShowDetails(!showDetails)}
                   >
-                    <span className="text-white text-sm">View Details</span>
                     <ChevronDown
-                      className={`w-4 h-4 text-white transition-transform duration-200 ${
+                      className={`w-5 h-5 text-white transition-transform duration-200 ${
                         showDetails ? "rotate-180" : ""
                       }`}
                     />
