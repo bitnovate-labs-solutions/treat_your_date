@@ -19,10 +19,21 @@ export function FilterProvider({ children }) {
     sort: null,
     cuisine: null,
     category: null,
+    location: null,
   });
 
+  // Reset all filters to their initial state
+  const resetFilters = () => {
+    setFilters({
+      sort: null,
+      cuisine: null,
+      category: null,
+      location: null,
+    });
+  };
+
   return (
-    <FilterContext.Provider value={{ filters, setFilters }}>
+    <FilterContext.Provider value={{ filters, setFilters, resetFilters }}>
       {children}
     </FilterContext.Provider>
   );

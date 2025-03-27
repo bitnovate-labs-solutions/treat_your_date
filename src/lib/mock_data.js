@@ -113,6 +113,7 @@ const foodItems = [
     image_url:
       "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80",
     cuisine_type: "japanese",
+    category: "non-halal",
     status: "available",
     created_at: "2024-03-15T10:00:00Z",
     purchased_at: null,
@@ -134,6 +135,7 @@ const foodItems = [
     image_url:
       "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80",
     cuisine_type: "american",
+    category: "non-halal",
     status: "available",
     created_at: "2024-03-14T15:30:00Z",
     purchased_at: null,
@@ -154,6 +156,7 @@ const foodItems = [
     image_url:
       "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=800&q=80",
     cuisine_type: "italian",
+    category: "vegetarian",
     status: "available",
     created_at: "2024-03-13T12:00:00Z",
     purchased_at: null,
@@ -174,6 +177,7 @@ const foodItems = [
     image_url:
       "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80",
     cuisine_type: "seafood",
+    category: "non-halal",
     status: "available",
     created_at: "2024-03-12T09:00:00Z",
     purchased_at: null,

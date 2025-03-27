@@ -18,6 +18,7 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "./ui/dropdown-menu";
 import { toast } from "sonner";
 
@@ -50,6 +51,11 @@ export default function AppHeader({ title, isHomePage, isProfilePage }) {
   // HANDLE CATEGORY CHANGE
   const handleCategoryChange = (value) => {
     setFilters((prev) => ({ ...prev, category: value }));
+  };
+
+  // HANDLE LOCATION CHANGE
+  const handleLocationChange = (value) => {
+    setFilters((prev) => ({ ...prev, location: value }));
   };
 
   // HANDLE SIGN OUT
@@ -170,6 +176,13 @@ export default function AppHeader({ title, isHomePage, isProfilePage }) {
                     align="start"
                     className="w-40 bg-white border-gray-100 shadow-2xl rounded-xl text-darkgray py-4"
                   >
+                    <DropdownMenuItem
+                      className="text-primary font-medium flex justify-center"
+                      onClick={() => handleSortChange(null)}
+                    >
+                      Reset
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator className="bg-gray-200" />
                     {sortOptions.map((option) => (
                       <DropdownMenuItem
                         key={option.value}
@@ -202,9 +215,13 @@ export default function AppHeader({ title, isHomePage, isProfilePage }) {
                     align="start"
                     className="w-40 bg-white border-gray-100 shadow-2xl rounded-xl text-darkgray py-4"
                   >
-                    <DropdownMenuLabel className="text-primary font-bold">
-                      Cuisine Types
-                    </DropdownMenuLabel>
+                    <DropdownMenuItem
+                      className="text-primary font-medium flex justify-center"
+                      onClick={() => handleCuisineChange(null)}
+                    >
+                      Reset
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator className="bg-gray-200" />
                     {cuisineTypes.map((option) => (
                       <DropdownMenuItem
                         key={option.value}
@@ -238,9 +255,13 @@ export default function AppHeader({ title, isHomePage, isProfilePage }) {
                     align="start"
                     className="w-35 bg-white border-gray-100 shadow-2xl rounded-xl text-darkgray py-4"
                   >
-                    <DropdownMenuLabel className="text-primary font-bold">
-                      Food Category
-                    </DropdownMenuLabel>
+                    <DropdownMenuItem
+                      className="text-primary font-medium flex justify-center"
+                      onClick={() => handleCategoryChange(null)}
+                    >
+                      Reset
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator className="bg-gray-200" />
                     {foodCategories.map((option) => (
                       <DropdownMenuItem
                         key={option.value}
@@ -256,21 +277,24 @@ export default function AppHeader({ title, isHomePage, isProfilePage }) {
                 </DropdownMenu>
 
                 {/* FAVOURITE */}
-                <Button
+                {/* <Button
                   variant="outline"
                   className="rounded-full whitespace-nowrap text-[12px] font-light py-1 h-7 border-none bg-secondary hover:bg-secondary/80"
                 >
                   Favorite
-                </Button>
+                </Button> */}
 
                 {/* LOCATION */}
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button
                       variant="outline"
-                      className="rounded-full whitespace-nowrap text-[12px] font-light py-1 h-7 border-none bg-secondary hover:bg-secondary/80 pr-2"
+                      className="rounded-full whitespace-nowrap text-[12px] font-light py-1 h-7 border-none bg-secondary hover:bg-secondary/80 mr-2"
                     >
-                      Location
+                      {filters.location
+                        ? states.find((s) => s.value === filters.location)
+                            ?.label
+                        : "Location"}
                       <ChevronDown className="w-4 h-4 ml-1" />
                     </Button>
                   </DropdownMenuTrigger>
@@ -278,8 +302,21 @@ export default function AppHeader({ title, isHomePage, isProfilePage }) {
                     align="start"
                     className="w-35 bg-white border-gray-100 shadow-2xl rounded-xl text-darkgray py-4 mr-2"
                   >
+                    <DropdownMenuItem
+                      className="text-primary font-medium flex justify-center"
+                      onClick={() => handleLocationChange(null)}
+                    >
+                      Reset
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator className="bg-gray-200" />
                     {states.map((state) => (
-                      <DropdownMenuItem key={state.value} onClick={() => {}}>
+                      <DropdownMenuItem
+                        key={state.value}
+                        className={
+                          filters.location === state.value ? "bg-accent" : ""
+                        }
+                        onClick={() => handleLocationChange(state.value)}
+                      >
                         {state.label}
                       </DropdownMenuItem>
                     ))}
