@@ -29,6 +29,7 @@ export default function OrderCard({ item, restaurantName }) {
     };
 
     addItem(itemsWithRestaurantName);
+    window.scrollTo(0, 0);
     toast.success("Added to cart", {
       duration: 1000,
     });
