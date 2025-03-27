@@ -14,14 +14,14 @@ export default function FoodCard({
 }) {
   // PASS RESTAURANT NAME as PROP TO ORDER CARD
   const restaurantName = item.name;
-  
+
   // Use menu items from the food item
   const restaurantMenuItems = item.menu_items || [];
 
   return (
     <Card
       className={cn(
-        "overflow-hidden transition-all duration-200 border-none shadow-lg",
+        "overflow-hidden transition-all duration-200 border-none rounded-2xl shadow-lg",
         expanded ? "bg-white" : "bg-white"
       )}
     >

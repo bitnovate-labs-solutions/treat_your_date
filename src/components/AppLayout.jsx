@@ -73,17 +73,17 @@ export default function Layout() {
 
   return (
     <div className="flex flex-col min-h-screen w-full max-w-md mx-auto bg-gray-100">
-        {/* HEADER */}
-        <AppHeader
-          isHomePage={isHomePage}
-          isProfilePage={isProfilePage}
-          title={title}
-        />
+      {/* HEADER */}
+      <AppHeader
+        isHomePage={isHomePage}
+        isProfilePage={isProfilePage}
+        title={title}
+      />
 
-        {/* OUTLET - placeholder for rendering child routes (Page content goes here!) */}
-        <main className={`flex-1 ${isHomePage ? "pb-26 p-3" : "pb-20 p-0"}`}>
-          <Outlet />
-        </main>
+      {/* OUTLET - placeholder for rendering child routes (Page content goes here!) */}
+      <main className={`flex-1 ${isHomePage ? "pb-26 px-3" : "pb-20 p-0"}`}>
+        <Outlet />
+      </main>
 
       {/* BOTTOM NAVIGATION BAR */}
       <AppNav

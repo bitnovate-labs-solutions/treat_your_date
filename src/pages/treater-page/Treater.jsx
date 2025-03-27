@@ -191,7 +191,7 @@ export default function Treater() {
 
   return (
     <ScrollArea>
-      <div>
+      <div className="bg-transparent py-4">
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           <Suspense fallback={<CardSkeleton />}>
             {/* <FoodItems /> */}
