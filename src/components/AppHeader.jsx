@@ -276,7 +276,7 @@ export default function AppHeader({ title, isHomePage, isProfilePage }) {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
                     align="start"
-                    className="w-40 bg-white border-gray-100 shadow-2xl rounded-xl text-darkgray py-4"
+                    className="w-35 bg-white border-gray-100 shadow-2xl rounded-xl text-darkgray py-4 mr-4"
                   >
                     {states.map((state) => (
                       <DropdownMenuItem key={state.value} onClick={() => {}}>
