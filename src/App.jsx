@@ -5,6 +5,7 @@ import { AuthProvider } from "@/context/AuthContext";
 import { Toaster } from "@/components/ui/sonner";
 import AppRoutes from "@/routes/AppRoutes";
 import { PWAPrompt } from "./components/PWAPrompt";
+import { FilterProvider } from "./context/FilterContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,7 +23,9 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <AuthProvider>
-          <AppRoutes />
+          <FilterProvider>
+            <AppRoutes />
+          </FilterProvider>
           <Toaster />
           <PWAPrompt />
           <ReactQueryDevtools initialIsOpen={false} />

@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
 import {
   cuisineTypes,
   foodCategories,
   sortOptions,
   states,
 } from "@/lib/constants";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useFilters } from "@/context/FilterContext";
 
 // COMPONENTS
 import { ChevronDown, LogOut, Settings2 } from "lucide-react";
@@ -18,23 +19,16 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
 
-export default function AppHeader({
-  title,
-  isHomePage,
-  isProfilePage,
-  onSortChange,
-}) {
+export default function AppHeader({ title, isHomePage, isProfilePage }) {
   const { signOut } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const activeTab = searchParams.get("tab") || "menu";
-  const [selectedSort, setSelectedSort] = useState("newest");
-  const [selectedCuisine, setSelectedCuisine] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  const { filters, setFilters } = useFilters(); // Global filter state
 
   // HANDLE TAB CHANGE
   const handleTabChange = (value) => {
@@ -45,20 +39,17 @@ export default function AppHeader({
 
   // HANDLE SORT CHANGE
   const handleSortChange = (value) => {
-    setSelectedSort(value);
-    if (onSortChange) {
-      onSortChange(value);
-    }
+    setFilters((prev) => ({ ...prev, sort: value }));
   };
 
   // HANDLE CUISINE CHANGE
   const handleCuisineChange = (value) => {
-    setSelectedCuisine(value);
+    setFilters((prev) => ({ ...prev, cuisine: value }));
   };
 
   // HANDLE CATEGORY CHANGE
   const handleCategoryChange = (value) => {
-    setSelectedCategory(value);
+    setFilters((prev) => ({ ...prev, category: value }));
   };
 
   // HANDLE SIGN OUT
@@ -170,8 +161,8 @@ export default function AppHeader({
                       className="rounded-full whitespace-nowrap text-[12px] font-light py-1 border-none bg-secondary hover:bg-secondary/80"
                     >
                       {sortOptions.find(
-                        (option) => option.value === selectedSort
-                      )?.label || "Sort by"}{" "}
+                        (option) => option.value === filters.sort
+                      )?.label || "Sort by"}
                       <ChevronDown className="w-4 h-4 ml-1" />
                     </Button>
                   </DropdownMenuTrigger>
@@ -183,7 +174,7 @@ export default function AppHeader({
                       <DropdownMenuItem
                         key={option.value}
                         className={
-                          selectedSort === option.value ? "bg-accent" : ""
+                          filters.sort === option.value ? "bg-accent" : ""
                         }
                         onClick={() => handleSortChange(option.value)}
                       >
@@ -200,8 +191,8 @@ export default function AppHeader({
                       variant="outline"
                       className="rounded-full whitespace-nowrap text-[12px] font-light py-1 border-none bg-secondary hover:bg-secondary/80"
                     >
-                      {selectedCuisine
-                        ? cuisineTypes.find((c) => c.value === selectedCuisine)
+                      {filters.cuisine
+                        ? cuisineTypes.find((c) => c.value === filters.cuisine)
                             ?.label
                         : "Cuisine"}
                       <ChevronDown className="w-4 h-4 ml-1" />
@@ -218,7 +209,7 @@ export default function AppHeader({
                       <DropdownMenuItem
                         key={option.value}
                         className={
-                          selectedCuisine === option.value ? "bg-accent" : ""
+                          filters.cuisine === option.value ? "bg-accent" : ""
                         }
                         onClick={() => handleCuisineChange(option.value)}
                       >
@@ -235,9 +226,9 @@ export default function AppHeader({
                       variant="outline"
                       className="rounded-full whitespace-nowrap text-[12px] font-light py-1 border-none bg-secondary hover:bg-secondary/80"
                     >
-                      {selectedCategory
+                      {filters.category
                         ? foodCategories.find(
-                            (c) => c.value === selectedCategory
+                            (c) => c.value === filters.category
                           )?.label
                         : "Category"}
                       <ChevronDown className="w-4 h-4 ml-1" />
@@ -254,7 +245,7 @@ export default function AppHeader({
                       <DropdownMenuItem
                         key={option.value}
                         className={
-                          selectedCategory === option.value ? "bg-accent" : ""
+                          filters.category === option.value ? "bg-accent" : ""
                         }
                         onClick={() => handleCategoryChange(option.value)}
                       >
