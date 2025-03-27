@@ -29,35 +29,19 @@ const Connect = () => {
   const [showDetails, setShowDetails] = useState(false);
   const [isSwiping, setIsSwiping] = useState(false);
   const [direction, setDirection] = useState(0);
+  const [touchStart, setTouchStart] = useState({ x: 0, y: 0 });
 
   // Fetch potential matches
   const { data: potentialMatches, isLoading } = useQuery({
     queryKey: ["potentialMatches"],
     queryFn: async () => {
-      // First get the current user's profile to know their role
-      const { data: currentProfile, error: profileError } = await supabase
-        .from("user_profiles")
-        .select("role")
-        .eq("user_id", user.id)
-        .single();
-
-      if (profileError) throw profileError;
-
-      // Then get potential matches based on role
       const { data, error } = await supabase
         .from("user_profiles")
         .select("*")
         .neq("user_id", user.id)
-        .eq("role", currentProfile.role === "treater" ? "treatee" : "treater")
         .not("user_id", "in", `(${swipedUsers.join(",")})`);
 
       if (error) throw error;
-
-      console.log("Current user role:", currentProfile.role);
-      console.log("Looking for role:", currentProfile.role === "treater" ? "treatee" : "treater");
-      console.log("Number of potential matches:", data?.length);
-      console.log("Potential matches:", data);
-
       return data;
     },
   });
@@ -96,8 +80,23 @@ const Connect = () => {
   const handlers = useSwipeable({
     onSwipedLeft: () => handleSwipe("left"),
     onSwipedRight: () => handleSwipe("right"),
-    onTouchStartOrOnMouseDown: () => {
-      if (showDetails) {
+    onTouchStartOrOnMouseDown: (e) => {
+      setTouchStart({
+        x: e.touches ? e.touches[0].clientX : e.clientX,
+        y: e.touches ? e.touches[0].clientY : e.clientY,
+      });
+    },
+    onTouchMoveOrOnMouseMove: (e) => {
+      if (!touchStart) return;
+      
+      const currentX = e.touches ? e.touches[0].clientX : e.clientX;
+      const currentY = e.touches ? e.touches[0].clientY : e.clientY;
+      
+      const deltaX = Math.abs(currentX - touchStart.x);
+      const deltaY = Math.abs(currentY - touchStart.y);
+      
+      // Only close details if the movement is more horizontal than vertical
+      if (deltaX > deltaY && showDetails) {
         setShowDetails(false);
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
