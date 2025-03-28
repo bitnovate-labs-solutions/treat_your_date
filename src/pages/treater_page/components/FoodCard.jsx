@@ -2,7 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Star, ChevronDown, ChevronUp, Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
-import OrderCard from "@/pages/treater-page/components/OrderCard";
+import OrderCard from "@/pages/treater_page/components/OrderCard";
 import ImageWithFallback from "@/components/ImageWithFallback";
 
 export default function FoodCard({

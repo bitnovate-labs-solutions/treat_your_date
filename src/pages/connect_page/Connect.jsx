@@ -19,8 +19,6 @@ import {
   Church,
   ChevronDown,
   ArrowRight,
-  ThumbsUp,
-  X,
 } from "lucide-react";
 import defaultImage from "@/assets/images/default-avatar.jpg";
 import { toast } from "sonner";

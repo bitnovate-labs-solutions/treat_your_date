@@ -100,7 +100,7 @@ const restaurantMenuItems = {
 };
 
 // Static food items data
-const foodItems = [
+export const foodItems = [
   {
     id: "1",
     name: "Sushi Platter",
@@ -190,7 +190,7 @@ const foodItems = [
 ];
 
 // Static purchased items --------------------------------------------------------------------------
-const purchasedItems = [
+export const purchasedItems = [
   {
     id: "5",
     name: "Vegetarian Bowl",
@@ -219,7 +219,7 @@ const purchasedItems = [
           avatar_url: "https://i.pravatar.cc/150?img=1",
           status: "online",
         },
-        purchased_at: "2024-03-11T14:30:00Z"
+        purchased_at: "2024-03-11T14:30:00Z",
       },
       {
         id: 2,
@@ -228,7 +228,7 @@ const purchasedItems = [
           avatar_url: "https://i.pravatar.cc/150?img=2",
           status: "away",
         },
-        purchased_at: "2024-03-11T14:35:00Z"
+        purchased_at: "2024-03-11T14:35:00Z",
       },
       {
         id: 3,
@@ -237,7 +237,7 @@ const purchasedItems = [
           avatar_url: "https://i.pravatar.cc/150?img=3",
           status: "offline",
         },
-        purchased_at: "2024-03-11T14:40:00Z"
+        purchased_at: "2024-03-11T14:40:00Z",
       },
       {
         id: 9,
@@ -246,7 +246,7 @@ const purchasedItems = [
           avatar_url: "https://i.pravatar.cc/150?img=9",
           status: "online",
         },
-        purchased_at: "2024-03-11T14:45:00Z"
+        purchased_at: "2024-03-11T14:45:00Z",
       },
       {
         id: 10,
@@ -255,7 +255,7 @@ const purchasedItems = [
           avatar_url: "https://i.pravatar.cc/150?img=10",
           status: "away",
         },
-        purchased_at: "2024-03-11T14:50:00Z"
+        purchased_at: "2024-03-11T14:50:00Z",
       },
       {
         id: 11,
@@ -264,7 +264,7 @@ const purchasedItems = [
           avatar_url: "https://i.pravatar.cc/150?img=11",
           status: "online",
         },
-        purchased_at: "2024-03-11T14:55:00Z"
+        purchased_at: "2024-03-11T14:55:00Z",
       },
       {
         id: 12,
@@ -273,7 +273,7 @@ const purchasedItems = [
           avatar_url: "https://i.pravatar.cc/150?img=12",
           status: "offline",
         },
-        purchased_at: "2024-03-11T15:00:00Z"
+        purchased_at: "2024-03-11T15:00:00Z",
       },
       {
         id: 13,
@@ -282,8 +282,8 @@ const purchasedItems = [
           avatar_url: "https://i.pravatar.cc/150?img=13",
           status: "online",
         },
-        purchased_at: "2024-03-11T15:05:00Z"
-      }
+        purchased_at: "2024-03-11T15:05:00Z",
+      },
     ],
   },
   {
@@ -314,7 +314,7 @@ const purchasedItems = [
           avatar_url: "https://i.pravatar.cc/150?img=6",
           status: "online",
         },
-        purchased_at: "2024-03-10T16:45:00Z"
+        purchased_at: "2024-03-10T16:45:00Z",
       },
       {
         id: 7,
@@ -323,7 +323,7 @@ const purchasedItems = [
           avatar_url: "https://i.pravatar.cc/150?img=7",
           status: "away",
         },
-        purchased_at: "2024-03-10T16:50:00Z"
+        purchased_at: "2024-03-10T16:50:00Z",
       },
       {
         id: 8,
@@ -332,7 +332,7 @@ const purchasedItems = [
           avatar_url: "https://i.pravatar.cc/150?img=8",
           status: "offline",
         },
-        purchased_at: "2024-03-10T16:55:00Z"
+        purchased_at: "2024-03-10T16:55:00Z",
       },
       {
         id: 14,
@@ -341,7 +341,7 @@ const purchasedItems = [
           avatar_url: "https://i.pravatar.cc/150?img=14",
           status: "online",
         },
-        purchased_at: "2024-03-10T17:00:00Z"
+        purchased_at: "2024-03-10T17:00:00Z",
       },
       {
         id: 15,
@@ -350,7 +350,7 @@ const purchasedItems = [
           avatar_url: "https://i.pravatar.cc/150?img=15",
           status: "away",
         },
-        purchased_at: "2024-03-10T17:05:00Z"
+        purchased_at: "2024-03-10T17:05:00Z",
       },
       {
         id: 16,
@@ -359,7 +359,7 @@ const purchasedItems = [
           avatar_url: "https://i.pravatar.cc/150?img=16",
           status: "online",
         },
-        purchased_at: "2024-03-10T17:10:00Z"
+        purchased_at: "2024-03-10T17:10:00Z",
       },
       {
         id: 17,
@@ -368,8 +368,8 @@ const purchasedItems = [
           avatar_url: "https://i.pravatar.cc/150?img=17",
           status: "offline",
         },
-        purchased_at: "2024-03-10T17:15:00Z"
-      }
+        purchased_at: "2024-03-10T17:15:00Z",
+      },
     ],
   },
 ];
@@ -454,3 +454,64 @@ export const mockApi = {
 
 // Export the menu items map for direct access if needed
 export { restaurantMenuItems };
+
+export const popularRecipes = [
+  {
+    id: 1,
+    title: "Salmon Sushi Roll",
+    author: "Emma Harper",
+    image:
+      "https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=1974&auto=format&fit=crop",
+    rating: 4.8,
+  },
+  {
+    id: 2,
+    title: "Classic Burger",
+    author: "John Smith",
+    image:
+      "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?q=80&w=2070&auto=format&fit=crop",
+    rating: 4.5,
+  },
+  {
+    id: 3,
+    title: "Vegetarian Pizza",
+    author: "Sarah Wilson",
+    image:
+      "https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=1974&auto=format&fit=crop",
+    rating: 4.7,
+  },
+];
+
+// Vouchers and Updates for Popular section
+export const voucherUpdates = [
+  {
+    id: "v1",
+    name: "50% Off All Burgers",
+    description: "Get half price on all premium burgers this weekend at BurgerLab",
+    location: "BurgerLab, SS2",
+    image_url: "https://images.unsplash.com/photo-1586816001966-79b736744398?q=80&w=3270&auto=format&fit=crop",
+    cuisine_type: "Promotion",
+    valid_until: "2024-03-31",
+    promo_code: "BURGER50"
+  },
+  {
+    id: "v2",
+    name: "New Restaurant Alert",
+    description: "Sushi Master opens in Bangsar - Get 20% off on your first visit",
+    location: "Bangsar",
+    image_url: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=3270&auto=format&fit=crop",
+    cuisine_type: "New Opening",
+    valid_until: "2024-04-15",
+    promo_code: "SUSHI20"
+  },
+  {
+    id: "v3",
+    name: "Weekend Special",
+    description: "Buy 1 Free 1 on all pasta dishes at Roger's Kitchen",
+    location: "TTDI",
+    image_url: "https://images.unsplash.com/photo-1556761223-4c4282c73f77?q=80&w=3270&auto=format&fit=crop",
+    cuisine_type: "Special Offer",
+    valid_until: "2024-03-24",
+    promo_code: "PASTA11"
+  }
+];

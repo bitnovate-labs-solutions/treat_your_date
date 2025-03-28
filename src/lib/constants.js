@@ -13,6 +13,7 @@ export const cuisineTypes = [
 ];
 
 export const foodCategories = [
+  { value: "all", label: "All" },
   { value: "vegetarian", label: "Vegetarian" },
   { value: "vegan", label: "Vegan" },
   { value: "gluten-free", label: "Gluten-Free" },

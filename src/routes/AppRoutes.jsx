@@ -11,13 +11,13 @@ import { CardSkeleton } from "@/components/loading-skeleton";
 import Welcome from "@/pages/Welcome";
 import Auth from "@/pages/auth/Auth";
 import Profile from "@/pages/Profile";
-import Treater from "@/pages/treater-page/Treater";
-import Treatee from "@/pages/treatee-page/Treatee";
+import Treater from "@/pages/treater_page/Treater";
+import Treatee from "@/pages/treatee_page/Treatee";
 import ShoppingCart from "@/pages/cart_page/Cart";
 import Messages from "@/pages/Messages";
-import Explore from "@/pages/Explore";
+import Explore from "@/pages/explore_page/Explore";
 import CreateProfile from "@/pages/CreateProfile";
-import EditProfile from "@/pages/edit-profile/EditProfile";
+import EditProfile from "@/pages/edit_profile_page/EditProfile";
 import AuthCallback from "@/routes/AuthCallback";
 import Connect from "@/pages/connect_page/Connect";
 
@@ -26,9 +26,22 @@ export default function AppRoutes() {
 
   return (
     <Routes>
-      {/* PUBLIC ROUTES */}
+      {/* ----------------------------- PUBLIC ROUTES ----------------------------- */}
+
       <Route path="/" element={<Welcome />} />
       <Route path="/auth/callback" element={<AuthCallback />} />
+
+      {/* WITH LAYOUT */}
+      <Route element={<Layout title="Explore" />}>
+        <Route
+          path="/explore"
+          element={
+            <Suspense fallback={<CardSkeleton />}>
+              <Explore />
+            </Suspense>
+          }
+        />
+      </Route>
 
       {/* Authentication route */}
       <Route
@@ -36,28 +49,17 @@ export default function AppRoutes() {
         element={!user ? <Auth /> : <Navigate to="/create-profile" />}
       />
 
-      {/* PROTECTED ROUTES - WITHOUT LAYOUT */}
+      {/* ----------------------------- PROTECTED ROUTES ----------------------------- */}
+
+      {/* WITHOUT LAYOUT */}
       <Route element={<ProtectedRoute />}>
         <Route path="/create-profile" element={<CreateProfile />} />
         <Route path="/edit-profile" element={<EditProfile />} />
       </Route>
 
-      {/* LAYOUT-WRAPPED ROUTES */}
-
-      <Route
-        path="/explore"
-        element={
-          <Suspense fallback={<CardSkeleton />}>
-            <Explore />
-          </Suspense>
-        }
-      />
-
-      {/* PROTECTED ROUTES + LAYOUT  */}
+      {/* WITH LAYOUT */}
+      {/* Each route requires individual wrapping of <Layout /> to enable passing the title as props to each respective Header */}
       <Route element={<ProtectedRoute />}>
-        {/* <Route path="/create-profile" element={<CreateProfile />} /> */}
-        {/* <Route path="/edit-profile" element={<EditProfile />} /> */}
-
         {/* TREATER PAGE */}
         <Route element={<Layout title="Welcome back, Treater!" />}>
           <Route path="/treater" element={<Treater />} />

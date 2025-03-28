@@ -6,11 +6,13 @@ import {
   UserSearch,
 } from "lucide-react";
 import { Button } from "./ui/button";
+import { useAuth } from "@/context/AuthContext";
 
 const AppNav = ({ profile, handleHomeClick, handleProtectedNavigation }) => {
+  const { user } = useAuth();
+
   return (
     <div>
-      {/* BOTTOM NAVIGATION BAR */}
       <nav className="w-full max-w-md mx-auto fixed bottom-0 left-0 right-0 z-10 rounded-t-2xl border-t border-gray-200 bg-white shadow-2xl">
         <div className="container mx-auto px-4 shadow-lg h-[5.5rem]">
           <div className="flex justify-around py-4">
@@ -18,7 +20,7 @@ const AppNav = ({ profile, handleHomeClick, handleProtectedNavigation }) => {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => handleProtectedNavigation("/profile")}
+              onClick={() => user && handleProtectedNavigation("/profile")}
             >
               <User
                 className={`${
@@ -29,7 +31,11 @@ const AppNav = ({ profile, handleHomeClick, handleProtectedNavigation }) => {
               />
             </Button>
             {/* FOOD ICON BUTTON */}
-            <Button variant="ghost" size="icon" onClick={handleHomeClick}>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={user && handleHomeClick}
+            >
               <UtensilsCrossed
                 className={`${
                   location.pathname === `/${profile?.role}`
@@ -43,6 +49,7 @@ const AppNav = ({ profile, handleHomeClick, handleProtectedNavigation }) => {
               variant="ghost"
               size="icon"
               onClick={() =>
+                user &&
                 handleProtectedNavigation(
                   profile?.role === "treatee" ? "/connect" : "/my-cart"
                 )
@@ -70,7 +77,7 @@ const AppNav = ({ profile, handleHomeClick, handleProtectedNavigation }) => {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => handleProtectedNavigation("/messages")}
+              onClick={() => user && handleProtectedNavigation("/messages")}
             >
               <MessagesSquare
                 className={`${

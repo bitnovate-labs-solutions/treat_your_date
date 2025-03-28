@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 // import { supabase } from "@/lib/supabase";
-import { mockApi } from "@/lib/mock_data";
+import { mockApi } from "@/data/mock_data";
 
 // COMPONENTS
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

@@ -90,7 +90,7 @@ export default function TreateeCard({ item, onLike, isLiked, additionalInfo }) {
           <div className="space-y-2 col-span-2">
             {/* Treators section */}
             <div>
-              <p className="text-sm font-semibold mb-2">Purchased by</p>
+              <p className="text-sm font-semibold mb-2">Treators</p>
               {/* Avatar stack */}
               <div className="flex items-center">
                 <div className="flex -space-x-2">
