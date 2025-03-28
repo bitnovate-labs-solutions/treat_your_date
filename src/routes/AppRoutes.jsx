@@ -58,26 +58,27 @@ export default function AppRoutes() {
         {/* <Route path="/create-profile" element={<CreateProfile />} /> */}
         {/* <Route path="/edit-profile" element={<EditProfile />} /> */}
 
-        {/* TREATER */}
+        {/* TREATER PAGE */}
         <Route element={<Layout title="Welcome back, Treater!" />}>
           <Route path="/treater" element={<Treater />} />
         </Route>
-        {/* TREATEE */}
+        {/* TREATEE PAGE */}
         <Route element={<Layout title="Welcome back, Treatee!" />}>
           <Route path="/treatee" element={<Treatee />} />
         </Route>
-        {/* PROFILE */}
+        {/* PROFILE PAGE */}
         <Route element={<Layout title="Profile" />}>
           <Route path="/profile" element={<Profile />} />
         </Route>
-        {/* SHOPPING CART */}
+        {/* SHOPPING CART PAGE */}
         <Route element={<Layout title="My Cart" />}>
           <Route path="/my-cart" element={<ShoppingCart />} />
         </Route>
-        {/* CONNECT */}
+        {/* CONNECT PAGE */}
         <Route element={<Layout title="Connect" />}>
           <Route path="/connect" element={<Connect />} />
         </Route>
+        {/* MESSAGES PAGE */}
         <Route element={<Layout title="Messages" />}>
           <Route path="/messages" element={<Messages />} />
         </Route>

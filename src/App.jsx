@@ -26,7 +26,21 @@ function App() {
           <FilterProvider>
             <AppRoutes />
           </FilterProvider>
-          <Toaster />
+          <Toaster
+            toastOptions={{
+              style: {
+                background: "white",
+                border: "none",
+                color: "#ff637e",
+                boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.3)",
+              },
+              classNames: {
+                description: "!text-gray-500",
+                success: "!text-[#22c55e]",
+                error: "!text-red-500",
+              },
+            }}
+          />
           <PWAPrompt />
           <ReactQueryDevtools initialIsOpen={false} />
         </AuthProvider>

@@ -106,10 +106,13 @@ export function AuthProvider({ children }) {
       const { data, error } = await supabase.auth.signUp({
         ...credentials,
         options: {
-          data: { display_name: credentials.display_name }, // include display_name from sign up input
+          data: {
+            name: credentials.display_name, // Set name in user metadata
+            // display_name: credentials.display_name // Keep display_name for backward compatibility
+          },
         },
       });
-      console.log("Data:", data);
+
       if (error) throw error; // Ensure errors are caught in catch block
 
       return data;

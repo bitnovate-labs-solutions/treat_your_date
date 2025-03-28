@@ -66,7 +66,12 @@ export default function CreateProfile() {
       education: "",
       location: "",
       gender: "",
-      height: "",
+      height: {
+        value: "",
+        unit: "cm",
+        feet: "",
+        inches: "",
+      },
       smoking: "",
       drinking: "",
       pets: "",
@@ -473,11 +478,61 @@ export default function CreateProfile() {
                     Height
                   </span>
                 </div>
-                <Input
-                  placeholder="Add"
-                  className="w-2/5 h-auto text-right text-sm text-lightgray border-none shadow-none bg-white"
-                  {...form.register("height")}
-                />
+                <div className="flex items-center gap-1">
+                  {/* CM FIELD */}
+                  {form.watch("height.unit") === "cm" ? (
+                    <Input
+                      placeholder="Add"
+                      type="number"
+                      min="0"
+                      max="300"
+                      className="w-20 h-auto text-right text-sm text-lightgray border-none shadow-none bg-white"
+                      {...form.register("height.value")}
+                    />
+                  ) : (
+                    // FEET and INCHES FIELD
+                    <div className="flex items-center gap-1">
+                      <Input
+                        placeholder="ft"
+                        type="number"
+                        min="0"
+                        max="10"
+                        className="w-12 h-auto text-right text-sm text-lightgray border-none shadow-none bg-white"
+                        {...form.register("height.feet")}
+                      />
+                      <Input
+                        placeholder="in"
+                        type="number"
+                        min="0"
+                        max="11"
+                        className="w-12 h-auto text-right text-sm text-lightgray border-none shadow-none bg-white"
+                        {...form.register("height.inches")}
+                      />
+                    </div>
+                  )}
+                  <Select
+                    value={form.watch("height.unit")}
+                    onValueChange={(value) => {
+                      form.setValue("height.unit", value);
+                      // Reset the other values when switching units
+                      if (value === "cm") {
+                        form.setValue("height.value", "");
+                        form.setValue("height.feet", "");
+                        form.setValue("height.inches", "");
+                      } else {
+                        form.setValue("height.value", "");
+                      }
+                    }}
+                  >
+                    <SelectTrigger className="h-auto bg-white border-none shadow-none text-darkgray w-17">
+                      <SelectValue placeholder="Unit" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-white border-lightgray/20">
+                      <SelectItem value="cm">cm</SelectItem>
+                      <SelectItem value="ft">ft</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
 
               {/* SMOKING FIELD */}
