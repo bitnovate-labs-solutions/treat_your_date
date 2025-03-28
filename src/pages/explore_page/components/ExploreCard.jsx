@@ -2,17 +2,23 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Heart } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function ExploreCard({ item }) {
   const [isLiked, setIsLiked] = useState(false);
   const [hasJoined, setHasJoined] = useState(false);
+  const navigate = useNavigate();
 
   const handleLike = () => {
     setIsLiked(!isLiked);
   };
 
   const handleJoin = () => {
-    setHasJoined(true);
+    navigate("/auth", { state: { mode: "signup" } });
+  };
+
+  const handlePay = () => {
+    navigate("/auth", { state: { mode: "signup" } });
   };
 
   // Format the date to display as "Feb 22, 2025"
@@ -82,6 +88,7 @@ export default function ExploreCard({ item }) {
                 variant="primary"
                 size="sm"
                 className="bg-primary text-white hover:bg-primary/90 w-full mx-4"
+                onClick={handlePay}
               >
                 Pay
               </Button>
