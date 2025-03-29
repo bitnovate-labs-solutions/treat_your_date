@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-
 import { supabase } from "@/lib/supabase";
 import { useQueryClient } from "@tanstack/react-query";
-
 import { useAuth } from "@/context/AuthContext";
 import { useUserProfile } from "@/hooks/useUserProfile";
 
+// COMPONENTS
+import { Button } from "@/components/ui/button";
+
 // ASSETS
 import OnboardingImage1 from "@/assets/tyd_logo.png";
-import TreaterImage from "@/assets/images/treater.png";
-import TreateeImage from "@/assets/images/treatee.png";
 import { onboardingSteps } from "./data/onboarding_data";
+import RenderDescription from "./components/RenderDescription";
 
 // Prefetch and cache API data
 const prefetchData = async (queryClient) => {
@@ -86,67 +85,6 @@ export default function Welcome() {
     );
   }
 
-  // RENDER ONBOARDING DESCRIPTION
-  const renderDescription = (currentStep) => {
-    if (currentStep === 2) {
-      return (
-        <>
-          <div className="flex mt-8">
-            <div className="w-1/2">
-              <div className="flex justify-center items-center mb-4">
-                <img
-                  src={TreaterImage}
-                  alt="Welcome"
-                  className="w-20 h-20 object-cover"
-                />
-              </div>
-              <strong className="text-lg font-black text-primary">
-                Be a Treator
-              </strong>
-              <p className="text-lightgray mt-2">
-                <strong className="text-primary">Treat</strong> someone <br />{" "}
-                to a meal and enjoy great company
-              </p>
-            </div>
-
-            {/* DIVIDER */}
-            <div className="flex flex-col items-center">
-              <div className="flex-1 border-l border-lightgray mb-4" />
-              <span className="px-3 text-xs">OR</span>
-              <div className="flex-1 border-l border-lightgray mt-4" />
-            </div>
-
-            <div className="w-1/2">
-              <div className="flex justify-center items-center mb-4">
-                <img
-                  src={TreateeImage}
-                  alt="Welcome"
-                  className="w-20 h-20 object-cover"
-                />
-              </div>
-              <strong className="text-lg font-black text-primary">
-                Be a Treatee
-              </strong>
-              <p className="text-lightgray mt-2">
-                <strong className="text-primary">Request</strong> a meal <br />{" "}
-                and get invited by a Treator
-              </p>
-            </div>
-          </div>
-          <p className="mt-6 text-darkgray">
-            Whichever <strong className="text-primary font-black">role</strong>{" "}
-            you choose, <br /> good food and good company are just a tap away!
-          </p>
-        </>
-      );
-    }
-    return (
-      <p className="text-lightgray">
-        {onboardingSteps[currentStep].description}
-      </p>
-    );
-  };
-
   // HANDLE NEXT
   const handleNext = () => {
     // If user is not authenticated, show onboarding
@@ -178,7 +116,11 @@ export default function Welcome() {
           <h1 className="text-2xl font-black text-gray-600 mb-6">
             {onboardingSteps[currentStep].title}
           </h1>
-          <p className="text-lightgray">{renderDescription(currentStep)}</p>
+          {/* RENDER DESCRIPTION COMPONENT */}
+          <RenderDescription
+            currentStep={currentStep}
+            onboardingSteps={onboardingSteps}
+          />
         </div>
 
         {/* PAGINATION DOTS */}

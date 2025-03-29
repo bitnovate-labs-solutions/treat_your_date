@@ -7,6 +7,7 @@ import {
   states,
 } from "@/lib/constants";
 import { useFilters } from "@/context/FilterContext";
+import { version } from "../../package.json";
 
 // COMPONENTS
 import { ChevronDown, LogOut, Settings2 } from "lucide-react";
@@ -110,11 +111,8 @@ export default function AppHeader({ title, isHomePage, isProfilePage }) {
                   </DropdownMenuItem>
 
                   {/* VERSION NUMBER */}
-                  <DropdownMenuItem
-                    onClick={handleSignOut}
-                    className="text-lightgray"
-                  >
-                    Version: 1.0.0
+                  <DropdownMenuItem className="text-lightgray">
+                    Version: {version}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>

@@ -1,8 +1,10 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
-import Loader from "@/components/Loader";
 import { useQueryClient } from "@tanstack/react-query";
+
+// COMPONENTS
+import Loading from "@/components/Loading";
 
 const AuthContext = createContext({});
 
@@ -153,7 +155,7 @@ export function AuthProvider({ children }) {
 
   // LOADING ANIMATION
   if (loading && !user) {
-    return <Loader />;
+    return <Loading type="startup" />;
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

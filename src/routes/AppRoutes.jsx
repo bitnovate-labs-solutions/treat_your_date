@@ -8,7 +8,7 @@ import { Suspense } from "react";
 import { CardSkeleton } from "@/components/loading-skeleton";
 
 // Pages
-import Welcome from "@/pages/onboarding_page/Onboarding";
+import OnboardingPage from "@/pages/onboarding_page/Onboarding";
 import Auth from "@/pages/auth/Auth";
 import Profile from "@/pages/Profile";
 import Treater from "@/pages/treater_page/Treater";
@@ -20,6 +20,9 @@ import CreateProfile from "@/pages/CreateProfile";
 import EditProfile from "@/pages/edit_profile_page/EditProfile";
 import AuthCallback from "@/routes/AuthCallback";
 import Connect from "@/pages/connect_page/Connect";
+// import LoadingTest from "@/pages/LoadingTest";
+
+import Loading2 from "@/components/Loading";
 
 export default function AppRoutes() {
   const { user } = useAuth();
@@ -28,8 +31,12 @@ export default function AppRoutes() {
     <Routes>
       {/* ----------------------------- PUBLIC ROUTES ----------------------------- */}
 
-      <Route path="/" element={<Welcome />} />
+      <Route path="/" element={<OnboardingPage />} />
       <Route path="/auth/callback" element={<AuthCallback />} />
+
+      {/* FOR TESTING LOADING COMPONENT UI */}
+      {/* <Route path="/loading-test" element={<LoadingTest />} /> */}
+      <Route path="/loading-test" element={<Loading2 type="startup" />} />
 
       {/* WITH LAYOUT */}
       <Route element={<Layout title="Explore" />}>
