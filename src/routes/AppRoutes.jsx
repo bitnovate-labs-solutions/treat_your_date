@@ -20,9 +20,9 @@ import CreateProfile from "@/pages/CreateProfile";
 import EditProfile from "@/pages/edit_profile_page/EditProfile";
 import AuthCallback from "@/routes/AuthCallback";
 import Connect from "@/pages/connect_page/Connect";
-// import LoadingTest from "@/pages/LoadingTest";
 
-import Loading2 from "@/components/Loading";
+// TEMP TESTING
+import Loading from "@/components/Loading";
 
 export default function AppRoutes() {
   const { user } = useAuth();
@@ -35,12 +35,9 @@ export default function AppRoutes() {
       <Route path="/auth/callback" element={<AuthCallback />} />
 
       {/* FOR TESTING LOADING COMPONENT UI */}
-      {/* <Route path="/loading-test" element={<LoadingTest />} /> */}
       <Route
         path="/loading-test"
-        element={
-          <Loading2 type="screen" text="Setting up your experience..." />
-        }
+        element={<Loading type="screen" text="Setting up your experience..." />}
       />
 
       {/* WITH LAYOUT */}

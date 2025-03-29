@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function ExploreCard({ item }) {
   const [isLiked, setIsLiked] = useState(false);
-  const [hasJoined, setHasJoined] = useState(false);
+  // const [hasJoined, setHasJoined] = useState(false);
   const navigate = useNavigate();
 
   const handleLike = () => {
@@ -77,9 +77,9 @@ export default function ExploreCard({ item }) {
       {/* Card Footer */}
       <div className="p-4">
         <div className="flex justify-between items-center">
-          {/* Treators Section */}
+          {/* TREATERS SECTION */}
           <div className="w-1/2">
-            <h4 className="text-sm font-medium mb-2">Treators</h4>
+            <h4 className="text-sm font-medium mb-2">Treaters</h4>
             <div className="flex items-center gap-2">
               <div className="bg-primary/10 px-3 py-1 rounded-lg">
                 <span className="text-primary">+3</span>
@@ -90,7 +90,7 @@ export default function ExploreCard({ item }) {
                 className="bg-primary text-white hover:bg-primary/90 w-full mx-4"
                 onClick={handlePay}
               >
-                Pay
+                Buy
               </Button>
             </div>
           </div>
@@ -107,9 +107,10 @@ export default function ExploreCard({ item }) {
                 size="sm"
                 className="border-primary text-primary hover:bg-primary/10 w-full mx-4"
                 onClick={handleJoin}
-                disabled={hasJoined}
+                // disabled={hasJoined}
               >
-                {hasJoined ? "Joined" : "Join"}
+                {/* {hasJoined ? "Joined" : "Join"} */}
+                Join
               </Button>
             </div>
           </div>

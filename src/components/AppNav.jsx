@@ -1,15 +1,27 @@
+import { useAuth } from "@/context/AuthContext";
+import { toast } from "sonner";
+
+// COMPONENTS
 import {
   MessagesSquare,
   ShoppingCart,
   User,
-  UtensilsCrossed,
+  // UtensilsCrossed,
   UserSearch,
+  HomeIcon,
 } from "lucide-react";
 import { Button } from "./ui/button";
-import { useAuth } from "@/context/AuthContext";
 
 const AppNav = ({ profile, handleHomeClick, handleProtectedNavigation }) => {
   const { user } = useAuth();
+
+  const handleRestrictedClick = () => {
+    toast.error("Please sign in to access this feature", {
+      description:
+        "Click on the Buy button to sign up as treater or click on the Join button to sign up as treatee.",
+      duration: 10000,
+    });
+  };
 
   return (
     <div>
@@ -20,72 +32,146 @@ const AppNav = ({ profile, handleHomeClick, handleProtectedNavigation }) => {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => user && handleProtectedNavigation("/profile")}
+              onClick={() =>
+                user
+                  ? handleProtectedNavigation("/profile")
+                  : handleRestrictedClick()
+              }
+              className={`flex flex-col items-center gap-1 ${
+                !user ? "opacity-40" : ""
+              }`}
             >
               <User
-                className={`${
+                className={`w-6 h-6 ${
                   location.pathname === `/profile`
                     ? "text-primary"
+                    : !user
+                    ? "text-gray-400"
                     : "text-darkgray"
                 }`}
               />
+              <span
+                className={`text-xs ${
+                  !user ? "text-gray-400" : "text-darkgray"
+                }`}
+              >
+                Profile
+              </span>
             </Button>
             {/* FOOD ICON BUTTON */}
             <Button
               variant="ghost"
               size="icon"
-              onClick={user && handleHomeClick}
+              onClick={() =>
+                user ? handleHomeClick() : handleRestrictedClick()
+              }
+              className={`flex flex-col items-center gap-1 ${
+                !user ? "opacity-40" : ""
+              }`}
             >
-              <UtensilsCrossed
-                className={`${
+              <HomeIcon
+                className={`w-6 h-6 ${
                   location.pathname === `/${profile?.role}`
                     ? "text-primary"
+                    : !user
+                    ? "text-gray-400"
                     : "text-darkgray"
                 }`}
               />
+              <span
+                className={`text-xs ${
+                  !user ? "text-gray-400" : "text-darkgray"
+                }`}
+              >
+                Home
+              </span>
             </Button>
             {/* SHOPPING CART/SEARCH ICON BUTTON */}
             <Button
               variant="ghost"
               size="icon"
-              onClick={() =>
-                user &&
-                handleProtectedNavigation(
-                  profile?.role === "treatee" ? "/connect" : "/my-cart"
-                )
-              }
+              onClick={() => {
+                if (user) {
+                  handleProtectedNavigation(
+                    profile?.role === "treatee" ? "/connect" : "/my-cart"
+                  );
+                } else {
+                  handleRestrictedClick();
+                }
+              }}
+              className={`flex flex-col items-center gap-1 ${
+                !user ? "opacity-40" : ""
+              }`}
             >
               {profile?.role === "treatee" ? (
-                <UserSearch
-                  className={`${
-                    location.pathname === `/connect`
-                      ? "text-primary"
-                      : "text-darkgray"
-                  }`}
-                />
+                <>
+                  <UserSearch
+                    className={`w-6 h-6 ${
+                      location.pathname === `/connect`
+                        ? "text-primary"
+                        : !user
+                        ? "text-gray-400"
+                        : "text-darkgray"
+                    }`}
+                  />
+                  <span
+                    className={`text-xs ${
+                      !user ? "text-gray-400" : "text-darkgray"
+                    }`}
+                  >
+                    Connect
+                  </span>
+                </>
               ) : (
-                <ShoppingCart
-                  className={`${
-                    location.pathname === `/my-cart`
-                      ? "text-primary"
-                      : "text-darkgray"
-                  }`}
-                />
+                <>
+                  <ShoppingCart
+                    className={`w-6 h-6 ${
+                      location.pathname === `/my-cart`
+                        ? "text-primary"
+                        : !user
+                        ? "text-gray-400"
+                        : "text-darkgray"
+                    }`}
+                  />
+                  <span
+                    className={`text-xs ${
+                      !user ? "text-gray-400" : "text-darkgray"
+                    }`}
+                  >
+                    Cart
+                  </span>
+                </>
               )}
             </Button>
             {/* MESSAGE ICON BUTTON */}
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => user && handleProtectedNavigation("/messages")}
+              onClick={() =>
+                user
+                  ? handleProtectedNavigation("/messages")
+                  : handleRestrictedClick()
+              }
+              className={`flex flex-col items-center gap-1 ${
+                !user ? "opacity-40" : ""
+              }`}
             >
               <MessagesSquare
-                className={`${
+                className={`w-6 h-6 ${
                   location.pathname === `/messages`
                     ? "text-primary"
+                    : !user
+                    ? "text-gray-400"
                     : "text-darkgray"
                 }`}
               />
+              <span
+                className={`text-xs ${
+                  !user ? "text-gray-400" : "text-darkgray"
+                }`}
+              >
+                Messages
+              </span>
             </Button>
           </div>
         </div>
