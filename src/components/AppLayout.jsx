@@ -59,7 +59,7 @@ export default function Layout({ title }) {
   };
 
   return (
-    <div className="flex flex-col min-h-screen w-full max-w-md mx-auto bg-gray-100">
+    <div className="flex flex-col min-h-screen w-full max-w-sm mx-auto bg-gray-100">
       {/* HEADER */}
       <AppHeader
         isHomePage={isHomePage}

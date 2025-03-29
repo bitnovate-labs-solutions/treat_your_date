@@ -482,6 +482,7 @@ export default function CreateProfile() {
                     className="w-2/5 h-auto text-right text-sm text-lightgray border-none shadow-none bg-white"
                     {...form.register("height")}
                   />
+                  cm
                 </div>
               </div>
 
