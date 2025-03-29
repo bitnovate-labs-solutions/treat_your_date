@@ -1,55 +1,53 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/lib/supabase";
-import { useQueryClient } from "@tanstack/react-query";
+// import { supabase } from "@/lib/supabase";
+// import { useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/context/AuthContext";
 import { useUserProfile } from "@/hooks/useUserProfile";
+import { onboardingSteps } from "./data/onboarding_data";
 
 // COMPONENTS
 import { Button } from "@/components/ui/button";
-
-// ASSETS
-import OnboardingImage1 from "@/assets/tyd_logo.png";
-import { onboardingSteps } from "./data/onboarding_data";
+import Loading from "@/components/Loading";
 import RenderDescription from "./components/RenderDescription";
 
 // Prefetch and cache API data
-const prefetchData = async (queryClient) => {
-  try {
-    // Fetch initial data
-    const { data: foodData } = await supabase
-      .from("foods")
-      .select(
-        `
-        *,
-        restaurants (*),
-        user_selections (
-          id,
-          user_profile_id,
-          role,
-          user_profiles (*)
-        )
-      `
-      )
-      .order("available_date", { ascending: true });
+// const prefetchData = async (queryClient) => {
+//   try {
+//     // Fetch initial data
+//     const { data: foodData } = await supabase
+//       .from("foods")
+//       .select(
+//         `
+//         *,
+//         restaurants (*),
+//         user_selections (
+//           id,
+//           user_profile_id,
+//           role,
+//           user_profiles (*)
+//         )
+//       `
+//       )
+//       .order("available_date", { ascending: true });
 
-    // Cache the data
-    queryClient.setQueryData(["foodItems"], foodData);
+//     // Cache the data
+//     queryClient.setQueryData(["foodItems"], foodData);
 
-    // Cache images
-    foodData?.forEach((item) => {
-      const img = new Image();
-      img.src = item.image_url || item.restaurants?.image_url;
-    });
-  } catch (error) {
-    console.error("Prefetch error:", error);
-  }
-};
+//     // Cache images
+//     foodData?.forEach((item) => {
+//       const img = new Image();
+//       img.src = item.image_url || item.restaurants?.image_url;
+//     });
+//   } catch (error) {
+//     console.error("Prefetch error:", error);
+//   }
+// };
 
-export default function Welcome() {
+export default function Onboarding() {
   const [currentStep, setCurrentStep] = useState(0);
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
   const { user } = useAuth();
   const { data: profile, isLoading } = useUserProfile(user);
 
@@ -67,22 +65,13 @@ export default function Welcome() {
   }, [user, profile, isLoading, navigate]);
 
   // Start prefetching data when component mounts
-  useEffect(() => {
-    prefetchData(queryClient);
-  }, [queryClient]);
+  // useEffect(() => {
+  //   prefetchData(queryClient);
+  // }, [queryClient]);
 
   // Show loading state while checking auth/profile
   if (isLoading) {
-    return (
-      <div className="h-screen max-w-md mx-auto bg-white flex flex-col items-center justify-center px-6">
-        <img
-          src={OnboardingImage1}
-          alt="TreatYourDate Logo"
-          className="w-32 h-32 mb-4"
-        />
-        <p className="text-gray-600">Loading your profile...</p>
-      </div>
-    );
+    <Loading type="screen" text="Loading your profile..." />;
   }
 
   // HANDLE NEXT
@@ -106,7 +95,7 @@ export default function Welcome() {
               src={onboardingSteps[currentStep].image}
               alt="Welcome"
               loading={currentStep === 0 ? "eager" : "lazy"}
-              className="w-65 h-auto object-cover flex-shrink-0"
+              className="w-45 h-auto object-cover flex-shrink-0"
             />
           </div>
         )}

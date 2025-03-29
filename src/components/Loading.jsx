@@ -1,12 +1,17 @@
 import { motion } from "framer-motion";
 import Logo from "@/assets/tyd_logo.png";
 
-const Loading = ({ type = "inline", isLoading = true, className = "" }) => {
+const Loading = ({
+  type = "inline",
+  isLoading = true,
+  className = "",
+  text = "",
+}) => {
   if (!isLoading) return null;
 
   switch (type) {
     // INITAL PAGE LOADER
-    case "startup":
+    case "screen":
       return (
         <div
           className={`fixed inset-0 flex flex-col items-center justify-center bg-white z-50 ${className}`}
@@ -39,43 +44,7 @@ const Loading = ({ type = "inline", isLoading = true, className = "" }) => {
           </div>
 
           {/* LOADING TEXT */}
-          <p className="text-lightgray mt-4 text-sm">
-            Setting up your experience...
-          </p>
-        </div>
-      );
-
-    // NORMAL FULL SCREEN LOADER (W/O LOADING TEXT)
-    case "fullscreen":
-      return (
-        <div
-          className={`fixed inset-0 flex flex-col items-center justify-center bg-white z-50 ${className}`}
-        >
-          {/* BRAND LOGO */}
-          <img
-            src={Logo}
-            alt="TreatYourDate Logo"
-            className="w-32 h-auto mb-20 animate-pulse"
-          />
-
-          {/* ANIMATED LOADING DOTS */}
-          <div className="flex space-x-2">
-            {[...Array(3)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="w-3 h-3 bg-primary rounded-full"
-                animate={{
-                  y: [0, -10, 0],
-                }}
-                transition={{
-                  duration: 0.6,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: i * 0.2, // Staggered animation
-                }}
-              />
-            ))}
-          </div>
+          <p className="text-lightgray mt-10 text-sm">{text}</p>
         </div>
       );
 

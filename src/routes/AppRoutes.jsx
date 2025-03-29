@@ -8,7 +8,7 @@ import { Suspense } from "react";
 import { CardSkeleton } from "@/components/loading-skeleton";
 
 // Pages
-import OnboardingPage from "@/pages/onboarding_page/Onboarding";
+import Onboarding from "@/pages/onboarding_page/Onboarding";
 import Auth from "@/pages/auth/Auth";
 import Profile from "@/pages/Profile";
 import Treater from "@/pages/treater_page/Treater";
@@ -31,12 +31,17 @@ export default function AppRoutes() {
     <Routes>
       {/* ----------------------------- PUBLIC ROUTES ----------------------------- */}
 
-      <Route path="/" element={<OnboardingPage />} />
+      <Route path="/" element={<Onboarding />} />
       <Route path="/auth/callback" element={<AuthCallback />} />
 
       {/* FOR TESTING LOADING COMPONENT UI */}
       {/* <Route path="/loading-test" element={<LoadingTest />} /> */}
-      <Route path="/loading-test" element={<Loading2 type="startup" />} />
+      <Route
+        path="/loading-test"
+        element={
+          <Loading2 type="screen" text="Setting up your experience..." />
+        }
+      />
 
       {/* WITH LAYOUT */}
       <Route element={<Layout title="Explore" />}>
