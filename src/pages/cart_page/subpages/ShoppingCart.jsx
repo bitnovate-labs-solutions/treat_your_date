@@ -55,10 +55,10 @@ export default function ShoppingCart({ onSuccess }) {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <div className="max-w-md mx-auto">
+      <div className="max-w-sm mx-auto">
         {/* SHOPPING CART EMPTY PAGE */}
         {items.length === 0 ? (
-          <div className="fixed inset-0 max-w-md mx-auto flex flex-col items-center justify-center px-6">
+          <div className="fixed inset-0 max-w-sm mx-auto flex flex-col items-center justify-center px-6">
             <ImageWithFallback src={EmptyCart} className="w-50 h-auto mb-6" />
             <p className="text-lightgray text-sm">Your cart is empty</p>
             <p className="text-lightgray text-sm mb-10 text-center px-10">

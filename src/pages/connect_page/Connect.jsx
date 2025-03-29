@@ -32,9 +32,9 @@ const InstructionScreen = ({ onStart }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 mb-[5rem] mt-[3.5rem] flex items-center justify-center bg-black/40 backdrop-blur-sm"
+      className="max-w-sm mx-auto fixed inset-0 z-50 mb-[5rem] mt-[3.5rem] flex items-center justify-center bg-black/40 backdrop-blur-sm"
     >
-      <Card className="max-w-md w-full mx-4 border-none shadow-none">
+      <Card className="max-w-sm w-full mx-4 border-none shadow-none">
         <CardContent className="p-6 space-y-6">
           <div className="text-center space-y-2 mb-10">
             <h2 className="text-2xl font-bold text-primary">How It Works</h2>
@@ -48,7 +48,8 @@ const InstructionScreen = ({ onStart }) => {
             <div className="flex items-center justify-between bg-none mb-10">
               <div>
                 <h3 className="font-semibold text-white text-xl mb-2">
-                  Swipe Right if you Like
+                  Swipe Right if you{" "}
+                  <span className="font-black text-green-400">Like</span>
                 </h3>
                 <p className="text-xs text-white">
                   {`If you're interested in connecting`}
@@ -68,7 +69,8 @@ const InstructionScreen = ({ onStart }) => {
               <img src={SwipeLeft} alt="swipe-left" className="h-12 w-12" />
               <div className="pl-10">
                 <h3 className="font-semibold text-white text-xl mb-3">
-                  Swipe Left to Pass
+                  Swipe Left to{" "}
+                  <span className="font-black text-red-400">Pass</span>
                 </h3>
                 <p className="text-xs text-white">
                   {`If the person is not your cup of tea, simply pass. It's that

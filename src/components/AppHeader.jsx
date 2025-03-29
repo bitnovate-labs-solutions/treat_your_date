@@ -78,7 +78,7 @@ export default function AppHeader({ title, isHomePage, isProfilePage }) {
   };
 
   return (
-    <div className="sticky top-0 bg-white border-b border-gray-200 shadow-md z-10">
+    <div className="fixed top-0 left-0 right-0 max-w-sm mx-auto bg-white border-b border-gray-200 shadow-md z-10">
       <div className="pt-3">
         <div className="grid grid-cols-5">
           <div className="col-start-2 col-span-3">

@@ -149,9 +149,9 @@ export default function Auth() {
   }
 
   return (
-    <div className="h-screen flex flex-col">
+    <div className="h-screen max-w-sm mx-auto flex flex-col px-6">
       {/* LEFT CHEVRON */}
-      <div className="px-4">
+      <div>
         <ChevronLeft
           onClick={() => navigate(-1)}
           className="text-gray-400 h-8 w-8 mt-1"
@@ -159,8 +159,8 @@ export default function Auth() {
         />
       </div>
       <div>
-        <div className="w-full max-w-sm sm:max-w-md mx-auto px-6">
-          <div className="space-y-8">
+        <div>
+          <div>
             {/* LOGO */}
             <div className="flex justify-center">
               <img

@@ -18,7 +18,7 @@ const AppNav = ({ profile, handleHomeClick, handleProtectedNavigation }) => {
   const handleRestrictedClick = () => {
     toast.error("Please sign in to access this feature", {
       description:
-        "Click on the Buy button to sign up as treater or click on the Join button to sign up as treatee.",
+        "Click on the Buy button to sign up as Treater or the Join button as Treatee.",
       duration: 10000,
     });
   };
@@ -52,7 +52,11 @@ const AppNav = ({ profile, handleHomeClick, handleProtectedNavigation }) => {
               />
               <span
                 className={`text-xs ${
-                  !user ? "text-gray-400" : "text-darkgray"
+                  location.pathname === `/profile`
+                    ? "text-primary"
+                    : !user
+                    ? "text-gray-400"
+                    : "text-darkgray"
                 }`}
               >
                 Profile
@@ -80,7 +84,11 @@ const AppNav = ({ profile, handleHomeClick, handleProtectedNavigation }) => {
               />
               <span
                 className={`text-xs ${
-                  !user ? "text-gray-400" : "text-darkgray"
+                  location.pathname === `/${profile?.role}`
+                    ? "text-primary"
+                    : !user
+                    ? "text-gray-400"
+                    : "text-darkgray"
                 }`}
               >
                 Home
@@ -116,10 +124,14 @@ const AppNav = ({ profile, handleHomeClick, handleProtectedNavigation }) => {
                   />
                   <span
                     className={`text-xs ${
-                      !user ? "text-gray-400" : "text-darkgray"
+                      location.pathname === `/connect`
+                        ? "text-primary"
+                        : !user
+                        ? "text-gray-400"
+                        : "text-darkgray"
                     }`}
                   >
-                    Connect
+                    People
                   </span>
                 </>
               ) : (
@@ -135,7 +147,11 @@ const AppNav = ({ profile, handleHomeClick, handleProtectedNavigation }) => {
                   />
                   <span
                     className={`text-xs ${
-                      !user ? "text-gray-400" : "text-darkgray"
+                      location.pathname === `/my-cart`
+                        ? "text-primary"
+                        : !user
+                        ? "text-gray-400"
+                        : "text-darkgray"
                     }`}
                   >
                     Cart
@@ -143,6 +159,7 @@ const AppNav = ({ profile, handleHomeClick, handleProtectedNavigation }) => {
                 </>
               )}
             </Button>
+
             {/* MESSAGE ICON BUTTON */}
             <Button
               variant="ghost"
@@ -167,7 +184,11 @@ const AppNav = ({ profile, handleHomeClick, handleProtectedNavigation }) => {
               />
               <span
                 className={`text-xs ${
-                  !user ? "text-gray-400" : "text-darkgray"
+                  location.pathname === `/messages`
+                    ? "text-primary"
+                    : !user
+                    ? "text-gray-400"
+                    : "text-darkgray"
                 }`}
               >
                 Messages
