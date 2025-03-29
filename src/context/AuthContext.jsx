@@ -155,7 +155,7 @@ export function AuthProvider({ children }) {
 
   // LOADING ANIMATION
   if (loading && !user) {
-    return <Loading type="startup" />;
+    return <Loading type="screen" text="Setting up your experience..." />;
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
