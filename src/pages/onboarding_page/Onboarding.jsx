@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 // import { useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/context/AuthContext";
 import { useUserProfile } from "@/hooks/useUserProfile";
+import { useImageCache } from "@/hooks/useImageCache";
 import { onboardingSteps } from "./data/onboarding_data";
 
 // COMPONENTS
@@ -51,6 +52,9 @@ export default function Onboarding() {
   const { user } = useAuth();
   const { data: profile, isLoading } = useUserProfile(user);
 
+  // Cache all onboarding images
+  const cachedImages = onboardingSteps.map(step => useImageCache(step.image));
+
   // CHECK AUTH STATE AND REDIRECT BASED ON ROLE
   useEffect(() => {
     if (user && !isLoading) {
@@ -92,7 +96,7 @@ export default function Onboarding() {
         {onboardingSteps[currentStep].image && (
           <div className="flex justify-center items-center mb-6">
             <img
-              src={onboardingSteps[currentStep].image}
+              src={cachedImages[currentStep]}
               alt="Welcome"
               loading={currentStep === 0 ? "eager" : "lazy"}
               className="w-45 h-auto object-cover flex-shrink-0"
