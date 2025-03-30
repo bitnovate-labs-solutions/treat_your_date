@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import { useUserProfile } from "@/hooks/useUserProfile";
+import PullToRefresh from "react-pull-to-refresh";
 
 // COMPONENTS
 import AppHeader from "./AppHeader";
@@ -58,6 +59,12 @@ export default function Layout({ title }) {
     }
   };
 
+  // Handle pull to refresh
+  const handleRefresh = async () => {
+    // Force a reload of the current page
+    window.location.reload();
+  };
+
   return (
     <div className="flex flex-col min-h-screen w-full max-w-sm mx-auto bg-gray-100">
       {/* HEADER */}
@@ -68,9 +75,14 @@ export default function Layout({ title }) {
       />
 
       {/* OUTLET - placeholder for rendering child routes (Page content goes here!) */}
-      <main className={`flex-1 pt-14 ${isHomePage ? "px-3 pt-34" : "p-0"}`}>
-        <Outlet />
-      </main>
+      <PullToRefresh
+        onRefresh={handleRefresh}
+        className={`flex-1 ${isHomePage ? "px-3 pt-34" : "p-0"}`}
+      >
+        <main className="flex-1 pt-14">
+          <Outlet />
+        </main>
+      </PullToRefresh>
 
       {/* BOTTOM NAVIGATION BAR */}
       <AppNav
