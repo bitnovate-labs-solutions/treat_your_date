@@ -152,170 +152,173 @@ export default function Auth() {
   return (
     <div className="h-screen max-w-sm mx-auto flex flex-col px-6">
       {/* LEFT CHEVRON */}
-      <div>
+      <div className="absolute top-4 left-4">
         <ChevronLeft
           onClick={() => navigate(-1)}
-          className="text-gray-400 h-8 w-8 mt-1"
+          className="text-gray-400 h-8 w-8"
           disabled={isLoading}
         />
       </div>
 
-      <div>
-        {/* LOGO */}
-        <div className="flex justify-center">
-          <img src={Logo} alt="TreatYourDate logo" className="w-1/3 h-auto" />
-        </div>
+      {/* MAIN CONTENT */}
+      <div className="flex-1 flex flex-col justify-center">
+        <div className="space-y-8">
+          {/* LOGO */}
+          <div className="flex justify-center">
+            <img src={Logo} alt="TreatYourDate logo" className="w-1/3 h-auto" />
+          </div>
 
-        <div className="text-center">
-          <h1 className="text-[28px] font-semibold mb-2 text-gray-800">
-            {activeTab === "login" ? "Welcome back!" : "Join our community!"}
-          </h1>
-          <p className="text-lightgray text-sm">
-            {activeTab === "login"
-              ? "Great to see you again! Ready to continue your journey?"
-              : "Create an account to start sharing and discovering amazing treats"}
-          </p>
-        </div>
+          <div className="text-center space-y-2">
+            <h1 className="text-[28px] font-semibold text-gray-800">
+              {activeTab === "login" ? "Welcome back!" : "Join our community!"}
+            </h1>
+            <p className="text-lightgray text-sm">
+              {activeTab === "login"
+                ? "Great to see you again! Ready to continue your journey?"
+                : "Create an account to start sharing and discovering amazing treats"}
+            </p>
+          </div>
 
-        {/* SIGN IN FORM */}
-        <form
-          onSubmit={form.handleSubmit(handleSubmit)}
-          className="space-y-5 mt-6"
-        >
-          {/* NAME FIELD */}
-          {activeTab === "signup" && (
+          {/* SIGN IN FORM */}
+          <form
+            onSubmit={form.handleSubmit(handleSubmit)}
+            className="space-y-5"
+          >
+            {/* NAME FIELD */}
+            {activeTab === "signup" && (
+              <div className="space-y-2">
+                <div className="relative">
+                  <User className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <Input
+                    className="text-sm rounded-xl border-gray-200 pl-12"
+                    placeholder="Name"
+                    {...form.register("display_name")}
+                  />
+                </div>
+                {form.formState.errors.display_name && (
+                  <p className="text-sm text-primary px-1">
+                    {form.formState.errors.display_name.message}
+                  </p>
+                )}
+              </div>
+            )}
+            {/* EMAIL FIELD */}
             <div className="space-y-2">
               <div className="relative">
-                <User className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <Input
                   className="text-sm rounded-xl border-gray-200 pl-12"
-                  placeholder="Name"
-                  {...form.register("display_name")}
+                  placeholder="Email"
+                  {...form.register("email")}
                 />
               </div>
-              {form.formState.errors.display_name && (
+              {form.formState.errors.email && (
                 <p className="text-sm text-primary px-1">
-                  {form.formState.errors.display_name.message}
+                  {form.formState.errors.email.message}
                 </p>
               )}
             </div>
-          )}
-          {/* EMAIL FIELD */}
-          <div className="space-y-2">
-            <div className="relative">
-              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-              <Input
-                className="text-sm rounded-xl border-gray-200 pl-12"
-                placeholder="Email"
-                {...form.register("email")}
-              />
-            </div>
-            {form.formState.errors.email && (
-              <p className="text-sm text-primary px-1">
-                {form.formState.errors.email.message}
-              </p>
-            )}
-          </div>
 
-          {/* PASSWORD FIELD */}
-          <div className="space-y-2">
-            <div className="relative">
-              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-              <Input
-                className="text-sm rounded-xl border-gray-200 pl-12"
-                type="password"
-                placeholder="Password"
-                {...form.register("password")}
-                onFocus={() => setIsPasswordFocused(true)}
-                onBlur={() => setIsPasswordFocused(false)}
-              />
-            </div>
-            {!isPasswordFocused && form.formState.errors.password && (
-              <p className="text-sm text-primary px-1">
-                {form.formState.errors.password.message}
-              </p>
-            )}
-          </div>
-
-          {/* CONFIRM PASSWORD FIELD */}
-          {activeTab === "signup" && (
+            {/* PASSWORD FIELD */}
             <div className="space-y-2">
               <div className="relative">
-                <KeyRound className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <Input
                   className="text-sm rounded-xl border-gray-200 pl-12"
                   type="password"
-                  placeholder="Confirm Password"
-                  {...form.register("confirmPassword")}
+                  placeholder="Password"
+                  {...form.register("password")}
+                  onFocus={() => setIsPasswordFocused(true)}
+                  onBlur={() => setIsPasswordFocused(false)}
                 />
               </div>
-              {form.formState.errors.confirmPassword && (
+              {!isPasswordFocused && form.formState.errors.password && (
                 <p className="text-sm text-primary px-1">
-                  {form.formState.errors.confirmPassword.message}
+                  {form.formState.errors.password.message}
                 </p>
               )}
-              {/* TERMS & CONDITIONS */}
-              <div className="text-center px-2">
-                <p className="text-xs font-light text-gray-400 mt-6">
-                  By continuing, you agree to our{" "}
-                  <a href="#" className="text-primary font-semibold">
-                    Terms
-                  </a>
-                  . You acknowledge receipt and understanding of our{" "}
-                  <a href="#" className="text-primary font-semibold">
-                    Privacy Policy
-                  </a>{" "}
-                  and{" "}
-                  <a href="#" className="text-primary font-semibold">
-                    Cookie Notice
-                  </a>
-                  .
-                </p>
-              </div>
             </div>
-          )}
 
-          <Button
-            type="submit"
-            disabled={isLoading}
-            className="mt-2 h-12 w-full bg-primary font-medium text-white hover:bg-primary-hover/90 shadow-2xl"
-          >
-            {isLoading
-              ? "Loading..."
-              : activeTab === "login"
-              ? "Log In"
-              : "Sign Up"}
-          </Button>
+            {/* CONFIRM PASSWORD FIELD */}
+            {activeTab === "signup" && (
+              <div className="space-y-2">
+                <div className="relative">
+                  <KeyRound className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                  <Input
+                    className="text-sm rounded-xl border-gray-200 pl-12"
+                    type="password"
+                    placeholder="Confirm Password"
+                    {...form.register("confirmPassword")}
+                  />
+                </div>
+                {form.formState.errors.confirmPassword && (
+                  <p className="text-sm text-primary px-1">
+                    {form.formState.errors.confirmPassword.message}
+                  </p>
+                )}
+                {/* TERMS & CONDITIONS */}
+                <div className="text-center px-2">
+                  <p className="text-xs font-light text-gray-400 mt-6">
+                    By continuing, you agree to our{" "}
+                    <a href="#" className="text-primary font-semibold">
+                      Terms
+                    </a>
+                    . You acknowledge receipt and understanding of our{" "}
+                    <a href="#" className="text-primary font-semibold">
+                      Privacy Policy
+                    </a>{" "}
+                    and{" "}
+                    <a href="#" className="text-primary font-semibold">
+                      Cookie Notice
+                    </a>
+                    .
+                  </p>
+                </div>
+              </div>
+            )}
 
-          {/* FORGOT PASSWORD */}
-          {activeTab === "login" && (
+            <Button
+              type="submit"
+              disabled={isLoading}
+              className="mt-2 h-12 w-full bg-primary font-medium text-white hover:bg-primary-hover/90 shadow-2xl"
+            >
+              {isLoading
+                ? "Loading..."
+                : activeTab === "login"
+                ? "Log In"
+                : "Sign Up"}
+            </Button>
+
+            {/* FORGOT PASSWORD */}
+            {activeTab === "login" && (
+              <div className="text-center">
+                <button
+                  type="button"
+                  onClick={handleResetPassword}
+                  className="text-sm text-primary hover:underline"
+                >
+                  Forgot your password?
+                </button>
+              </div>
+            )}
+          </form>
+
+          {/* SWITCH BETWEEN SIGN UP & LOG IN */}
+          {isExistingUser && (
             <div className="text-center">
               <button
-                type="button"
-                onClick={handleResetPassword}
-                className="text-sm text-primary hover:underline"
+                onClick={() =>
+                  setActiveTab(activeTab === "login" ? "signup" : "login")
+                }
+                className="text-sm text-lightgray hover:underline"
               >
-                Forgot your password?
+                {activeTab === "login"
+                  ? "Don't have an account? Sign up"
+                  : "Already have an account? Log in"}
               </button>
             </div>
           )}
-        </form>
-
-        {/* SWITCH BETWEEN SIGN UP & LOG IN */}
-        {isExistingUser && (
-          <div className="text-center mt-6">
-            <button
-              onClick={() =>
-                setActiveTab(activeTab === "login" ? "signup" : "login")
-              }
-              className="text-sm text-lightgray hover:underline"
-            >
-              {activeTab === "login"
-                ? "Don't have an account? Sign up"
-                : "Already have an account? Log in"}
-            </button>
-          </div>
-        )}
+        </div>
       </div>
     </div>
   );
