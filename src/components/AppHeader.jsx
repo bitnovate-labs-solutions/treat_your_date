@@ -10,7 +10,7 @@ import { useFilters } from "@/context/FilterContext";
 import { version } from "../../package.json";
 
 // COMPONENTS
-import { ChevronDown, LogOut, Settings2 } from "lucide-react";
+import { ChevronDown, LogOut, Settings2, RefreshCw } from "lucide-react";
 import { Button } from "./ui/button";
 import { Tabs, TabsList, TabsTrigger } from "./ui/tabs";
 import {
@@ -58,6 +58,11 @@ export default function AppHeader({ title, isHomePage, isProfilePage }) {
     setFilters((prev) => ({ ...prev, location: value }));
   };
 
+  // HANDLE REFRESH
+  const handleRefresh = () => {
+    window.location.reload();
+  };
+
   // HANDLE SIGN OUT
   const handleSignOut = async () => {
     try {
@@ -88,7 +93,7 @@ export default function AppHeader({ title, isHomePage, isProfilePage }) {
             </h1>
           </div>
 
-          {/* SIGN OUT BUTTON -------------------- */}
+          {/* SETTINGS BUTTON -------------------- */}
           {isProfilePage && !isHomePage && (
             <div>
               <DropdownMenu>
@@ -101,12 +106,21 @@ export default function AppHeader({ title, isHomePage, isProfilePage }) {
                   align="end"
                   className="w-30 bg-white border-gray-100 shadow-2xl mr-2 space-y-2 py-4 rounded-xl"
                 >
+                  {/* REFRESH BUTTON */}
+                  <DropdownMenuItem
+                    onClick={handleRefresh}
+                    className="text-primary"
+                  >
+                    <RefreshCw className="w-4 h-4 mr-2" />
+                    Refresh
+                  </DropdownMenuItem>
+
                   {/* SIGN OUT BUTTON */}
                   <DropdownMenuItem
                     onClick={handleSignOut}
                     className="text-primary"
                   >
-                    <LogOut />
+                    <LogOut className="w-4 h-4 mr-2" />
                     Sign Out
                   </DropdownMenuItem>
 
