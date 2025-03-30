@@ -75,14 +75,20 @@ export default function Layout({ title }) {
       />
 
       {/* OUTLET - placeholder for rendering child routes (Page content goes here!) */}
-      <PullToRefresh
-        onRefresh={handleRefresh}
-        className={`flex-1 ${isHomePage ? "px-3 pt-34" : "p-0"}`}
-      >
-        <main className="flex-1 pt-14">
-          <Outlet />
-        </main>
-      </PullToRefresh>
+      <div className="flex-1 relative">
+        <PullToRefresh
+          onRefresh={handleRefresh}
+          // className={`flex-1 ${isHomePage ? "px-3 pt-22" : "p-0"}`}
+          className="absolute inset-0"
+        >
+          {/* <main className="flex-1 pt-14"> */}
+          <main className={`h-full ${isHomePage ? "px-3 pt-34" : "p-0"}`}>
+            <div className="pt-14">
+              <Outlet />
+            </div>
+          </main>
+        </PullToRefresh>
+      </div>
 
       {/* BOTTOM NAVIGATION BAR */}
       <AppNav
