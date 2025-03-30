@@ -118,14 +118,13 @@ function UserProfile() {
               />
             </div>
 
-            {/* CODE FOR POSSIBLE FUTURE USE */}
-            <p className="text-xs text-center text-darkgray mt-3">
+            <p className="text-xs text-center text-darkgray mt-4">
               This is how your profile will appear in the swipe view
             </p>
           </div>
 
           {/* HEADER TITLE */}
-          <CardHeader className="border border-gray-100 shadow-xl rounded-2xl py-5 mt-12">
+          <CardHeader className="border border-gray-100 shadow-xl rounded-2xl py-5 mt-14">
             <CardTitle className="text-lg text-center font-semibold text-gray-800">
               Hello, {profile?.display_name || "User"}!
             </CardTitle>

@@ -72,7 +72,7 @@ export default function Menu() {
   // });
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-3 pb-22">
       {sortedItems?.map((item) => (
         <FoodCard
           key={item.id}
