@@ -5,7 +5,7 @@ import Layout from "@/components/AppLayout";
 // import { ErrorBoundary } from "react-error-boundary";
 import { Suspense } from "react";
 // import { ErrorFallback } from "@/components/error-fallback";
-import { CardSkeleton } from "@/components/loading-skeleton";
+import { CardSkeleton } from "@/components/LoadingSkeleton";
 
 // Pages
 import Onboarding from "@/pages/onboarding_page/Onboarding";
@@ -20,6 +20,7 @@ import CreateProfile from "@/pages/CreateProfile";
 import EditProfile from "@/pages/edit_profile_page/EditProfile";
 import AuthCallback from "@/routes/AuthCallback";
 import Connect from "@/pages/connect_page/Connect";
+import TestSkeletons from "@/pages/test-skeletons";
 
 // TEMP TESTING
 import Loading from "@/components/Loading";
@@ -39,6 +40,9 @@ export default function AppRoutes() {
         path="/loading-test"
         element={<Loading type="screen" text="Setting up your experience..." />}
       />
+
+      {/* FOR TESTING SKELETON COMPONENTS */}
+      <Route path="/test-skeletons" element={<TestSkeletons />} />
 
       {/* WITH LAYOUT */}
       <Route element={<Layout title="Explore" />}>

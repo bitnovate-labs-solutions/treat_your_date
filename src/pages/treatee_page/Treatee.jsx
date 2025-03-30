@@ -5,7 +5,7 @@ import { Suspense, useCallback } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallback } from "@/components/ErrorFallback";
-import { CardSkeleton } from "@/components/loading-skeleton";
+import { CardSkeleton } from "@/components/LoadingSkeleton";
 // import TreateeCard from "./components/TreateeCard";
 // import { useAuth } from "@/context/AuthContext";
 // import { toast } from "sonner";

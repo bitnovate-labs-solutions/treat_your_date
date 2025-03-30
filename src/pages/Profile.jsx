@@ -29,7 +29,7 @@ import defaultImage from "@/assets/images/default-avatar.jpg";
 // Error & Loading Handlers
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallback } from "@/components/ErrorFallback";
-import { ProfileSkeleton } from "@/components/loading-skeleton";
+import { ProfilePageSkeleton } from "@/components/LoadingSkeleton";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { useNavigate } from "react-router-dom";
 import { useImageCache } from "@/hooks/useImageCache";
@@ -43,7 +43,7 @@ function UserProfile() {
   // Use custom caching hook
   const cachedImageUrl = useImageCache(profile?.avatar_url);
 
-  if (isLoading) return <ProfileSkeleton />;
+  if (isLoading) return <ProfilePageSkeleton />;
   if (error) return <ErrorFallback error={error} />;
 
   // Format date to be more readable
@@ -391,7 +391,7 @@ export default function Profile() {
   return (
     <ScrollArea>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Suspense fallback={<ProfileSkeleton />}>
+        <Suspense fallback={<ProfilePageSkeleton />}>
           <UserProfile />
         </Suspense>
       </ErrorBoundary>

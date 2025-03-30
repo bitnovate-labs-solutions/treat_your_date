@@ -3,7 +3,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallback } from "@/components/ErrorFallback";
-import { CardSkeleton } from "@/components/loading-skeleton";
+import { CardSkeleton } from "@/components/LoadingSkeleton";
 
 function MessagesList() {
   return (
