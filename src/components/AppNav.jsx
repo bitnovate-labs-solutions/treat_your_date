@@ -26,7 +26,7 @@ const AppNav = ({ profile, handleHomeClick, handleProtectedNavigation }) => {
   return (
     <div>
       <nav className="w-full max-w-sm mx-auto fixed bottom-0 left-0 right-0 z-10 rounded-t-2xl border-t border-gray-200 bg-white shadow-2xl">
-        <div className="container mx-auto px-4 shadow-lg h-[5.5rem]">
+        <div className="container mx-auto px-4 shadow-lg h-[5.3rem]">
           <div className="flex justify-around py-4">
             {/* USER ICON (PROFILE) BUTTON */}
             <Button
