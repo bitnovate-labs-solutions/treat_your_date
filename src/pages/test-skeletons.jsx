@@ -3,7 +3,7 @@ import {
   ExploreCardSkeleton,
   TreateeCardSkeleton,
   OrderCardSkeleton,
-  ProfilePageSkeleton,
+  ProfileSkeleton,
   CardSkeleton,
 } from "@/components/LoadingSkeleton";
 
@@ -11,7 +11,7 @@ export default function TestSkeletons() {
   return (
     <div className="container mx-auto px-4 py-8 space-y-12">
       <section>
-        <ProfilePageSkeleton />
+        <ProfileSkeleton />
       </section>
 
       <h2>Card</h2>

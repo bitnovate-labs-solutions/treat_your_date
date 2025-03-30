@@ -88,7 +88,7 @@ export default function AppHeader({ title, isHomePage, isProfilePage }) {
         <div className="grid grid-cols-5">
           <div className="col-start-2 col-span-3">
             {/* HEADER TITLE -------------------- */}
-            <h1 className="text-lg font-bold mb-4 text-center text-gray-800">
+            <h1 className="text-base font-semibold mb-4 text-center text-gray-800">
               {title}
             </h1>
           </div>

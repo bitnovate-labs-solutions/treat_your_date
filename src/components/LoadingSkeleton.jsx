@@ -21,21 +21,6 @@ export function CardSkeleton() {
   );
 }
 
-export function ProfileSkeleton() {
-  return (
-    <div className="space-y-6">
-      <div className="flex justify-center">
-        <Skeleton className="h-24 w-24 rounded-full" />
-      </div>
-      <div className="space-y-2">
-        <Skeleton className="h-6 w-48 mx-auto" />
-        <Skeleton className="h-4 w-32 mx-auto" />
-      </div>
-      <Skeleton className="h-10 w-full" />
-    </div>
-  );
-}
-
 // Food Card Skeleton
 export function FoodCardSkeleton() {
   return (
@@ -165,7 +150,7 @@ export function OrderCardSkeleton() {
 }
 
 // Profile Page Skeleton
-export function ProfilePageSkeleton() {
+export function ProfileSkeleton() {
   return (
     <div>
       <div className="bg-white border-none rounded-none pb-20">

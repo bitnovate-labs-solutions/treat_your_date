@@ -1,8 +1,13 @@
 import { Suspense } from "react";
 // import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/context/AuthContext";
+import { useUserProfile } from "@/hooks/useUserProfile";
+import { useNavigate } from "react-router-dom";
+import { useImageCache } from "@/hooks/useImageCache";
+import { ErrorFallback } from "@/components/ErrorFallback";
+import { ErrorBoundary } from "react-error-boundary";
 
-// UI Components
+// COMPONENTS
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -24,15 +29,10 @@ import {
   Twitter,
   Edit,
 } from "lucide-react";
-import defaultImage from "@/assets/images/default-avatar.jpg";
+import { ProfileSkeleton } from "@/components/LoadingSkeleton";
 
-// Error & Loading Handlers
-import { ErrorBoundary } from "react-error-boundary";
-import { ErrorFallback } from "@/components/ErrorFallback";
-import { ProfilePageSkeleton } from "@/components/LoadingSkeleton";
-import { useUserProfile } from "@/hooks/useUserProfile";
-import { useNavigate } from "react-router-dom";
-import { useImageCache } from "@/hooks/useImageCache";
+// ASSETS
+import defaultImage from "@/assets/images/default-avatar.jpg";
 
 function UserProfile() {
   // const [imageSrc, setImageSrc] = useState(null);
@@ -43,7 +43,7 @@ function UserProfile() {
   // Use custom caching hook
   const cachedImageUrl = useImageCache(profile?.avatar_url);
 
-  if (isLoading) return <ProfilePageSkeleton />;
+  if (isLoading) return <ProfileSkeleton />;
   if (error) return <ErrorFallback error={error} />;
 
   // Format date to be more readable
@@ -391,7 +391,7 @@ export default function Profile() {
   return (
     <ScrollArea>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Suspense fallback={<ProfilePageSkeleton />}>
+        <Suspense fallback={<ProfileSkeleton />}>
           <UserProfile />
         </Suspense>
       </ErrorBoundary>
