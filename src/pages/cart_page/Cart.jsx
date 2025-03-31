@@ -12,6 +12,7 @@ export default function Cart() {
   const queryClient = useQueryClient();
   const { items, clearCart } = useCartStore();
 
+  // HANDLE PURCHASE
   const handlePurchase = async () => {
     try {
       // Purchase the items

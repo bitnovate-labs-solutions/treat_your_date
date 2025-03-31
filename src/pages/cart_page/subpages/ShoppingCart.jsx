@@ -144,7 +144,7 @@ export default function ShoppingCart({ onSuccess }) {
             </div>
 
             {/* ORDER NOW SECTION */}
-            <div className="fixed bottom-20 left-0 right-0 max-w-md mx-auto border-t border-lightgray/20 shadow-lg bg-white">
+            <div className="fixed bottom-20 left-0 right-0 max-w-sm mx-auto border-t border-lightgray/20 shadow-lg bg-white">
               {/* TOTAL PRICE */}
               <div className="pt-6 px-6">
                 <div className="flex justify-between items-center mb-4">

@@ -14,7 +14,7 @@ import Profile from "@/pages/Profile";
 import Treater from "@/pages/treater_page/Treater";
 import Treatee from "@/pages/treatee_page/Treatee";
 import ShoppingCart from "@/pages/cart_page/Cart";
-import Messages from "@/pages/Messages";
+import Messages from "@/pages/messages_page/Messages";
 import Explore from "@/pages/explore_page/Explore";
 import CreateProfile from "@/pages/CreateProfile";
 import EditProfile from "@/pages/edit_profile_page/EditProfile";
