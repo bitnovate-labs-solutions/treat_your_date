@@ -3,7 +3,7 @@ import ExploreCard from "./components/ExploreCard";
 import VoucherCard from "./components/VoucherCard";
 import CategoryCard from "@/pages/explore_page/components/CategoryCard";
 import { foodCategories } from "@/lib/constants";
-import { foodItems, voucherUpdates } from "@/data/mock_data";
+import { restaurant_profiles, voucherUpdates } from "@/data/mock_data";
 
 const Explore = () => {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -81,7 +81,7 @@ const Explore = () => {
       <div>
         <h2 className="text-xl font-semibold mb-4">What&apos;s Trending</h2>
         <div className="gap-2">
-          {foodItems.map((item) => (
+          {restaurant_profiles.map((item) => (
             <ExploreCard key={item.id} item={item} />
           ))}
         </div>

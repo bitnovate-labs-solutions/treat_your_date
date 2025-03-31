@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 // import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -51,13 +51,20 @@ export default function OrderCard({ item, restaurantName }) {
   //     },
   //   });
 
+  const cartItems = useMemo(() => {
+    return items.filter((cartItem) =>
+      cartItem.restaurant_name === item.restaurant_name &&
+      cartItem.cuisine_type === item.cuisine_type
+    );
+  }, [items, item.restaurant_name, restaurantName]);
+
   return (
     <Card className="flex p-3 border border-gray-200 shadow-md">
       {/* ITEM IMAGE */}
       <div className="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0">
         <ImageWithFallback
           src={item.image_url}
-          alt={item.name}
+          alt={item.restaurant_name}
           loading="lazy"
           className="w-full h-full object-cover"
         />
@@ -66,7 +73,7 @@ export default function OrderCard({ item, restaurantName }) {
       <CardHeader className="flex-1 flex-col gap-4 p-0 ml-2">
         {/* ITEM NAME & DESCRIPTION */}
         <div className="flex flex-col">
-          <h3 className="text-sm font-semibold text-gray-900">{item.name}</h3>
+          <h3 className="text-sm font-semibold text-gray-900">{item.restaurant_name}</h3>
           <p className="text-xs text-gray-500">{item.description}</p>
         </div>
 

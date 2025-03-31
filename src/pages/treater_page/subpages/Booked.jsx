@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 // import { supabase } from "@/lib/supabase";
 import { mockApi } from "@/data/mock_data";
-import FoodCard from "../components/FoodCard";
+import TreaterCard from "../components/TreaterCard";
 
 // COMPONENTS
 // import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -33,7 +33,7 @@ export default function Booked() {
   return (
     <div className="space-y-4">
       {bookedItems?.map((item) => (
-        <FoodCard
+        <TreaterCard
           key={item.id}
           item={item}
           expanded={expandedId === item.id}

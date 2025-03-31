@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Heart } from "lucide-react";
+import { Heart, Star, MapPin, Clock, Users } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -31,27 +31,32 @@ export default function ExploreCard({ item }) {
   };
 
   return (
-    <Card className="overflow-hidden mb-6 shadow-xl border-gray-200">
+    <Card className="overflow-hidden mb-6 bg-white rounded-xl hover:shadow-lg transition-all duration-300 border border-gray-100">
       {/* Card Header with Image */}
-      <div className="relative w-full h-[130px]">
+      <div className="relative w-full h-[200px] group">
         <img
           src={item.image_url}
-          alt={item.name}
-          className="w-full h-full object-cover"
+          alt={item.restaurant_name}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
-
+        
         {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
 
         {/* Top Labels */}
         <div className="absolute top-4 left-4 right-4 flex justify-between items-center">
-          <span className="bg-primary text-white px-4 py-1 rounded-lg">
-            DINNER | SET A
-          </span>
+          <div className="flex gap-2">
+            <span className="bg-primary/90 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-medium">
+              {item.cuisine_type}
+            </span>
+            <span className="bg-black/30 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-medium">
+              {item.category}
+            </span>
+          </div>
           <Button
             variant="ghost"
             size="icon"
-            className="bg-white/20 hover:bg-white/30 rounded-lg"
+            className="bg-white/10 backdrop-blur-sm hover:bg-white/20 rounded-full"
             onClick={handleLike}
           >
             <Heart
@@ -62,32 +67,49 @@ export default function ExploreCard({ item }) {
           </Button>
         </div>
 
-        {/* Bottom Content */}
+        {/* Restaurant Info */}
         <div className="absolute bottom-4 left-4 right-4">
-          <h3 className="text-2xl font-semibold text-white mb-1">
-            {item.name}
+          <h3 className="text-2xl font-bold text-white mb-2">
+            {item.restaurant_name}
           </h3>
-          <div className="flex justify-between items-center text-white">
-            <span>{item.location}</span>
-            <span>{formatDate(item.created_at)}</span>
+          <div className="flex items-center gap-4 text-white/90 text-sm">
+            <div className="flex items-center gap-1">
+              <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+              <span>{item.rating}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <MapPin className="h-4 w-4" />
+              <span>{item.location}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <Clock className="h-4 w-4" />
+              <span>{formatDate(item.created_at)}</span>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Card Footer */}
-      <div className="p-4">
-        <div className="flex justify-between items-center">
+      <div className="p-4 bg-white">
+        <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+          {item.description}
+        </p>
+        
+        <div className="flex justify-between items-center gap-4">
           {/* TREATERS SECTION */}
-          <div className="w-1/2">
-            <h4 className="text-sm font-medium mb-2">Treaters</h4>
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-2">
+              <Users className="h-4 w-4 text-primary" />
+              <h4 className="text-sm font-medium text-gray-700">Treaters</h4>
+            </div>
             <div className="flex items-center gap-2">
-              <div className="bg-primary/10 px-3 py-1 rounded-lg">
-                <span className="text-primary">+3</span>
+              <div className="bg-primary/10 px-3 py-1.5 rounded-full">
+                <span className="text-primary text-sm font-medium">+3 joined</span>
               </div>
               <Button
                 variant="primary"
                 size="sm"
-                className="bg-primary text-white hover:bg-primary/90 w-full mx-4"
+                className="bg-primary text-white hover:bg-primary/90 rounded-full flex-1"
                 onClick={handlePay}
               >
                 Buy
@@ -96,16 +118,19 @@ export default function ExploreCard({ item }) {
           </div>
 
           {/* Treatee Section */}
-          <div className="w-1/2 ml-4">
-            <h4 className="text-sm font-medium mb-2">Treatee</h4>
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-2">
+              <Users className="h-4 w-4 text-red-500" />
+              <h4 className="text-sm font-medium text-gray-700">Treatee</h4>
+            </div>
             <div className="flex items-center gap-2">
-              <div className="bg-red-50 px-3 py-1 rounded-lg">
-                <span className="text-red-500">+20</span>
+              <div className="bg-red-50 px-3 py-1.5 rounded-full">
+                <span className="text-red-500 text-sm font-medium">+20 spots</span>
               </div>
               <Button
                 variant="outline"
                 size="sm"
-                className="border-primary text-primary hover:bg-primary/10 w-full mx-4"
+                className="border-primary text-primary hover:bg-primary/10 rounded-full flex-1"
                 onClick={handleJoin}
                 // disabled={hasJoined}
               >

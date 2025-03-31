@@ -5,187 +5,199 @@
 
 // Restaurant-specific menu items
 const restaurantMenuItems = {
-  "Sushi Platter": [
+  "Sushi Tei": [
     {
       name: "California Roll",
       description: "Crab meat, avocado, cucumber wrapped in rice and seaweed",
       price: 12.99,
       image_url:
-        "https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=1974&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=3270&auto=format&fit=crop",
+      purchased_at: null,
+      booked_at: null
     },
     {
       name: "Spicy Tuna Roll",
       description: "Fresh tuna with spicy sauce and tempura bits",
       price: 14.99,
       image_url:
-        "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?q=80&w=2070&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=3270&auto=format&fit=crop",
+      purchased_at: null,
+      booked_at: null
     },
     {
       name: "Dragon Roll",
       description: "Eel and cucumber topped with avocado and eel sauce",
       price: 16.99,
       image_url:
-        "https://images.unsplash.com/photo-1608039755401-742074f0548d?q=80&w=1935&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=1974&auto=format&fit=crop",
+      purchased_at: null,
+      booked_at: null
     },
   ],
-  "Steak Dinner": [
+  "The Steakhouse KL": [
     {
       name: "Ribeye Steak",
       description: "12oz premium cut with garlic butter and herbs",
       price: 49.99,
       image_url:
-        "https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=1974&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=3270&auto=format&fit=crop",
+      purchased_at: null,
+      booked_at: null
     },
     {
       name: "Filet Mignon",
       description: "8oz tender cut with red wine reduction sauce",
       price: 59.99,
       image_url:
-        "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?q=80&w=2070&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=3270&auto=format&fit=crop",
+      purchased_at: null,
+      booked_at: null
     },
     {
       name: "New York Strip",
       description: "14oz classic cut with herb butter",
       price: 54.99,
       image_url:
-        "https://images.unsplash.com/photo-1608039755401-742074f0548d?q=80&w=1935&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=3270&auto=format&fit=crop",
+      purchased_at: null,
+      booked_at: null
     },
   ],
-  "Roger's Pasta": [
+  "Pasta Zanmai": [
     {
       name: "Fettuccine Alfredo",
       description: "Creamy parmesan sauce with fresh herbs",
       price: 19.99,
       image_url:
-        "https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=1974&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?q=80&w=3270&auto=format&fit=crop",
+      purchased_at: null,
+      booked_at: null
     },
     {
       name: "Spaghetti Carbonara",
       description: "Classic Italian pasta with eggs, cheese, and pancetta",
       price: 21.99,
       image_url:
-        "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?q=80&w=2070&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1612874742237-6526221588e3?q=80&w=3270&auto=format&fit=crop",
+      purchased_at: null,
+      booked_at: null
     },
     {
       name: "Penne Arrabbiata",
       description: "Spicy tomato sauce with garlic and chili",
       price: 18.99,
       image_url:
-        "https://images.unsplash.com/photo-1608039755401-742074f0548d?q=80&w=1935&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1556761223-4c4282c73f77?q=80&w=3270&auto=format&fit=crop",
+      purchased_at: null,
+      booked_at: null
     },
   ],
-  "Seafood Feast": [
+  "Ocean Seafood Restaurant": [
     {
       name: "Lobster Thermidor",
       description: "Classic French preparation with cream sauce",
       price: 69.99,
       image_url:
-        "https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=1974&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1560717789-0ac7c58ac90a?q=80&w=3270&auto=format&fit=crop",
+      purchased_at: null,
+      booked_at: null
     },
     {
       name: "Grilled Shrimp Scampi",
       description: "Jumbo shrimp in garlic butter sauce",
       price: 39.99,
       image_url:
-        "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?q=80&w=2070&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?q=80&w=3270&auto=format&fit=crop",
+      purchased_at: null,
+      booked_at: null
     },
     {
       name: "Crab Cakes",
       description: "Lump crab meat with special sauce",
       price: 34.99,
       image_url:
-        "https://images.unsplash.com/photo-1608039755401-742074f0548d?q=80&w=1935&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=3270&auto=format&fit=crop",
+      purchased_at: null,
+      booked_at: null
     },
   ],
 };
 
 // Static food items data
-export const foodItems = [
+export const restaurant_profiles = [
   {
     id: "1",
-    name: "Sushi Platter",
+    restaurant_name: "Sushi Tei",
     description:
-      "Fresh assortment of premium sushi rolls with wasabi and ginger",
-    location: "California",
-    price: 89.99,
+      "Authentic Japanese cuisine with fresh sushi and sashimi, located in Pavilion KL",
+    location: "Pavilion KL, Kuala Lumpur",
     rating: 4.8,
     likes: 25,
     image_url:
-      "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=3270&auto=format&fit=crop",
     cuisine_type: "japanese",
     category: "non-halal",
     status: "available",
     created_at: "2024-03-15T10:00:00Z",
-    purchased_at: null,
-    booked_at: null,
     user_profiles: {
       display_name: "sushi_master",
     },
-    menu_items: restaurantMenuItems["Sushi Platter"],
+    menu_items: restaurantMenuItems["Sushi Tei"],
   },
   {
     id: "2",
-    name: "Steak Dinner",
+    restaurant_name: "The Steakhouse KL",
     description:
-      "Premium cut steak with seasonal vegetables and red wine sauce",
-    location: "Texas",
-    price: 129.99,
+      "Premium steakhouse in the heart of KL, offering the finest cuts of meat and wine selection",
+    location: "KLCC, Kuala Lumpur",
     rating: 4.9,
     likes: 28,
     image_url:
-      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=3270&auto=format&fit=crop",
     cuisine_type: "american",
     category: "non-halal",
     status: "available",
     created_at: "2024-03-14T15:30:00Z",
-    purchased_at: null,
-    booked_at: null,
     user_profiles: {
       display_name: "steak_house",
     },
-    menu_items: restaurantMenuItems["Steak Dinner"],
+    menu_items: restaurantMenuItems["The Steakhouse KL"],
   },
   {
     id: "3",
-    name: "Roger's Pasta",
-    description: "Homemade pasta with fresh ingredients and signature sauce",
-    location: "New York",
-    price: 49.99,
+    restaurant_name: "Pasta Zanmai",
+    description: "Modern Italian restaurant with fresh homemade pasta and authentic sauces",
+    location: "Sunway Pyramid, Petaling Jaya",
     rating: 4.7,
     likes: 22,
     image_url:
-      "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?q=80&w=3270&auto=format&fit=crop",
     cuisine_type: "italian",
     category: "vegetarian",
     status: "available",
     created_at: "2024-03-13T12:00:00Z",
-    purchased_at: null,
-    booked_at: null,
     user_profiles: {
       display_name: "rogers_kitchen",
     },
-    menu_items: restaurantMenuItems["Roger's Pasta"],
+    menu_items: restaurantMenuItems["Pasta Zanmai"],
   },
   {
     id: "4",
-    name: "Seafood Feast",
-    description: "Fresh seafood platter with lobster, shrimp, and crab",
-    location: "Florida",
-    price: 159.99,
+    restaurant_name: "Ocean Seafood Restaurant",
+    description: "Fresh seafood restaurant specializing in Chinese-style seafood dishes",
+    location: "SS2, Petaling Jaya",
     rating: 4.9,
     likes: 30,
     image_url:
-      "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1560717789-0ac7c58ac90a?q=80&w=3270&auto=format&fit=crop",
     cuisine_type: "seafood",
     category: "non-halal",
     status: "available",
     created_at: "2024-03-12T09:00:00Z",
-    purchased_at: null,
-    booked_at: null,
     user_profiles: {
       display_name: "ocean_fresh",
     },
-    menu_items: restaurantMenuItems["Seafood Feast"],
+    menu_items: restaurantMenuItems["Ocean Seafood Restaurant"],
   },
 ];
 
@@ -423,7 +435,7 @@ const bookedItems = [
 
 // Mock data store
 const mockData = {
-  menu: foodItems,
+  menu: restaurant_profiles,
   purchased: purchasedItems,
   booked: bookedItems,
 };
@@ -487,31 +499,36 @@ export const voucherUpdates = [
   {
     id: "v1",
     name: "50% Off All Burgers",
-    description: "Get half price on all premium burgers this weekend at BurgerLab",
+    description:
+      "Get half price on all premium burgers this weekend at BurgerLab",
     location: "BurgerLab, SS2",
-    image_url: "https://images.unsplash.com/photo-1586816001966-79b736744398?q=80&w=3270&auto=format&fit=crop",
+    image_url:
+      "https://images.unsplash.com/photo-1586816001966-79b736744398?q=80&w=3270&auto=format&fit=crop",
     cuisine_type: "Promotion",
     valid_until: "2024-03-31",
-    promo_code: "BURGER50"
+    promo_code: "BURGER50",
   },
   {
     id: "v2",
     name: "New Restaurant Alert",
-    description: "Sushi Master opens in Bangsar - Get 20% off on your first visit",
+    description:
+      "Sushi Master opens in Bangsar - Get 20% off on your first visit",
     location: "Bangsar",
-    image_url: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=3270&auto=format&fit=crop",
+    image_url:
+      "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=3270&auto=format&fit=crop",
     cuisine_type: "New Opening",
     valid_until: "2024-04-15",
-    promo_code: "SUSHI20"
+    promo_code: "SUSHI20",
   },
   {
     id: "v3",
     name: "Weekend Special",
     description: "Buy 1 Free 1 on all pasta dishes at Roger's Kitchen",
     location: "TTDI",
-    image_url: "https://images.unsplash.com/photo-1556761223-4c4282c73f77?q=80&w=3270&auto=format&fit=crop",
+    image_url:
+      "https://images.unsplash.com/photo-1556761223-4c4282c73f77?q=80&w=3270&auto=format&fit=crop",
     cuisine_type: "Special Offer",
     valid_until: "2024-03-24",
-    promo_code: "PASTA11"
-  }
+    promo_code: "PASTA11",
+  },
 ];

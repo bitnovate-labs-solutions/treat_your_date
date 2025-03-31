@@ -5,7 +5,7 @@ import { useFilters } from "@/context/FilterContext";
 
 // COMPONENTS
 import { useState } from "react";
-import FoodCard from "../components/FoodCard";
+import TreaterCard from "../components/TreaterCard";
 
 export default function Menu() {
   const [expandedId, setExpandedId] = useState(null);
@@ -74,7 +74,7 @@ export default function Menu() {
   return (
     <div className="space-y-3 pb-22">
       {sortedItems?.map((item) => (
-        <FoodCard
+        <TreaterCard
           key={item.id}
           item={item}
           expanded={expandedId === item.id}

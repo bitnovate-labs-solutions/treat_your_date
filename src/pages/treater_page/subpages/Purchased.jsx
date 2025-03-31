@@ -5,7 +5,7 @@ import { mockApi } from "@/data/mock_data";
 
 // COMPONENTS
 // import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import FoodCard from "../components/FoodCard";
+import TreaterCard from "../components/TreaterCard";
 
 export default function Purchased() {
   const [expandedId, setExpandedId] = useState(null);
@@ -33,7 +33,7 @@ export default function Purchased() {
   return (
     <div className="space-y-4">
       {purchasedItems?.map((item) => (
-        <FoodCard
+        <TreaterCard
           key={item.id}
           item={item}
           expanded={expandedId === item.id}
