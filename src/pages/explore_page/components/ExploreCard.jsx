@@ -36,10 +36,10 @@ export default function ExploreCard({ item }) {
       <div className="relative w-full h-[200px] group">
         <img
           src={item.image_url}
-          alt={item.restaurant_name}
+          alt={item.name}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
-        
+
         {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
 
@@ -69,9 +69,7 @@ export default function ExploreCard({ item }) {
 
         {/* Restaurant Info */}
         <div className="absolute bottom-4 left-4 right-4">
-          <h3 className="text-2xl font-bold text-white mb-2">
-            {item.restaurant_name}
-          </h3>
+          <h3 className="text-2xl font-bold text-white mb-2">{item.name}</h3>
           <div className="flex items-center gap-4 text-white/90 text-sm">
             <div className="flex items-center gap-1">
               <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
@@ -94,7 +92,7 @@ export default function ExploreCard({ item }) {
         <p className="text-gray-600 text-sm mb-4 line-clamp-2">
           {item.description}
         </p>
-        
+
         <div className="flex justify-between items-center gap-4">
           {/* TREATERS SECTION */}
           <div className="flex-1">
@@ -104,7 +102,9 @@ export default function ExploreCard({ item }) {
             </div>
             <div className="flex items-center gap-2">
               <div className="bg-primary/10 px-3 py-1.5 rounded-full">
-                <span className="text-primary text-sm font-medium">+3 joined</span>
+                <span className="text-primary text-sm font-medium">
+                  +3 joined
+                </span>
               </div>
               <Button
                 variant="primary"
@@ -125,7 +125,9 @@ export default function ExploreCard({ item }) {
             </div>
             <div className="flex items-center gap-2">
               <div className="bg-red-50 px-3 py-1.5 rounded-full">
-                <span className="text-red-500 text-sm font-medium">+20 spots</span>
+                <span className="text-red-500 text-sm font-medium">
+                  +20 spots
+                </span>
               </div>
               <Button
                 variant="outline"

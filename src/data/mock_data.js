@@ -13,7 +13,7 @@ const restaurantMenuItems = {
       image_url:
         "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=3270&auto=format&fit=crop",
       purchased_at: null,
-      booked_at: null
+      booked_at: null,
     },
     {
       name: "Spicy Tuna Roll",
@@ -22,7 +22,7 @@ const restaurantMenuItems = {
       image_url:
         "https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=3270&auto=format&fit=crop",
       purchased_at: null,
-      booked_at: null
+      booked_at: null,
     },
     {
       name: "Dragon Roll",
@@ -31,7 +31,7 @@ const restaurantMenuItems = {
       image_url:
         "https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=1974&auto=format&fit=crop",
       purchased_at: null,
-      booked_at: null
+      booked_at: null,
     },
   ],
   "The Steakhouse KL": [
@@ -42,7 +42,7 @@ const restaurantMenuItems = {
       image_url:
         "https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=3270&auto=format&fit=crop",
       purchased_at: null,
-      booked_at: null
+      booked_at: null,
     },
     {
       name: "Filet Mignon",
@@ -51,7 +51,7 @@ const restaurantMenuItems = {
       image_url:
         "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=3270&auto=format&fit=crop",
       purchased_at: null,
-      booked_at: null
+      booked_at: null,
     },
     {
       name: "New York Strip",
@@ -60,7 +60,7 @@ const restaurantMenuItems = {
       image_url:
         "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=3270&auto=format&fit=crop",
       purchased_at: null,
-      booked_at: null
+      booked_at: null,
     },
   ],
   "Pasta Zanmai": [
@@ -71,7 +71,7 @@ const restaurantMenuItems = {
       image_url:
         "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?q=80&w=3270&auto=format&fit=crop",
       purchased_at: null,
-      booked_at: null
+      booked_at: null,
     },
     {
       name: "Spaghetti Carbonara",
@@ -80,7 +80,7 @@ const restaurantMenuItems = {
       image_url:
         "https://images.unsplash.com/photo-1612874742237-6526221588e3?q=80&w=3270&auto=format&fit=crop",
       purchased_at: null,
-      booked_at: null
+      booked_at: null,
     },
     {
       name: "Penne Arrabbiata",
@@ -89,7 +89,7 @@ const restaurantMenuItems = {
       image_url:
         "https://images.unsplash.com/photo-1556761223-4c4282c73f77?q=80&w=3270&auto=format&fit=crop",
       purchased_at: null,
-      booked_at: null
+      booked_at: null,
     },
   ],
   "Ocean Seafood Restaurant": [
@@ -100,7 +100,7 @@ const restaurantMenuItems = {
       image_url:
         "https://images.unsplash.com/photo-1560717789-0ac7c58ac90a?q=80&w=3270&auto=format&fit=crop",
       purchased_at: null,
-      booked_at: null
+      booked_at: null,
     },
     {
       name: "Grilled Shrimp Scampi",
@@ -109,7 +109,7 @@ const restaurantMenuItems = {
       image_url:
         "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?q=80&w=3270&auto=format&fit=crop",
       purchased_at: null,
-      booked_at: null
+      booked_at: null,
     },
     {
       name: "Crab Cakes",
@@ -118,7 +118,7 @@ const restaurantMenuItems = {
       image_url:
         "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=3270&auto=format&fit=crop",
       purchased_at: null,
-      booked_at: null
+      booked_at: null,
     },
   ],
 };
@@ -127,7 +127,7 @@ const restaurantMenuItems = {
 export const restaurant_profiles = [
   {
     id: "1",
-    restaurant_name: "Sushi Tei",
+    name: "Sushi Tei",
     description:
       "Authentic Japanese cuisine with fresh sushi and sashimi, located in Pavilion KL",
     location: "Pavilion KL, Kuala Lumpur",
@@ -146,7 +146,7 @@ export const restaurant_profiles = [
   },
   {
     id: "2",
-    restaurant_name: "The Steakhouse KL",
+    name: "The Steakhouse KL",
     description:
       "Premium steakhouse in the heart of KL, offering the finest cuts of meat and wine selection",
     location: "KLCC, Kuala Lumpur",
@@ -165,8 +165,9 @@ export const restaurant_profiles = [
   },
   {
     id: "3",
-    restaurant_name: "Pasta Zanmai",
-    description: "Modern Italian restaurant with fresh homemade pasta and authentic sauces",
+    name: "Pasta Zanmai",
+    description:
+      "Modern Italian restaurant with fresh homemade pasta and authentic sauces",
     location: "Sunway Pyramid, Petaling Jaya",
     rating: 4.7,
     likes: 22,
@@ -183,8 +184,9 @@ export const restaurant_profiles = [
   },
   {
     id: "4",
-    restaurant_name: "Ocean Seafood Restaurant",
-    description: "Fresh seafood restaurant specializing in Chinese-style seafood dishes",
+    name: "Ocean Seafood Restaurant",
+    description:
+      "Fresh seafood restaurant specializing in Chinese-style seafood dishes",
     location: "SS2, Petaling Jaya",
     rating: 4.9,
     likes: 30,

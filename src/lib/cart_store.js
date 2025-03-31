@@ -20,15 +20,15 @@ const useCartStore = create(
       addItem: (item) => {
         const items = get().items;
         // Create a unique identifier for each item
-        const itemKey = `${item.id}-${item.restaurant_name}-${item.price}`;
+        const itemKey = `${item.id}-${item.name}-${item.price}`;
         const existingItem = items.find(
-          (i) => `${i.id}-${i.restaurant_name}-${i.price}` === itemKey
+          (i) => `${i.id}-${i.name}-${i.price}` === itemKey
         );
 
         if (existingItem) {
           set({
             items: items.map((i) =>
-              `${i.id}-${i.restaurant_name}-${i.price}` === itemKey
+              `${i.id}-${i.name}-${i.price}` === itemKey
                 ? { ...i, quantity: i.quantity + 1 }
                 : i
             ),
