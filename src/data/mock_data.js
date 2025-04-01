@@ -1,5 +1,5 @@
 // RESTAURANT-SPECIFIC MENU PACKAGES FOR 2 PEOPLE --------------------------------------------------------------------------
-const menuPackages = {
+const menu_packages = {
   "Sushi Tei": [
     {
       name: "Sushi Lovers Set",
@@ -174,7 +174,8 @@ export const restaurant_profiles = [
     description:
       "Authentic Japanese cuisine with fresh sushi and sashimi, located in Pavilion KL",
     location: "Pavilion KL, Kuala Lumpur",
-    address: "Lot 6.12.00, Level 6, Pavilion KL, 168, Jalan Bukit Bintang, 55100 Kuala Lumpur",
+    address:
+      "Lot 6.12.00, Level 6, Pavilion KL, 168, Jalan Bukit Bintang, 55100 Kuala Lumpur",
     hours: "11:00 AM - 10:00 PM",
     phone: "+60 3-2141 1234",
     rating: 4.8,
@@ -188,7 +189,7 @@ export const restaurant_profiles = [
     user_profiles: {
       display_name: "sushi_master",
     },
-    menu_items: menuPackages["Sushi Tei"],
+    menu_items: menu_packages["Sushi Tei"],
   },
   {
     id: "2",
@@ -196,7 +197,8 @@ export const restaurant_profiles = [
     description:
       "Premium steakhouse in the heart of KL, offering the finest cuts of meat and wine selection",
     location: "KLCC, Kuala Lumpur",
-    address: "Level 56, Petronas Twin Towers, Kuala Lumpur City Centre, 50088 Kuala Lumpur",
+    address:
+      "Level 56, Petronas Twin Towers, Kuala Lumpur City Centre, 50088 Kuala Lumpur",
     hours: "12:00 PM - 11:00 PM",
     phone: "+60 3-2389 5678",
     rating: 4.9,
@@ -210,7 +212,7 @@ export const restaurant_profiles = [
     user_profiles: {
       display_name: "steak_house",
     },
-    menu_items: menuPackages["The Steakhouse KL"],
+    menu_items: menu_packages["The Steakhouse KL"],
   },
   {
     id: "3",
@@ -218,7 +220,8 @@ export const restaurant_profiles = [
     description:
       "Modern Italian restaurant with fresh homemade pasta and authentic sauces",
     location: "Sunway Pyramid, Petaling Jaya",
-    address: "Lot G1.117, Ground Floor, Sunway Pyramid Shopping Mall, No. 3, Jalan PJS 11/15, Bandar Sunway, 47500 Petaling Jaya",
+    address:
+      "Lot G1.117, Ground Floor, Sunway Pyramid Shopping Mall, No. 3, Jalan PJS 11/15, Bandar Sunway, 47500 Petaling Jaya",
     hours: "11:30 AM - 10:30 PM",
     phone: "+60 3-7492 9012",
     rating: 4.7,
@@ -232,7 +235,7 @@ export const restaurant_profiles = [
     user_profiles: {
       display_name: "rogers_kitchen",
     },
-    menu_items: menuPackages["Pasta Zanmai"],
+    menu_items: menu_packages["Pasta Zanmai"],
   },
   {
     id: "4",
@@ -254,7 +257,7 @@ export const restaurant_profiles = [
     user_profiles: {
       display_name: "ocean_fresh",
     },
-    menu_items: menuPackages["Ocean Seafood Restaurant"],
+    menu_items: menu_packages["Ocean Seafood Restaurant"],
   },
 ];
 
@@ -522,7 +525,7 @@ export const mockApi = {
 };
 
 // Export the menu packages map for direct access if needed
-export { menuPackages };
+export { menu_packages };
 
 export const popularRecipes = [
   {
