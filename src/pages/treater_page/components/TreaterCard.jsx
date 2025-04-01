@@ -6,10 +6,8 @@ import {
   ChevronUp,
   Heart,
   MapPin,
-  Clock,
   Tag,
   Info,
-  X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import OrderCard from "@/pages/treater_page/components/OrderCard";
@@ -135,7 +133,7 @@ export default function TreaterCard({
           <div className="border-t border-gray-100 p-3 space-y-2 bg-gray-50">
             <div className="flex items-center gap-2">
               <Tag className="h-3.5 w-3.5 text-primary" />
-              <h4 className="font-medium text-gray-900 text-xs">Menu Items</h4>
+              <h4 className="font-medium text-gray-900 text-xs">Packages</h4>
             </div>
             <div className="grid gap-2">
               {restaurantMenuItems.map((menuItem) => (
@@ -150,11 +148,12 @@ export default function TreaterCard({
         )}
       </Card>
 
-      {/* Description Modal */}
+      {/* MODAL ------------------------------ */}
+
       <Dialog open={showDescription} onOpenChange={setShowDescription}>
         <DialogContent className="sm:max-w-[425px] bg-white border-none rounded-2xl">
           <DialogHeader>
-            <DialogTitle className="text-base">{item.name}</DialogTitle>
+            <DialogTitle className="text-base">About {item.name}</DialogTitle>
           </DialogHeader>
           <div className="mt-2">
             <p className="text-sm text-lightgray leading-relaxed text-center mx-2">
