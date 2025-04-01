@@ -8,6 +8,8 @@ import {
   MapPin,
   Tag,
   Info,
+  Clock,
+  Phone,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import OrderCard from "@/pages/treater_page/components/OrderCard";
@@ -18,6 +20,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 } from "@/components/ui/dialog";
 
 export default function TreaterCard({
@@ -28,6 +31,7 @@ export default function TreaterCard({
   showMenuItems = true,
 }) {
   const [showDescription, setShowDescription] = useState(false);
+  const [showAddress, setShowAddress] = useState(false);
   const restaurantName = item.name;
   const restaurantMenuItems = item.menu_items || [];
 
@@ -149,16 +153,80 @@ export default function TreaterCard({
       </Card>
 
       {/* MODAL ------------------------------ */}
-
       <Dialog open={showDescription} onOpenChange={setShowDescription}>
-        <DialogContent className="sm:max-w-[425px] bg-white border-none rounded-2xl">
-          <DialogHeader>
-            <DialogTitle className="text-base">About {item.name}</DialogTitle>
-          </DialogHeader>
-          <div className="mt-2">
-            <p className="text-sm text-lightgray leading-relaxed text-center mx-2">
-              {item.description}
-            </p>
+        <DialogContent className="sm:max-w-[425px] p-0 bg-white border-none rounded-xl shadow-xl">
+          {/* RESTAURANT IMAGE */}
+          <div className="w-full h-1/3 relative">
+            <ImageWithFallback
+              src={item.image_url}
+              alt={item.name}
+              fill
+              className="object-cover rounded-t-xl"
+            />
+          </div>
+
+          {/* CONTENTS SECTION */}
+          <div className="px-6 pb-6 pt-2">
+            <DialogHeader>
+              <DialogTitle className="text-xl text-gray-800 font-bold">
+                {item.name}
+              </DialogTitle>
+              <DialogDescription className="text-sm text-lightgray my-2">
+                {item.description}
+              </DialogDescription>
+            </DialogHeader>
+
+            {/* LOCATION, HOURS, PHONE */}
+            <div className="mt-3 space-y-3">
+              {/* LOCATION */}
+              <div className="flex items-start gap-2">
+                <div>
+                  <MapPin className="w-4 h-4 mt-1 text-lightgray" />
+                </div>
+                <div className="flex-1">
+                  <div
+                    className="flex items-center justify-between cursor-pointer"
+                    onClick={() => setShowAddress(!showAddress)}
+                  >
+                    <p className="font-medium text-gray-900">{item.location}</p>
+                    {showAddress ? (
+                      <ChevronUp className="w-4 h-4 text-gray-500" />
+                    ) : (
+                      <ChevronDown className="w-4 h-4 text-gray-500" />
+                    )}
+                  </div>
+                  {showAddress && (
+                    <p className="text-sm text-lightgray mt-1">
+                      {item.address}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              {/* HOURS */}
+              <div className="flex items-start gap-2">
+                <div>
+                  <Clock className="w-4 h-4 mt-1 text-lightgray" />
+                </div>
+                <div>
+                  <p className="font-medium text-gray-900 mb-1">
+                    Opening Hours
+                  </p>
+                  <p className="text-sm text-lightgray">{item.hours}</p>
+                </div>
+              </div>
+
+              {/* CONTACT */}
+              <div className="flex items-start gap-2">
+                <div>
+                  <Phone className="w-4 h-4 mt-1 text-lightgray" />
+                </div>
+                <div>
+                  <p className="font-medium text-gray-900 mb-1">Contact</p>
+                  <p className="text-sm text-lightgray">{item.phone}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </DialogContent>
       </Dialog>

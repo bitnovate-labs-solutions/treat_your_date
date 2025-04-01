@@ -1,33 +1,40 @@
-// NOTES FOR DATABASE
-// Create these tables:
-// ratings table?
-//
-
-// Restaurant-specific menu items
-const restaurantMenuItems = {
+// RESTAURANT-SPECIFIC MENU PACKAGES FOR 2 PEOPLE --------------------------------------------------------------------------
+const menuPackages = {
   "Sushi Tei": [
     {
-      name: "California Roll",
-      description: "Crab meat, avocado, cucumber wrapped in rice and seaweed",
-      price: 12.99,
+      name: "Sushi Lovers Set",
+      description:
+        "Perfect for 2 - California Roll, Spicy Tuna Roll, Dragon Roll, Salmon Nigiri, Miso Soup, Edamame, Green Tea, and Japanese Dessert xdsgdsfgiahjsgoiadsjfgiosadjgpoisagjpsagasgs asfasfasfasf",
+      set_type: "basic",
+      price: 99,
+      rating: 4.4,
+      likes: 6,
       image_url:
         "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=3270&auto=format&fit=crop",
       purchased_at: null,
       booked_at: null,
     },
     {
-      name: "Spicy Tuna Roll",
-      description: "Fresh tuna with spicy sauce and tempura bits",
-      price: 14.99,
+      name: "Sashimi Delight Set",
+      description:
+        "Fresh selection for 2 - Assorted Sashimi, Tempura Udon, Edamame, and Japanese Tea",
+      set_type: "mid",
+      price: 149,
+      rating: 4.7,
+      likes: 8,
       image_url:
         "https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=3270&auto=format&fit=crop",
       purchased_at: null,
       booked_at: null,
     },
     {
-      name: "Dragon Roll",
-      description: "Eel and cucumber topped with avocado and eel sauce",
-      price: 16.99,
+      name: "Premium Sushi Set",
+      description:
+        "Luxury set for 2 - Premium Sushi Selection, Wagyu Beef, Seaweed Salad, and Sake",
+      set_type: "premium",
+      price: 199,
+      rating: 4.9,
+      likes: 12,
       image_url:
         "https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=1974&auto=format&fit=crop",
       purchased_at: null,
@@ -36,27 +43,39 @@ const restaurantMenuItems = {
   ],
   "The Steakhouse KL": [
     {
-      name: "Ribeye Steak",
-      description: "12oz premium cut with garlic butter and herbs",
-      price: 49.99,
+      name: "Classic Steak Set",
+      description:
+        "Perfect for 2 - Ribeye Steak, Caesar Salad, Mashed Potatoes, and Red Wine",
+      set_type: "basic",
+      price: 99,
+      rating: 4.4,
+      likes: 6,
       image_url:
         "https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=3270&auto=format&fit=crop",
       purchased_at: null,
       booked_at: null,
     },
     {
-      name: "Filet Mignon",
-      description: "8oz tender cut with red wine reduction sauce",
-      price: 59.99,
+      name: "Premium Cut Set",
+      description:
+        "Luxury set for 2 - Filet Mignon, Truffle Fries, Grilled Vegetables, and Wine Pairing",
+      set_type: "mid",
+      price: 149,
+      rating: 4.7,
+      likes: 8,
       image_url:
         "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=3270&auto=format&fit=crop",
       purchased_at: null,
       booked_at: null,
     },
     {
-      name: "New York Strip",
-      description: "14oz classic cut with herb butter",
-      price: 54.99,
+      name: "Surf & Turf Set",
+      description:
+        "Ultimate set for 2 - New York Strip, Lobster Tail, Garlic Bread, and Champagne",
+      set_type: "premium",
+      price: 199,
+      rating: 4.9,
+      likes: 12,
       image_url:
         "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=3270&auto=format&fit=crop",
       purchased_at: null,
@@ -65,27 +84,39 @@ const restaurantMenuItems = {
   ],
   "Pasta Zanmai": [
     {
-      name: "Fettuccine Alfredo",
-      description: "Creamy parmesan sauce with fresh herbs",
-      price: 19.99,
+      name: "Classic Italian Set",
+      description:
+        "Traditional set for 2 - Spaghetti Bolognese, Caesar Salad, Garlic Bread, and Italian Wine",
+      set_type: "basic",
+      price: 99,
+      rating: 4.4,
+      likes: 6,
       image_url:
         "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?q=80&w=3270&auto=format&fit=crop",
       purchased_at: null,
       booked_at: null,
     },
     {
-      name: "Spaghetti Carbonara",
-      description: "Classic Italian pasta with eggs, cheese, and pancetta",
-      price: 21.99,
+      name: "Carbonara Set",
+      description:
+        "Traditional set for 2 - Spaghetti Carbonara, Bruschetta, Minestrone Soup, and Italian Wine",
+      price: 149,
+      set_type: "mid",
+      rating: 4.7,
+      likes: 8,
       image_url:
         "https://images.unsplash.com/photo-1612874742237-6526221588e3?q=80&w=3270&auto=format&fit=crop",
       purchased_at: null,
       booked_at: null,
     },
     {
-      name: "Penne Arrabbiata",
-      description: "Spicy tomato sauce with garlic and chili",
-      price: 18.99,
+      name: "Vegetarian Set",
+      description:
+        "Healthy set for 2 - Penne Arrabbiata, Caprese Salad, Garlic Bread, and Sparkling Water",
+      set_type: "premium",
+      price: 199,
+      rating: 4.9,
+      likes: 12,
       image_url:
         "https://images.unsplash.com/photo-1556761223-4c4282c73f77?q=80&w=3270&auto=format&fit=crop",
       purchased_at: null,
@@ -94,27 +125,39 @@ const restaurantMenuItems = {
   ],
   "Ocean Seafood Restaurant": [
     {
-      name: "Lobster Thermidor",
-      description: "Classic French preparation with cream sauce",
-      price: 69.99,
+      name: "Seafood Platter Set",
+      description:
+        "Perfect for 2 - Lobster Thermidor, Grilled Shrimp, Crab Cakes, and White Wine",
+      set_type: "basic",
+      price: 99,
+      rating: 4.4,
+      likes: 6,
       image_url:
         "https://images.unsplash.com/photo-1560717789-0ac7c58ac90a?q=80&w=3270&auto=format&fit=crop",
       purchased_at: null,
       booked_at: null,
     },
     {
-      name: "Grilled Shrimp Scampi",
-      description: "Jumbo shrimp in garlic butter sauce",
-      price: 39.99,
+      name: "Catch of the Day Set",
+      description:
+        "Fresh set for 2 - Daily Fresh Fish, Shrimp Scampi, Seafood Chowder, and Wine",
+      set_type: "mid",
+      price: 149,
+      rating: 4.7,
+      likes: 8,
       image_url:
         "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?q=80&w=3270&auto=format&fit=crop",
       purchased_at: null,
       booked_at: null,
     },
     {
-      name: "Crab Cakes",
-      description: "Lump crab meat with special sauce",
-      price: 34.99,
+      name: "Shellfish Set",
+      description:
+        "Shellfish lovers set for 2 - Crab Cakes, Mussels, Clams, and Sparkling Wine",
+      set_type: "premium",
+      price: 199,
+      rating: 4.9,
+      likes: 12,
       image_url:
         "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=3270&auto=format&fit=crop",
       purchased_at: null,
@@ -123,7 +166,7 @@ const restaurantMenuItems = {
   ],
 };
 
-// Static food items data
+// RESTAURANT PROFILE --------------------------------------------------------------------------
 export const restaurant_profiles = [
   {
     id: "1",
@@ -131,10 +174,13 @@ export const restaurant_profiles = [
     description:
       "Authentic Japanese cuisine with fresh sushi and sashimi, located in Pavilion KL",
     location: "Pavilion KL, Kuala Lumpur",
+    address: "Lot 6.12.00, Level 6, Pavilion KL, 168, Jalan Bukit Bintang, 55100 Kuala Lumpur",
+    hours: "11:00 AM - 10:00 PM",
+    phone: "+60 3-2141 1234",
     rating: 4.8,
     likes: 25,
     image_url:
-      "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=3270&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=3270&auto=format&fit=crop",
     cuisine_type: "japanese",
     category: "non-halal",
     status: "available",
@@ -142,7 +188,7 @@ export const restaurant_profiles = [
     user_profiles: {
       display_name: "sushi_master",
     },
-    menu_items: restaurantMenuItems["Sushi Tei"],
+    menu_items: menuPackages["Sushi Tei"],
   },
   {
     id: "2",
@@ -150,10 +196,13 @@ export const restaurant_profiles = [
     description:
       "Premium steakhouse in the heart of KL, offering the finest cuts of meat and wine selection",
     location: "KLCC, Kuala Lumpur",
+    address: "Level 56, Petronas Twin Towers, Kuala Lumpur City Centre, 50088 Kuala Lumpur",
+    hours: "12:00 PM - 11:00 PM",
+    phone: "+60 3-2389 5678",
     rating: 4.9,
     likes: 28,
     image_url:
-      "https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=3270&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=3270&auto=format&fit=crop",
     cuisine_type: "american",
     category: "non-halal",
     status: "available",
@@ -161,7 +210,7 @@ export const restaurant_profiles = [
     user_profiles: {
       display_name: "steak_house",
     },
-    menu_items: restaurantMenuItems["The Steakhouse KL"],
+    menu_items: menuPackages["The Steakhouse KL"],
   },
   {
     id: "3",
@@ -169,10 +218,13 @@ export const restaurant_profiles = [
     description:
       "Modern Italian restaurant with fresh homemade pasta and authentic sauces",
     location: "Sunway Pyramid, Petaling Jaya",
+    address: "Lot G1.117, Ground Floor, Sunway Pyramid Shopping Mall, No. 3, Jalan PJS 11/15, Bandar Sunway, 47500 Petaling Jaya",
+    hours: "11:30 AM - 10:30 PM",
+    phone: "+60 3-7492 9012",
     rating: 4.7,
     likes: 22,
     image_url:
-      "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?q=80&w=3270&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=3270&auto=format&fit=crop",
     cuisine_type: "italian",
     category: "vegetarian",
     status: "available",
@@ -180,7 +232,7 @@ export const restaurant_profiles = [
     user_profiles: {
       display_name: "rogers_kitchen",
     },
-    menu_items: restaurantMenuItems["Pasta Zanmai"],
+    menu_items: menuPackages["Pasta Zanmai"],
   },
   {
     id: "4",
@@ -188,10 +240,13 @@ export const restaurant_profiles = [
     description:
       "Fresh seafood restaurant specializing in Chinese-style seafood dishes",
     location: "SS2, Petaling Jaya",
+    address: "No. 123, Jalan SS2/24, SS2, 47300 Petaling Jaya, Selangor",
+    hours: "10:00 AM - 11:00 PM",
+    phone: "+60 3-7876 3456",
     rating: 4.9,
     likes: 30,
     image_url:
-      "https://images.unsplash.com/photo-1560717789-0ac7c58ac90a?q=80&w=3270&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=3270&auto=format&fit=crop",
     cuisine_type: "seafood",
     category: "non-halal",
     status: "available",
@@ -199,11 +254,11 @@ export const restaurant_profiles = [
     user_profiles: {
       display_name: "ocean_fresh",
     },
-    menu_items: restaurantMenuItems["Ocean Seafood Restaurant"],
+    menu_items: menuPackages["Ocean Seafood Restaurant"],
   },
 ];
 
-// Static purchased items --------------------------------------------------------------------------
+// PURCHASED ITEMS --------------------------------------------------------------------------
 export const purchasedItems = [
   {
     id: "5",
@@ -466,8 +521,8 @@ export const mockApi = {
   },
 };
 
-// Export the menu items map for direct access if needed
-export { restaurantMenuItems };
+// Export the menu packages map for direct access if needed
+export { menuPackages };
 
 export const popularRecipes = [
   {
