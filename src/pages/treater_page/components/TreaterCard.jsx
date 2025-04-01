@@ -152,12 +152,12 @@ export default function TreaterCard({
 
       {/* Description Modal */}
       <Dialog open={showDescription} onOpenChange={setShowDescription}>
-        <DialogContent className="sm:max-w-[425px] bg-white border-none rounded-2xl transform transition-all duration-300 ease-in-out animate-in fade-in-0 zoom-in-95">
+        <DialogContent className="sm:max-w-[425px] bg-white border-none rounded-2xl">
           <DialogHeader>
             <DialogTitle className="text-base">{item.name}</DialogTitle>
           </DialogHeader>
           <div className="mt-2">
-            <p className="text-sm text-lightgray leading-relaxed text-center">
+            <p className="text-sm text-lightgray leading-relaxed text-center mx-2">
               {item.description}
             </p>
           </div>
