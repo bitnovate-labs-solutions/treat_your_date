@@ -62,7 +62,7 @@ export default function OrderCard({ item, restaurantName }) {
 
   return (
     <>
-      <Card className="flex flex-col p-3 py-4 border-none shadow-lg flex-1 min-w-0 bg-linear-to-b from-primary/10 via-primary/20 to-primary">
+      <Card className="flex flex-col p-3 py-4 border-none shadow-lg flex-1 min-w-0 bg-white">
         {/* CARD HEADER */}
         <CardHeader className="p-0 h-26">
           <div className="flex">
@@ -107,13 +107,13 @@ export default function OrderCard({ item, restaurantName }) {
           <div className="flex gap-4 ml-1">
             <div className="flex items-center gap-1">
               <Star className="w-4 h-4 text-yellow-300 fill-yellow-300" />
-              <span className="text-xs text-white font-semibold">
+              <span className="text-xs text-gray-700 font-semibold">
                 {item.rating || "4.5"}
               </span>
             </div>
             <div className="flex items-center gap-1">
               <Heart className="w-4 h-4 text-red-500 fill-red-500" />
-              <span className="text-xs text-white font-semibold">
+              <span className="text-xs text-gray-700 font-semibold">
                 {item.likes || "2.3k"}
               </span>
             </div>
