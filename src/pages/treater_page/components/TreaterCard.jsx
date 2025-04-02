@@ -134,7 +134,7 @@ export default function TreaterCard({
 
         {/* CARD EXPANDED SECTION ------------------------------ */}
         {expanded && showMenuItems && (
-          <div className="border-t border-gray-200 p-3 space-y-2 bg-linear-to-b from-white via-primary/80 to-primary">
+          <div className="border-t border-gray-200 p-3 space-y-2 bg-linear-to-b from-white via-primary/60 to-primary">
             <div className="flex items-center gap-2">
               <Tag className="h-3.5 w-3.5 text-primary" />
               <h4 className="font-medium text-gray-900 text-xs">Packages</h4>
