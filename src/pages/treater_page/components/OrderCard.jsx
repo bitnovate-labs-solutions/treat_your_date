@@ -33,6 +33,7 @@ export default function OrderCard({ item, restaurantName }) {
     const itemsWithRestaurantName = {
       ...item,
       restaurantName,
+      package_id: item.id,
     };
 
     addItem(itemsWithRestaurantName);
@@ -61,7 +62,7 @@ export default function OrderCard({ item, restaurantName }) {
 
   return (
     <>
-      <Card className="flex flex-col p-3 py-4 border border-gray-200 shadow-lg flex-1 min-w-0">
+      <Card className="flex flex-col p-3 py-4 border-none shadow-lg flex-1 min-w-0 bg-linear-to-b from-primary/10 via-primary/20 to-primary">
         {/* CARD HEADER */}
         <CardHeader className="p-0 h-26">
           <div className="flex">
@@ -78,9 +79,7 @@ export default function OrderCard({ item, restaurantName }) {
             {/* ITEM NAME & DESCRIPTION */}
             <div className="flex flex-col p-0 flex-1 min-w-0">
               <div className="flex items-start justify-between gap-2 mb-1">
-                <h3 className="text-sm font-semibold text-gray-900">
-                  {item.name}
-                </h3>
+                <h3 className="text-sm font-bold text-gray-900">{item.name}</h3>
                 <Button
                   variant="ghost"
                   size="sm"
@@ -93,8 +92,8 @@ export default function OrderCard({ item, restaurantName }) {
                   <Info className="h-3.5 w-3.5 text-gray-400" />
                 </Button>
               </div>
-              <div className="relative bg-white">
-                <p className="text-xs text-lightgray line-clamp-4">
+              <div className="relative">
+                <p className="text-xs text-gray-500 line-clamp-4">
                   {item.description}
                 </p>
               </div>
@@ -107,14 +106,14 @@ export default function OrderCard({ item, restaurantName }) {
           {/* RATINGS AND LIKES */}
           <div className="flex gap-4 ml-1">
             <div className="flex items-center gap-1">
-              <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-              <span className="text-xs text-gray-600">
+              <Star className="w-4 h-4 text-yellow-300 fill-yellow-300" />
+              <span className="text-xs text-white font-semibold">
                 {item.rating || "4.5"}
               </span>
             </div>
             <div className="flex items-center gap-1">
               <Heart className="w-4 h-4 text-red-500 fill-red-500" />
-              <span className="text-xs text-gray-600">
+              <span className="text-xs text-white font-semibold">
                 {item.likes || "2.3k"}
               </span>
             </div>

@@ -184,9 +184,9 @@ export const restaurant_profiles = [
       "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=3270&auto=format&fit=crop",
     cuisine_type: "japanese",
     category: "non-halal",
-    status: "available",
+    status: "active",
     created_at: "2024-03-15T10:00:00Z",
-    user_profiles: {
+    vendor_id: {
       display_name: "sushi_master",
     },
     menu_items: menu_packages["Sushi Tei"],
@@ -207,9 +207,9 @@ export const restaurant_profiles = [
       "https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=3270&auto=format&fit=crop",
     cuisine_type: "american",
     category: "non-halal",
-    status: "available",
+    status: "active",
     created_at: "2024-03-14T15:30:00Z",
-    user_profiles: {
+    vendor_id: {
       display_name: "steak_house",
     },
     menu_items: menu_packages["The Steakhouse KL"],
@@ -230,9 +230,9 @@ export const restaurant_profiles = [
       "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=3270&auto=format&fit=crop",
     cuisine_type: "italian",
     category: "vegetarian",
-    status: "available",
+    status: "active",
     created_at: "2024-03-13T12:00:00Z",
-    user_profiles: {
+    vendor_id: {
       display_name: "rogers_kitchen",
     },
     menu_items: menu_packages["Pasta Zanmai"],
@@ -252,9 +252,9 @@ export const restaurant_profiles = [
       "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=3270&auto=format&fit=crop",
     cuisine_type: "seafood",
     category: "non-halal",
-    status: "available",
+    status: "active",
     created_at: "2024-03-12T09:00:00Z",
-    user_profiles: {
+    vendor_id: {
       display_name: "ocean_fresh",
     },
     menu_items: menu_packages["Ocean Seafood Restaurant"],
