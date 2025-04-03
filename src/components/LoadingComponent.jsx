@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import Logo from "@/assets/tyd_logo.png";
 
-const Loading = ({
+const LoadingComponent = ({
   type = "inline",
   isLoading = true,
   className = "",
@@ -79,4 +79,4 @@ const Loading = ({
   }
 };
 
-export default Loading;
+export default LoadingComponent;

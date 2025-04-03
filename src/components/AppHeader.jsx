@@ -1,11 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
-import {
-  cuisineTypes,
-  foodCategories,
-  sortOptions,
-  states,
-} from "@/lib/constants";
+import { sortOptions, states } from "@/lib/constants";
+import { useCuisineTypeEnum, useFoodCategoryEnum } from "@/hooks/useEnumValues";
 import { useFilters } from "@/context/FilterContext";
 import { version } from "../../package.json";
 
@@ -21,6 +17,8 @@ import {
   DropdownMenuSeparator,
 } from "./ui/dropdown-menu";
 import { toast } from "sonner";
+import LoadingComponent from "./LoadingComponent";
+import ErrorComponent from "./ErrorComponent";
 
 export default function AppHeader({ title, isHomePage, isProfilePage }) {
   const { signOut } = useAuth();
@@ -28,8 +26,19 @@ export default function AppHeader({ title, isHomePage, isProfilePage }) {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const activeTab = searchParams.get("tab") || "menu";
-
   const { filters, setFilters } = useFilters(); // Global filter state
+
+  // HOOKS
+  const {
+    data: cuisineTypes,
+    isLoading: isLoadingCuisineTypes,
+    error: errorCuisineTypes,
+  } = useCuisineTypeEnum();
+  const {
+    data: foodCategories,
+    isLoading: isLoadingFoodCategories,
+    error: errorFoodCategories,
+  } = useFoodCategoryEnum();
 
   // HANDLE TAB CHANGE
   const handleTabChange = (value) => {
@@ -81,6 +90,15 @@ export default function AppHeader({ title, isHomePage, isProfilePage }) {
       });
     }
   };
+
+  // LOADING AND ERROR HANDLING
+  if (isLoadingCuisineTypes || isLoadingFoodCategories)
+    return <LoadingComponent type="inline" />;
+
+  if (errorCuisineTypes)
+    return <ErrorComponent message={errorCuisineTypes.message} />;
+  if (errorFoodCategories)
+    return <ErrorComponent message={errorFoodCategories.message} />;
 
   return (
     <div className="fixed top-0 left-0 right-0 max-w-sm mx-auto bg-white border-b border-gray-200 shadow-md z-10">
@@ -216,8 +234,9 @@ export default function AppHeader({ title, isHomePage, isProfilePage }) {
                       className="rounded-full whitespace-nowrap text-[12px] font-light py-1 border-none bg-secondary hover:bg-secondary/80"
                     >
                       {filters.cuisine
-                        ? cuisineTypes.find((c) => c.value === filters.cuisine)
-                            ?.label
+                        ? (cuisineTypes || []).find(
+                            (c) => c.value === filters.cuisine
+                          )?.label
                         : "Cuisine"}
                       <ChevronDown className="w-4 h-4 ml-1" />
                     </Button>
@@ -233,17 +252,19 @@ export default function AppHeader({ title, isHomePage, isProfilePage }) {
                       Reset
                     </DropdownMenuItem>
                     <DropdownMenuSeparator className="bg-gray-200" />
-                    {cuisineTypes.map((option) => (
-                      <DropdownMenuItem
-                        key={option.value}
-                        className={
-                          filters.cuisine === option.value ? "bg-accent" : ""
-                        }
-                        onClick={() => handleCuisineChange(option.value)}
-                      >
-                        {option.label}
-                      </DropdownMenuItem>
-                    ))}
+                    {[...(cuisineTypes || [])]
+                      .sort((a, b) => a.label.localeCompare(b.label))
+                      .map((option) => (
+                        <DropdownMenuItem
+                          key={option.value}
+                          className={
+                            filters.cuisine === option.value ? "bg-accent" : ""
+                          }
+                          onClick={() => handleCuisineChange(option.value)}
+                        >
+                          {option.label}
+                        </DropdownMenuItem>
+                      ))}
                   </DropdownMenuContent>
                 </DropdownMenu>
 
@@ -273,17 +294,19 @@ export default function AppHeader({ title, isHomePage, isProfilePage }) {
                       Reset
                     </DropdownMenuItem>
                     <DropdownMenuSeparator className="bg-gray-200" />
-                    {foodCategories.map((option) => (
-                      <DropdownMenuItem
-                        key={option.value}
-                        className={
-                          filters.category === option.value ? "bg-accent" : ""
-                        }
-                        onClick={() => handleCategoryChange(option.value)}
-                      >
-                        {option.label}
-                      </DropdownMenuItem>
-                    ))}
+                    {[...foodCategories]
+                      .sort((a, b) => a.label.localeCompare(b.label))
+                      .map((option) => (
+                        <DropdownMenuItem
+                          key={option.value}
+                          className={
+                            filters.category === option.value ? "bg-accent" : ""
+                          }
+                          onClick={() => handleCategoryChange(option.value)}
+                        >
+                          {option.label}
+                        </DropdownMenuItem>
+                      ))}
                   </DropdownMenuContent>
                 </DropdownMenu>
 

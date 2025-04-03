@@ -1,11 +1,15 @@
 // import { useEffect, useState } from "react";
-import { Minus, Plus, Trash2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 // import { useQuery } from "@tanstack/react-query";
 // import { mockApi } from "@/lib/mockData";
 import useCartStore from "@/lib/cart_store";
+
+// COMPONENTS
+import { Minus, Plus, Trash2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import ImageWithFallback from "@/components/ImageWithFallback";
+
+// ASSETS
 import EmptyCart from "@/assets/images/empty_cart.png";
 
 export default function ShoppingCart({ onSuccess }) {
@@ -45,14 +49,6 @@ export default function ShoppingCart({ onSuccess }) {
   //   0
   // );
 
-  // if (isLoading) {
-  //   return (
-  //     <div className="min-h-screen bg-white flex items-center justify-center">
-  //       <div className="text-gray-500">Loading cart...</div>
-  //     </div>
-  //   );
-  // }
-
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="max-w-sm mx-auto">
@@ -84,12 +80,11 @@ export default function ShoppingCart({ onSuccess }) {
                   {/* CARD IMAGE */}
                   <div className="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
                     <ImageWithFallback
-                      src={item.image_url}
+                      src={item.menu_images?.[0]?.image_url}
                       alt={item.name}
                       className="w-full h-full object-cover"
                     />
                   </div>
-
                   <div className="grid grid-cols-5">
                     <div className="col-span-4 space-y-5">
                       {/* RESTAURANT NAME & MEAL PACKAGE */}

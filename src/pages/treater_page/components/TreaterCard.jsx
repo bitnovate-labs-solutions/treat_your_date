@@ -1,3 +1,7 @@
+import { useState } from "react";
+import { cn } from "@/lib/utils";
+
+// COMPONENTS
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,10 +15,8 @@ import {
   Clock,
   Phone,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 import OrderCard from "@/pages/treater_page/components/OrderCard";
 import ImageWithFallback from "@/components/ImageWithFallback";
-import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -33,7 +35,7 @@ export default function TreaterCard({
   const [showDescription, setShowDescription] = useState(false);
   const [showAddress, setShowAddress] = useState(false);
   const restaurantName = item.name;
-  const restaurantMenuItems = item.menu_items || [];
+  const restaurantMenuItems = item.menu_packages || [];
 
   return (
     <>
@@ -80,12 +82,14 @@ export default function TreaterCard({
                     <div className="flex items-center gap-2 text-xs text-gray-600 mt-1">
                       <div className="flex items-center gap-1">
                         <Star className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
-                        <span>{item.rating.toFixed(1)}</span>
+                        <span>
+                          {item?.restaurant_stats?.avg_rating.toFixed(1)}
+                        </span>
                       </div>
                       <span>•</span>
                       <div className="flex items-center gap-1">
                         <Heart className="h-3.5 w-3.5 text-red-500 fill-red-500" />
-                        <span>{item.likes}</span>
+                        <span>{item?.restaurant_stats?.like_count}</span>
                       </div>
                     </div>
                   </div>
@@ -112,13 +116,13 @@ export default function TreaterCard({
                   )}
                 </div>
 
-                {/* MIDDLE SECTION */}
+                {/* CUISINE TYPE & CATEGORY SECTION */}
                 <div className="flex flex-wrap items-center gap-1.5">
                   <span className="bg-primary/90 text-white px-2.5 py-1 rounded-full text-[10px] font-medium">
                     {item.cuisine_type}
                   </span>
                   <span className="bg-black/10 text-gray-700 px-2.5 py-1 rounded-full text-[10px] font-medium">
-                    {item.category}
+                    {item.food_category}
                   </span>
                 </div>
               </div>
@@ -142,7 +146,7 @@ export default function TreaterCard({
             <div className="grid gap-2">
               {restaurantMenuItems.map((menuItem) => (
                 <OrderCard
-                  key={menuItem.name}
+                  key={menuItem.id}
                   item={menuItem}
                   restaurantName={restaurantName}
                 />
@@ -223,7 +227,7 @@ export default function TreaterCard({
                 </div>
                 <div>
                   <p className="font-medium text-gray-900 mb-1">Contact</p>
-                  <p className="text-sm text-lightgray">{item.phone}</p>
+                  <p className="text-sm text-lightgray">{item.phone_number}</p>
                 </div>
               </div>
             </div>

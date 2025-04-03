@@ -1,14 +1,31 @@
 import { useState, useRef, useEffect } from "react";
+import { useRestaurants } from "@/hooks/useRestaurants";
+import { voucherUpdates } from "@/data/mock_data";
+
+// COMPONENTS
 import ExploreCard from "./components/ExploreCard";
 import VoucherCard from "./components/VoucherCard";
 import CategoryCard from "@/pages/explore_page/components/CategoryCard";
-import { foodCategories } from "@/lib/constants";
-import { restaurant_profiles, voucherUpdates } from "@/data/mock_data";
+import LoadingComponent from "@/components/LoadingComponent";
+import ErrorComponent from "@/components/ErrorComponent";
+import { useFoodCategoryEnum } from "@/hooks/useEnumValues";
 
 const Explore = () => {
-  const [activeCategory, setActiveCategory] = useState("all");
+  const [activeCategory, setActiveCategory] = useState("All");
   const [currentSlide, setCurrentSlide] = useState(0);
   const scrollRef = useRef(null);
+
+  // HOOKS
+  const {
+    data: restaurants,
+    isLoading: isLoadingRestaurants,
+    error: errorRestaurants,
+  } = useRestaurants();
+  const {
+    data: foodCategories,
+    isLoading: isLoadingFoodCategories,
+    error: errorFoodCategories,
+  } = useFoodCategoryEnum();
 
   // Handle scroll events to update current slide
   const handleScroll = () => {
@@ -28,6 +45,15 @@ const Explore = () => {
       return () => scrollElement.removeEventListener("scroll", handleScroll);
     }
   }, []);
+
+  // LOADING AND ERROR HANDLING
+  if (isLoadingRestaurants || isLoadingFoodCategories)
+    return <LoadingComponent type="inline" />;
+
+  if (errorRestaurants)
+    return <ErrorComponent message={errorRestaurants.message} />;
+  if (errorFoodCategories)
+    return <ErrorComponent message={errorFoodCategories.message} />;
 
   return (
     <div className="container mx-auto px-4 pt-5 pb-20">
@@ -81,7 +107,7 @@ const Explore = () => {
       <div>
         <h2 className="text-xl font-semibold mb-4">What&apos;s Trending</h2>
         <div className="gap-2">
-          {restaurant_profiles.map((item) => (
+          {restaurants.map((item) => (
             <ExploreCard key={item.id} item={item} />
           ))}
         </div>

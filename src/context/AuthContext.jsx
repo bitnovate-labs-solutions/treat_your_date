@@ -4,7 +4,7 @@ import { supabase } from "@/lib/supabase";
 import { useQueryClient } from "@tanstack/react-query";
 
 // COMPONENTS
-import Loading from "@/components/Loading";
+import LoadingComponent from "@/components/LoadingComponent";
 
 const AuthContext = createContext({});
 
@@ -155,7 +155,9 @@ export function AuthProvider({ children }) {
 
   // LOADING ANIMATION
   if (loading && !user) {
-    return <Loading type="screen" text="Setting up your experience..." />;
+    return (
+      <LoadingComponent type="screen" text="Setting up your experience..." />
+    );
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

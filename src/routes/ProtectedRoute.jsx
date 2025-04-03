@@ -1,6 +1,7 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import { useUserProfile } from "@/hooks/useUserProfile";
+import LoadingComponent from "@/components/LoadingComponent";
 
 export default function ProtectedRoute() {
   const { user } = useAuth();
@@ -9,11 +10,7 @@ export default function ProtectedRoute() {
 
   // Show loading state
   if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-gray-600">Loading...</p>
-      </div>
-    );
+    return <LoadingComponent type="inline" />;
   }
 
   if (!user) {

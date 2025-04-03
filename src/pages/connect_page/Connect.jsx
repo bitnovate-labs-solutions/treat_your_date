@@ -25,6 +25,7 @@ import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import SwipeRight from "@/assets/images/swipe_right.png";
 import SwipeLeft from "@/assets/images/swipe_left.png";
+import LoadingComponent from "@/components/LoadingComponent";
 
 const InstructionScreen = ({ onStart }) => {
   return (
@@ -185,7 +186,7 @@ const Connect = () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingComponent type="inline" />;
   }
 
   if (!currentUser) {

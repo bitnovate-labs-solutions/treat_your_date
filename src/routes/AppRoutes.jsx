@@ -23,7 +23,8 @@ import Connect from "@/pages/connect_page/Connect";
 import TestSkeletons from "@/pages/test-skeletons";
 
 // TEMP TESTING
-import Loading from "@/components/Loading";
+import Loading from "@/components/LoadingComponent";
+// import ErrorComponent from "@/components/ErrorComponent";
 
 export default function AppRoutes() {
   const { user } = useAuth();
@@ -40,6 +41,10 @@ export default function AppRoutes() {
         path="/loading-test"
         element={<Loading type="screen" text="Setting up your experience..." />}
       />
+      {/* <Route
+        path="/loading-test"
+        element={<ErrorComponent message="Error Testing" />}
+      /> */}
 
       {/* FOR TESTING SKELETON COMPONENTS */}
       <Route path="/test-skeletons" element={<TestSkeletons />} />

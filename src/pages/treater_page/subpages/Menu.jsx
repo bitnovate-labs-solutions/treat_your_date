@@ -1,30 +1,41 @@
-import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+// import { useQuery } from "@tanstack/react-query";
 // import { supabase } from "@/lib/supabase";
-import { mockApi } from "@/data/mock_data";
+// import { mockApi } from "@/data/mock_data";
 import { useFilters } from "@/context/FilterContext";
+import { useRestaurants } from "@/hooks/useRestaurants";
+import { Search } from "lucide-react";
 
 // COMPONENTS
-import { useState } from "react";
 import TreaterCard from "../components/TreaterCard";
+import LoadingComponent from "@/components/LoadingComponent";
+import ErrorComponent from "@/components/ErrorComponent";
 
 export default function Menu() {
   const [expandedId, setExpandedId] = useState(null);
   const { filters } = useFilters();
 
-  const { data: foodItems } = useQuery({
-    queryKey: ["foodItems", "menu", filters],
-    queryFn: mockApi.getMenuItems,
-  });
+  const { data: restaurants, isLoading, error } = useRestaurants();
+
+  // LOADING AND ERROR HANDLERS
+  if (isLoading) return <LoadingComponent type="inline" />;
+  if (error) return <ErrorComponent message={error.message} />;
+
+  // FROM MOCK DATA
+  // const { data: foodItems } = useQuery({
+  //   queryKey: ["foodItems", "menu", filters],
+  //   queryFn: mockApi.getMenuItems,
+  // });
 
   // Filter the food items based on the current filters
-  const filteredItems = foodItems?.filter((item) => {
+  const filteredItems = restaurants?.filter((item) => {
     // Filter by cuisine type
     if (filters.cuisine && item.cuisine_type !== filters.cuisine) {
       return false;
     }
 
-    // Filter by category (if implemented in the future)
-    if (filters.category && item.category !== filters.category) {
+    // Filter by category
+    if (filters.category && item.food_category !== filters.category) {
       return false;
     }
 
@@ -57,32 +68,36 @@ export default function Menu() {
     }
   });
 
-  // CODES FOR FUTURE USE ------------------
-  // const { data: foodItems } = useQuery({
-  //   queryKey: ["foodItems", "menu"],
-  //   queryFn: async () => {
-  //     const { data, error } = await supabase
-  //       .from("food_items")
-  //       .select("*")
-  //       .order("created_at", { ascending: false });
-
-  //     if (error) throw error;
-  //     return data || [];
-  //   },
-  // });
-
   return (
     <div className="space-y-3 pb-22">
-      {sortedItems?.map((item) => (
-        <TreaterCard
-          key={item.id}
-          item={item}
-          expanded={expandedId === item.id}
-          onToggle={() =>
-            setExpandedId(expandedId === item.id ? null : item.id)
-          }
-        />
-      ))}
+      {sortedItems?.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-12 px-4">
+          <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+            <Search className="w-8 h-8 text-primary" />
+          </div>
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">
+            {filters.category
+              ? `No ${filters.category} restaurants found`
+              : "No restaurants found"}
+          </h3>
+          <p className="text-sm text-gray-500 text-center max-w-sm">
+            {filters.category
+              ? "Try adjusting your filters or check back later for new restaurants in this category."
+              : "Try adjusting your filters or check back later for new restaurants."}
+          </p>
+        </div>
+      ) : (
+        sortedItems?.map((item) => (
+          <TreaterCard
+            key={item.id}
+            item={item}
+            expanded={expandedId === item.id}
+            onToggle={() =>
+              setExpandedId(expandedId === item.id ? null : item.id)
+            }
+          />
+        ))
+      )}
     </div>
   );
 }

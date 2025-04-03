@@ -28,7 +28,9 @@ export default function Cart() {
       // Show success state
       setOrderComplete(true);
 
-      toast.success("Order placed successfully!");
+      toast.success("Order placed successfully!", {
+        duration: 2000,
+      });
     } catch (error) {
       toast.error("Failed to place order. Please try again.");
       console.error("Purchase error:", error);

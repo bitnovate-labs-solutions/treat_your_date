@@ -167,99 +167,99 @@ const menu_packages = {
 };
 
 // RESTAURANT PROFILE --------------------------------------------------------------------------
-export const restaurant_profiles = [
-  {
-    id: "1",
-    name: "Sushi Tei",
-    description:
-      "Authentic Japanese cuisine with fresh sushi and sashimi, located in Pavilion KL",
-    location: "Pavilion KL, Kuala Lumpur",
-    address:
-      "Lot 6.12.00, Level 6, Pavilion KL, 168, Jalan Bukit Bintang, 55100 Kuala Lumpur",
-    hours: "11:00 AM - 10:00 PM",
-    phone: "+60 3-2141 1234",
-    rating: 4.8,
-    likes: 25,
-    image_url:
-      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=3270&auto=format&fit=crop",
-    cuisine_type: "japanese",
-    category: "non-halal",
-    status: "active",
-    created_at: "2024-03-15T10:00:00Z",
-    vendor_id: {
-      display_name: "sushi_master",
-    },
-    menu_items: menu_packages["Sushi Tei"],
-  },
-  {
-    id: "2",
-    name: "The Steakhouse KL",
-    description:
-      "Premium steakhouse in the heart of KL, offering the finest cuts of meat and wine selection",
-    location: "KLCC, Kuala Lumpur",
-    address:
-      "Level 56, Petronas Twin Towers, Kuala Lumpur City Centre, 50088 Kuala Lumpur",
-    hours: "12:00 PM - 11:00 PM",
-    phone: "+60 3-2389 5678",
-    rating: 4.9,
-    likes: 28,
-    image_url:
-      "https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=3270&auto=format&fit=crop",
-    cuisine_type: "american",
-    category: "non-halal",
-    status: "active",
-    created_at: "2024-03-14T15:30:00Z",
-    vendor_id: {
-      display_name: "steak_house",
-    },
-    menu_items: menu_packages["The Steakhouse KL"],
-  },
-  {
-    id: "3",
-    name: "Pasta Zanmai",
-    description:
-      "Modern Italian restaurant with fresh homemade pasta and authentic sauces",
-    location: "Sunway Pyramid, Petaling Jaya",
-    address:
-      "Lot G1.117, Ground Floor, Sunway Pyramid Shopping Mall, No. 3, Jalan PJS 11/15, Bandar Sunway, 47500 Petaling Jaya",
-    hours: "11:30 AM - 10:30 PM",
-    phone: "+60 3-7492 9012",
-    rating: 4.7,
-    likes: 22,
-    image_url:
-      "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=3270&auto=format&fit=crop",
-    cuisine_type: "italian",
-    category: "vegetarian",
-    status: "active",
-    created_at: "2024-03-13T12:00:00Z",
-    vendor_id: {
-      display_name: "rogers_kitchen",
-    },
-    menu_items: menu_packages["Pasta Zanmai"],
-  },
-  {
-    id: "4",
-    name: "Ocean Seafood Restaurant",
-    description:
-      "Fresh seafood restaurant specializing in Chinese-style seafood dishes",
-    location: "SS2, Petaling Jaya",
-    address: "No. 123, Jalan SS2/24, SS2, 47300 Petaling Jaya, Selangor",
-    hours: "10:00 AM - 11:00 PM",
-    phone: "+60 3-7876 3456",
-    rating: 4.9,
-    likes: 30,
-    image_url:
-      "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=3270&auto=format&fit=crop",
-    cuisine_type: "seafood",
-    category: "non-halal",
-    status: "active",
-    created_at: "2024-03-12T09:00:00Z",
-    vendor_id: {
-      display_name: "ocean_fresh",
-    },
-    menu_items: menu_packages["Ocean Seafood Restaurant"],
-  },
-];
+// export const restaurant_profiles = [
+//   {
+//     id: "1",
+//     name: "Sushi Tei",
+//     description:
+//       "Authentic Japanese cuisine with fresh sushi and sashimi, located in Pavilion KL",
+//     location: "Pavilion KL, Kuala Lumpur",
+//     address:
+//       "Lot 6.12.00, Level 6, Pavilion KL, 168, Jalan Bukit Bintang, 55100 Kuala Lumpur",
+//     hours: "11:00 AM - 10:00 PM",
+//     phone: "+60 3-2141 1234",
+//     rating: 4.8,
+//     likes: 25,
+//     image_url:
+//       "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=3270&auto=format&fit=crop",
+//     cuisine_type: "japanese",
+//     category: "non-halal",
+//     status: "active",
+//     created_at: "2024-03-15T10:00:00Z",
+//     vendor_id: {
+//       display_name: "sushi_master",
+//     },
+//     menu_items: menu_packages["Sushi Tei"],
+//   },
+//   {
+//     id: "2",
+//     name: "The Steakhouse KL",
+//     description:
+//       "Premium steakhouse in the heart of KL, offering the finest cuts of meat and wine selection",
+//     location: "KLCC, Kuala Lumpur",
+//     address:
+//       "Level 56, Petronas Twin Towers, Kuala Lumpur City Centre, 50088 Kuala Lumpur",
+//     hours: "12:00 PM - 11:00 PM",
+//     phone: "+60 3-2389 5678",
+//     rating: 4.9,
+//     likes: 28,
+//     image_url:
+//       "https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=3270&auto=format&fit=crop",
+//     cuisine_type: "american",
+//     category: "non-halal",
+//     status: "active",
+//     created_at: "2024-03-14T15:30:00Z",
+//     vendor_id: {
+//       display_name: "steak_house",
+//     },
+//     menu_items: menu_packages["The Steakhouse KL"],
+//   },
+//   {
+//     id: "3",
+//     name: "Pasta Zanmai",
+//     description:
+//       "Modern Italian restaurant with fresh homemade pasta and authentic sauces",
+//     location: "Sunway Pyramid, Petaling Jaya",
+//     address:
+//       "Lot G1.117, Ground Floor, Sunway Pyramid Shopping Mall, No. 3, Jalan PJS 11/15, Bandar Sunway, 47500 Petaling Jaya",
+//     hours: "11:30 AM - 10:30 PM",
+//     phone: "+60 3-7492 9012",
+//     rating: 4.7,
+//     likes: 22,
+//     image_url:
+//       "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=3270&auto=format&fit=crop",
+//     cuisine_type: "italian",
+//     category: "vegetarian",
+//     status: "active",
+//     created_at: "2024-03-13T12:00:00Z",
+//     vendor_id: {
+//       display_name: "rogers_kitchen",
+//     },
+//     menu_items: menu_packages["Pasta Zanmai"],
+//   },
+//   {
+//     id: "4",
+//     name: "Ocean Seafood Restaurant",
+//     description:
+//       "Fresh seafood restaurant specializing in Chinese-style seafood dishes",
+//     location: "SS2, Petaling Jaya",
+//     address: "No. 123, Jalan SS2/24, SS2, 47300 Petaling Jaya, Selangor",
+//     hours: "10:00 AM - 11:00 PM",
+//     phone: "+60 3-7876 3456",
+//     rating: 4.9,
+//     likes: 30,
+//     image_url:
+//       "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=3270&auto=format&fit=crop",
+//     cuisine_type: "seafood",
+//     category: "non-halal",
+//     status: "active",
+//     created_at: "2024-03-12T09:00:00Z",
+//     vendor_id: {
+//       display_name: "ocean_fresh",
+//     },
+//     menu_items: menu_packages["Ocean Seafood Restaurant"],
+//   },
+// ];
 
 // PURCHASED ITEMS --------------------------------------------------------------------------
 export const purchasedItems = [
@@ -495,7 +495,7 @@ const bookedItems = [
 
 // Mock data store
 const mockData = {
-  menu: restaurant_profiles,
+  // menu: restaurant_profiles,
   purchased: purchasedItems,
   booked: bookedItems,
 };

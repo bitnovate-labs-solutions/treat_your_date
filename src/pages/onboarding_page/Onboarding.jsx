@@ -9,7 +9,7 @@ import { onboardingSteps } from "./data/onboarding_data";
 
 // COMPONENTS
 import { Button } from "@/components/ui/button";
-import Loading from "@/components/Loading";
+import Loading from "@/components/LoadingComponent";
 import RenderDescription from "./components/RenderDescription";
 
 // Prefetch and cache API data
@@ -53,7 +53,7 @@ export default function Onboarding() {
   const { data: profile, isLoading } = useUserProfile(user);
 
   // Cache all onboarding images
-  const cachedImages = onboardingSteps.map(step => useImageCache(step.image));
+  const cachedImages = onboardingSteps.map((step) => useImageCache(step.image));
 
   // CHECK AUTH STATE AND REDIRECT BASED ON ROLE
   useEffect(() => {

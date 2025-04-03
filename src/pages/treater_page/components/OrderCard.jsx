@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-// import { useQueryClient, useMutation } from "@tanstack/react-query";
-import { toast } from "sonner";
 import useCartStore from "@/lib/cart_store";
+
+// COMPONENTS
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 import ImageWithFallback from "@/components/ImageWithFallback";
 import { Card, CardFooter, CardHeader } from "@/components/ui/card";
 import { Star, Heart, Info } from "lucide-react";
@@ -17,6 +18,8 @@ export default function OrderCard({ item, restaurantName }) {
   const [isInCart, setIsInCart] = useState(false);
   const [showDescription, setShowDescription] = useState(false);
   const { items, addItem } = useCartStore();
+
+  const menuImages = item.menu_images[0].image_url || [];
 
   // Check if item is in cart whenever items change
   useEffect(() => {
@@ -43,23 +46,6 @@ export default function OrderCard({ item, restaurantName }) {
     });
   };
 
-  //   const queryClient = useQueryClient();
-
-  //   const addToCart = useMutation({
-  //     mutationFn: async (item) => {
-  //       // Simulate API call
-  //       await new Promise((resolve) => setTimeout(resolve, 500));
-  //       return item;
-  //     },
-  //     onSuccess: () => {
-  //       queryClient.invalidateQueries(["cartItems"]);
-  //       toast.success("Added to cart");
-  //     },
-  //     onError: () => {
-  //       toast.error("Failed to add to cart");
-  //     },
-  //   });
-
   return (
     <>
       <Card className="flex flex-col p-3 py-4 border-none shadow-lg flex-1 min-w-0 bg-white">
@@ -69,7 +55,7 @@ export default function OrderCard({ item, restaurantName }) {
             {/* ITEM IMAGE */}
             <div className="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0 mr-2">
               <ImageWithFallback
-                src={item.image_url}
+                src={menuImages}
                 alt={item.name}
                 loading="lazy"
                 className="w-full h-full object-cover"
@@ -104,7 +90,7 @@ export default function OrderCard({ item, restaurantName }) {
         {/* FOOTER */}
         <CardFooter className="grid grid-cols-3 p-0">
           {/* RATINGS AND LIKES */}
-          <div className="flex gap-4 ml-1">
+          <div className="flex gap-2">
             <div className="flex items-center gap-1">
               <Star className="w-4 h-4 text-yellow-300 fill-yellow-300" />
               <span className="text-xs text-gray-700 font-semibold">
@@ -123,9 +109,9 @@ export default function OrderCard({ item, restaurantName }) {
             {/* SET PRICE */}
             <span
               className={`font-medium h-8 text-sm px-3 rounded-md flex items-center ${
-                item.set_type === "basic"
+                item.package_type === "basic"
                   ? "bg-sky-200 text-sky-600"
-                  : item.set_type === "mid"
+                  : item.package_type === "mid"
                   ? "bg-purple-200 text-purple-600"
                   : "bg-orange-200 text-orange-600"
               }`}
@@ -156,7 +142,7 @@ export default function OrderCard({ item, restaurantName }) {
           <div className="mt-2">
             <div className="w-full h-48 rounded-lg overflow-hidden mb-6">
               <ImageWithFallback
-                src={item.image_url}
+                src={menuImages}
                 alt={item.name}
                 className="w-full h-full object-cover"
               />

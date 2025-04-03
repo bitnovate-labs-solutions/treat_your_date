@@ -1,4 +1,5 @@
 const CategoryCard = ({ label, isActive, onClick }) => {
+  console.log(label);
   return (
     <button
       onClick={onClick}

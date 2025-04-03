@@ -3,7 +3,7 @@ import { AlertTriangle } from "lucide-react";
 export function ErrorFallback({ error, resetErrorBoundary }) {
   return (
     <div className="flex flex-col items-center min-h-screen p-6">
-      <div className="max-w-sm sm:max-w-md w-full bg-white shadow-xl rounded-2xl p-6 text-center">
+      <div className="max-w-sm w-full bg-white shadow-xl rounded-2xl p-6 text-center">
         <AlertTriangle className="w-12 h-12 text-red-500 mx-auto mb-4" />
 
         <h2 className="text-xl font-semibold text-gray-800">
