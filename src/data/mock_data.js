@@ -1,170 +1,170 @@
 // RESTAURANT-SPECIFIC MENU PACKAGES FOR 2 PEOPLE --------------------------------------------------------------------------
-const menu_packages = {
-  "Sushi Tei": [
-    {
-      name: "Sushi Lovers Set",
-      description:
-        "Perfect for 2 - California Roll, Spicy Tuna Roll, Dragon Roll, Salmon Nigiri, Miso Soup, Edamame, Green Tea, and Japanese Dessert xdsgdsfgiahjsgoiadsjfgiosadjgpoisagjpsagasgs asfasfasfasf",
-      set_type: "basic",
-      price: 99,
-      rating: 4.4,
-      likes: 6,
-      image_url:
-        "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=3270&auto=format&fit=crop",
-      purchased_at: null,
-      booked_at: null,
-    },
-    {
-      name: "Sashimi Delight Set",
-      description:
-        "Fresh selection for 2 - Assorted Sashimi, Tempura Udon, Edamame, and Japanese Tea",
-      set_type: "mid",
-      price: 149,
-      rating: 4.7,
-      likes: 8,
-      image_url:
-        "https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=3270&auto=format&fit=crop",
-      purchased_at: null,
-      booked_at: null,
-    },
-    {
-      name: "Premium Sushi Set",
-      description:
-        "Luxury set for 2 - Premium Sushi Selection, Wagyu Beef, Seaweed Salad, and Sake",
-      set_type: "premium",
-      price: 199,
-      rating: 4.9,
-      likes: 12,
-      image_url:
-        "https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=1974&auto=format&fit=crop",
-      purchased_at: null,
-      booked_at: null,
-    },
-  ],
-  "The Steakhouse KL": [
-    {
-      name: "Classic Steak Set",
-      description:
-        "Perfect for 2 - Ribeye Steak, Caesar Salad, Mashed Potatoes, and Red Wine",
-      set_type: "basic",
-      price: 99,
-      rating: 4.4,
-      likes: 6,
-      image_url:
-        "https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=3270&auto=format&fit=crop",
-      purchased_at: null,
-      booked_at: null,
-    },
-    {
-      name: "Premium Cut Set",
-      description:
-        "Luxury set for 2 - Filet Mignon, Truffle Fries, Grilled Vegetables, and Wine Pairing",
-      set_type: "mid",
-      price: 149,
-      rating: 4.7,
-      likes: 8,
-      image_url:
-        "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=3270&auto=format&fit=crop",
-      purchased_at: null,
-      booked_at: null,
-    },
-    {
-      name: "Surf & Turf Set",
-      description:
-        "Ultimate set for 2 - New York Strip, Lobster Tail, Garlic Bread, and Champagne",
-      set_type: "premium",
-      price: 199,
-      rating: 4.9,
-      likes: 12,
-      image_url:
-        "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=3270&auto=format&fit=crop",
-      purchased_at: null,
-      booked_at: null,
-    },
-  ],
-  "Pasta Zanmai": [
-    {
-      name: "Classic Italian Set",
-      description:
-        "Traditional set for 2 - Spaghetti Bolognese, Caesar Salad, Garlic Bread, and Italian Wine",
-      set_type: "basic",
-      price: 99,
-      rating: 4.4,
-      likes: 6,
-      image_url:
-        "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?q=80&w=3270&auto=format&fit=crop",
-      purchased_at: null,
-      booked_at: null,
-    },
-    {
-      name: "Carbonara Set",
-      description:
-        "Traditional set for 2 - Spaghetti Carbonara, Bruschetta, Minestrone Soup, and Italian Wine",
-      price: 149,
-      set_type: "mid",
-      rating: 4.7,
-      likes: 8,
-      image_url:
-        "https://images.unsplash.com/photo-1612874742237-6526221588e3?q=80&w=3270&auto=format&fit=crop",
-      purchased_at: null,
-      booked_at: null,
-    },
-    {
-      name: "Vegetarian Set",
-      description:
-        "Healthy set for 2 - Penne Arrabbiata, Caprese Salad, Garlic Bread, and Sparkling Water",
-      set_type: "premium",
-      price: 199,
-      rating: 4.9,
-      likes: 12,
-      image_url:
-        "https://images.unsplash.com/photo-1556761223-4c4282c73f77?q=80&w=3270&auto=format&fit=crop",
-      purchased_at: null,
-      booked_at: null,
-    },
-  ],
-  "Ocean Seafood Restaurant": [
-    {
-      name: "Seafood Platter Set",
-      description:
-        "Perfect for 2 - Lobster Thermidor, Grilled Shrimp, Crab Cakes, and White Wine",
-      set_type: "basic",
-      price: 99,
-      rating: 4.4,
-      likes: 6,
-      image_url:
-        "https://images.unsplash.com/photo-1560717789-0ac7c58ac90a?q=80&w=3270&auto=format&fit=crop",
-      purchased_at: null,
-      booked_at: null,
-    },
-    {
-      name: "Catch of the Day Set",
-      description:
-        "Fresh set for 2 - Daily Fresh Fish, Shrimp Scampi, Seafood Chowder, and Wine",
-      set_type: "mid",
-      price: 149,
-      rating: 4.7,
-      likes: 8,
-      image_url:
-        "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?q=80&w=3270&auto=format&fit=crop",
-      purchased_at: null,
-      booked_at: null,
-    },
-    {
-      name: "Shellfish Set",
-      description:
-        "Shellfish lovers set for 2 - Crab Cakes, Mussels, Clams, and Sparkling Wine",
-      set_type: "premium",
-      price: 199,
-      rating: 4.9,
-      likes: 12,
-      image_url:
-        "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=3270&auto=format&fit=crop",
-      purchased_at: null,
-      booked_at: null,
-    },
-  ],
-};
+// const menu_packages = {
+//   "Sushi Tei": [
+//     {
+//       name: "Sushi Lovers Set",
+//       description:
+//         "Perfect for 2 - California Roll, Spicy Tuna Roll, Dragon Roll, Salmon Nigiri, Miso Soup, Edamame, Green Tea, and Japanese Dessert xdsgdsfgiahjsgoiadsjfgiosadjgpoisagjpsagasgs asfasfasfasf",
+//       set_type: "basic",
+//       price: 99,
+//       rating: 4.4,
+//       likes: 6,
+//       image_url:
+//         "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=3270&auto=format&fit=crop",
+//       purchased_at: null,
+//       booked_at: null,
+//     },
+//     {
+//       name: "Sashimi Delight Set",
+//       description:
+//         "Fresh selection for 2 - Assorted Sashimi, Tempura Udon, Edamame, and Japanese Tea",
+//       set_type: "mid",
+//       price: 149,
+//       rating: 4.7,
+//       likes: 8,
+//       image_url:
+//         "https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=3270&auto=format&fit=crop",
+//       purchased_at: null,
+//       booked_at: null,
+//     },
+//     {
+//       name: "Premium Sushi Set",
+//       description:
+//         "Luxury set for 2 - Premium Sushi Selection, Wagyu Beef, Seaweed Salad, and Sake",
+//       set_type: "premium",
+//       price: 199,
+//       rating: 4.9,
+//       likes: 12,
+//       image_url:
+//         "https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=1974&auto=format&fit=crop",
+//       purchased_at: null,
+//       booked_at: null,
+//     },
+//   ],
+//   "The Steakhouse KL": [
+//     {
+//       name: "Classic Steak Set",
+//       description:
+//         "Perfect for 2 - Ribeye Steak, Caesar Salad, Mashed Potatoes, and Red Wine",
+//       set_type: "basic",
+//       price: 99,
+//       rating: 4.4,
+//       likes: 6,
+//       image_url:
+//         "https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=3270&auto=format&fit=crop",
+//       purchased_at: null,
+//       booked_at: null,
+//     },
+//     {
+//       name: "Premium Cut Set",
+//       description:
+//         "Luxury set for 2 - Filet Mignon, Truffle Fries, Grilled Vegetables, and Wine Pairing",
+//       set_type: "mid",
+//       price: 149,
+//       rating: 4.7,
+//       likes: 8,
+//       image_url:
+//         "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=3270&auto=format&fit=crop",
+//       purchased_at: null,
+//       booked_at: null,
+//     },
+//     {
+//       name: "Surf & Turf Set",
+//       description:
+//         "Ultimate set for 2 - New York Strip, Lobster Tail, Garlic Bread, and Champagne",
+//       set_type: "premium",
+//       price: 199,
+//       rating: 4.9,
+//       likes: 12,
+//       image_url:
+//         "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=3270&auto=format&fit=crop",
+//       purchased_at: null,
+//       booked_at: null,
+//     },
+//   ],
+//   "Pasta Zanmai": [
+//     {
+//       name: "Classic Italian Set",
+//       description:
+//         "Traditional set for 2 - Spaghetti Bolognese, Caesar Salad, Garlic Bread, and Italian Wine",
+//       set_type: "basic",
+//       price: 99,
+//       rating: 4.4,
+//       likes: 6,
+//       image_url:
+//         "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?q=80&w=3270&auto=format&fit=crop",
+//       purchased_at: null,
+//       booked_at: null,
+//     },
+//     {
+//       name: "Carbonara Set",
+//       description:
+//         "Traditional set for 2 - Spaghetti Carbonara, Bruschetta, Minestrone Soup, and Italian Wine",
+//       price: 149,
+//       set_type: "mid",
+//       rating: 4.7,
+//       likes: 8,
+//       image_url:
+//         "https://images.unsplash.com/photo-1612874742237-6526221588e3?q=80&w=3270&auto=format&fit=crop",
+//       purchased_at: null,
+//       booked_at: null,
+//     },
+//     {
+//       name: "Vegetarian Set",
+//       description:
+//         "Healthy set for 2 - Penne Arrabbiata, Caprese Salad, Garlic Bread, and Sparkling Water",
+//       set_type: "premium",
+//       price: 199,
+//       rating: 4.9,
+//       likes: 12,
+//       image_url:
+//         "https://images.unsplash.com/photo-1556761223-4c4282c73f77?q=80&w=3270&auto=format&fit=crop",
+//       purchased_at: null,
+//       booked_at: null,
+//     },
+//   ],
+//   "Ocean Seafood Restaurant": [
+//     {
+//       name: "Seafood Platter Set",
+//       description:
+//         "Perfect for 2 - Lobster Thermidor, Grilled Shrimp, Crab Cakes, and White Wine",
+//       set_type: "basic",
+//       price: 99,
+//       rating: 4.4,
+//       likes: 6,
+//       image_url:
+//         "https://images.unsplash.com/photo-1560717789-0ac7c58ac90a?q=80&w=3270&auto=format&fit=crop",
+//       purchased_at: null,
+//       booked_at: null,
+//     },
+//     {
+//       name: "Catch of the Day Set",
+//       description:
+//         "Fresh set for 2 - Daily Fresh Fish, Shrimp Scampi, Seafood Chowder, and Wine",
+//       set_type: "mid",
+//       price: 149,
+//       rating: 4.7,
+//       likes: 8,
+//       image_url:
+//         "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?q=80&w=3270&auto=format&fit=crop",
+//       purchased_at: null,
+//       booked_at: null,
+//     },
+//     {
+//       name: "Shellfish Set",
+//       description:
+//         "Shellfish lovers set for 2 - Crab Cakes, Mussels, Clams, and Sparkling Wine",
+//       set_type: "premium",
+//       price: 199,
+//       rating: 4.9,
+//       likes: 12,
+//       image_url:
+//         "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=3270&auto=format&fit=crop",
+//       purchased_at: null,
+//       booked_at: null,
+//     },
+//   ],
+// };
 
 // RESTAURANT PROFILE --------------------------------------------------------------------------
 // export const restaurant_profiles = [
@@ -525,7 +525,7 @@ export const mockApi = {
 };
 
 // Export the menu packages map for direct access if needed
-export { menu_packages };
+// export { menu_packages };
 
 export const popularRecipes = [
   {

@@ -23,7 +23,7 @@ import Connect from "@/pages/connect_page/Connect";
 import TestSkeletons from "@/pages/test-skeletons";
 
 // TEMP TESTING
-import Loading from "@/components/LoadingComponent";
+import LoadingComponent from "@/components/LoadingComponent";
 // import ErrorComponent from "@/components/ErrorComponent";
 
 export default function AppRoutes() {
@@ -39,7 +39,13 @@ export default function AppRoutes() {
       {/* FOR TESTING LOADING COMPONENT UI */}
       <Route
         path="/loading-test"
-        element={<Loading type="screen" text="Setting up your experience..." />}
+        element={
+          <LoadingComponent
+            type="screen"
+            text="Loading..."
+            // text="Setting up your experience..."
+          />
+        }
       />
       {/* <Route
         path="/loading-test"

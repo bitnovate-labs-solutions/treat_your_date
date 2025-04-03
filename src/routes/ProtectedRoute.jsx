@@ -10,7 +10,7 @@ export default function ProtectedRoute() {
 
   // Show loading state
   if (isLoading) {
-    return <LoadingComponent type="inline" />;
+    return <LoadingComponent type="screen" text="Loading..." />;
   }
 
   if (!user) {

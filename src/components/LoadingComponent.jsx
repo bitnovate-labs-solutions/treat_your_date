@@ -51,7 +51,7 @@ const LoadingComponent = ({
     // INLINE LOADER
     case "inline":
       return (
-        <div className={`flex items-center gap-2 ${className}`}>
+        <div className={`flex justify-center items-center gap-2 ${className}`}>
           <div className="animate-spin h-5 w-5 border-3 border-gray-300 border-t-primary rounded-full"></div>
           <span>Loading...</span>
         </div>

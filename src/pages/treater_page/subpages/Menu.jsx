@@ -1,15 +1,12 @@
 import { useState } from "react";
-// import { useQuery } from "@tanstack/react-query";
-// import { supabase } from "@/lib/supabase";
-// import { mockApi } from "@/data/mock_data";
 import { useFilters } from "@/context/FilterContext";
 import { useRestaurants } from "@/hooks/useRestaurants";
-import { Search } from "lucide-react";
 
 // COMPONENTS
 import TreaterCard from "../components/TreaterCard";
 import LoadingComponent from "@/components/LoadingComponent";
 import ErrorComponent from "@/components/ErrorComponent";
+import { Search } from "lucide-react";
 
 export default function Menu() {
   const [expandedId, setExpandedId] = useState(null);
@@ -18,7 +15,7 @@ export default function Menu() {
   const { data: restaurants, isLoading, error } = useRestaurants();
 
   // LOADING AND ERROR HANDLERS
-  if (isLoading) return <LoadingComponent type="inline" />;
+  if (isLoading) return <LoadingComponent type="screen" text="Loading..." />;
   if (error) return <ErrorComponent message={error.message} />;
 
   // FROM MOCK DATA

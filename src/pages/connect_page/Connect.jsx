@@ -186,7 +186,7 @@ const Connect = () => {
   };
 
   if (isLoading) {
-    return <LoadingComponent type="inline" />;
+    return <LoadingComponent type="screen" text="Loading..." />;
   }
 
   if (!currentUser) {

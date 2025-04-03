@@ -1,8 +1,10 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+// COMPONENTS
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Heart, Star, MapPin, Clock, Users } from "lucide-react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 export default function ExploreCard({ item }) {
   const [isLiked, setIsLiked] = useState(false);

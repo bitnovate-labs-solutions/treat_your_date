@@ -9,7 +9,7 @@ import { onboardingSteps } from "./data/onboarding_data";
 
 // COMPONENTS
 import { Button } from "@/components/ui/button";
-import Loading from "@/components/LoadingComponent";
+import LoadingComponent from "@/components/LoadingComponent";
 import RenderDescription from "./components/RenderDescription";
 
 // Prefetch and cache API data
@@ -75,7 +75,7 @@ export default function Onboarding() {
 
   // Show loading state while checking auth/profile
   if (isLoading) {
-    <Loading type="screen" text="Loading your profile..." />;
+    <LoadingComponent type="screen" text="Loading your profile..." />;
   }
 
   // HANDLE NEXT

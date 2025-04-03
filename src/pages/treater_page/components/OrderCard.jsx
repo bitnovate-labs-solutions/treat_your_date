@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import useCartStore from "@/lib/cart_store";
+import { formatNumber } from "@/utils/formatNumber";
 
 // COMPONENTS
 import { Button } from "@/components/ui/button";
@@ -90,17 +91,17 @@ export default function OrderCard({ item, restaurantName }) {
         {/* FOOTER */}
         <CardFooter className="grid grid-cols-3 p-0">
           {/* RATINGS AND LIKES */}
-          <div className="flex gap-2">
+          <div className="flex justify-center gap-2 mr-2">
             <div className="flex items-center gap-1">
               <Star className="w-4 h-4 text-yellow-300 fill-yellow-300" />
               <span className="text-xs text-gray-700 font-semibold">
-                {item.rating || "4.5"}
+                {formatNumber(item?.menu_package_stats?.avg_rating || 0)}
               </span>
             </div>
             <div className="flex items-center gap-1">
               <Heart className="w-4 h-4 text-red-500 fill-red-500" />
               <span className="text-xs text-gray-700 font-semibold">
-                {item.likes || "2.3k"}
+                {formatNumber(item?.menu_package_stats?.like_count || 0)}
               </span>
             </div>
           </div>

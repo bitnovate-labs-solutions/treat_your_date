@@ -93,7 +93,7 @@ export default function AppHeader({ title, isHomePage, isProfilePage }) {
 
   // LOADING AND ERROR HANDLING
   if (isLoadingCuisineTypes || isLoadingFoodCategories)
-    return <LoadingComponent type="inline" />;
+    return <LoadingComponent type="screen" text="Loading..." />;
 
   if (errorCuisineTypes)
     return <ErrorComponent message={errorCuisineTypes.message} />;

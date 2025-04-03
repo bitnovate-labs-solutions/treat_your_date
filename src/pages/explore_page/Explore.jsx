@@ -48,7 +48,7 @@ const Explore = () => {
 
   // LOADING AND ERROR HANDLING
   if (isLoadingRestaurants || isLoadingFoodCategories)
-    return <LoadingComponent type="inline" />;
+    return <LoadingComponent type="screen" text="Loading..." />;
 
   if (errorRestaurants)
     return <ErrorComponent message={errorRestaurants.message} />;

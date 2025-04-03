@@ -5,13 +5,12 @@ const fetchRestaurants = async () => {
   const { data, error } = await supabase // JOIN restaurant_stats, menu_packages and menu_images table here!
     .from("restaurants")
     .select(
-      `
-      *, 
-      restaurant_stats (like_count, avg_rating),
-      menu_packages (
-        *,
-        menu_images (*)
-      )
+      ` *, restaurant_stats (like_count, avg_rating),
+       menu_packages (
+       *, 
+       menu_images (*),
+       menu_package_stats (like_count, avg_rating, total_ratings)
+       )
     `
     )
     .order("created_at", { ascending: false });
