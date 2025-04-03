@@ -2,16 +2,18 @@ import { supabase } from "@/lib/supabase";
 import { useQuery } from "@tanstack/react-query";
 
 const fetchRestaurants = async () => {
-  const { data, error } = await supabase
+  const { data, error } = await supabase // JOIN restaurant_stats, menu_packages and menu_images table here!
     .from("restaurants")
-    .select(`
+    .select(
+      `
       *, 
       restaurant_stats (like_count, avg_rating),
       menu_packages (
         *,
         menu_images (*)
       )
-    `)
+    `
+    )
     .order("created_at", { ascending: false });
 
   if (error) throw new Error(error.message);
