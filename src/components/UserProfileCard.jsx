@@ -13,9 +13,13 @@ import {
   Folder,
   ChevronDown,
   ChevronUp,
+  ChevronLeft,
+  ChevronRight,
+  X,
 } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 export default function UserProfileCard({
   user,
@@ -24,74 +28,110 @@ export default function UserProfileCard({
   className = "",
 }) {
   const [isDetailsShown, setIsDetailsShown] = useState(showDetails);
+  const [mainImageIndex, setMainImageIndex] = useState(0);
+  const [previewImageIndex, setPreviewImageIndex] = useState(null);
+  const [showFullImage, setShowFullImage] = useState(false);
+
+  // Combine avatar with additional images
+  const images = [
+    user.avatar,
+    ...(user.additional_images || []),
+  ];
 
   const toggleDetails = () => {
     setIsDetailsShown(!isDetailsShown);
+    setPreviewImageIndex(null); // Close preview when collapsing
     if (onShowDetails) {
       onShowDetails(!isDetailsShown);
+    }
+  };
+
+  const handlePreviewClick = () => {
+    if (previewImageIndex !== null) {
+      setMainImageIndex(previewImageIndex);
+      setPreviewImageIndex(null);
+    }
+  };
+
+  const nextImage = (e) => {
+    e.stopPropagation();
+    if (showFullImage) {
+      setMainImageIndex((prev) => (prev + 1) % images.length);
+    }
+  };
+
+  const prevImage = (e) => {
+    e.stopPropagation();
+    if (showFullImage) {
+      setMainImageIndex((prev) => (prev - 1 + images.length) % images.length);
     }
   };
 
   return (
     <Card className={`overflow-hidden border-none shadow-2xl rounded-2xl ${className}`}>
       {/* PROFILE IMAGE */}
-      <div className="h-[620px] w-full relative">
-        <ImageWithFallback
-          src={user.avatar}
-          alt="Profile"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/5 to-black/10" />
+      <div className="relative">
+        <div 
+          className="h-[620px] w-full relative cursor-pointer" 
+          onClick={() => setShowFullImage(true)}
+        >
+          <ImageWithFallback
+            src={images[mainImageIndex]}
+            alt="Profile"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/5 to-black/10" />
 
-        {/* USER NAME, AGE */}
-        <div className="flex absolute bottom-22 left-6 text-white text-2xl font-bold">
-          <p>{user.name || "-"}</p>
-          <span>,</span>
-          <p className="ml-2">{user.age || "-"}</p>
-        </div>
-
-        {/* USER ROLE AND LOCATION */}
-        <div className="flex absolute bottom-15 left-6">
-          {/* USER ROLE */}
-          <div
-            className={`px-3 py-0.5 rounded-full mr-2 ${
-              user?.role === "treater"
-                ? "bg-blue-200 text-blue-800"
-                : "bg-secondary text-primary"
-            }`}
-          >
-            <p className="text-sm capitalize">{user.role || "-"}</p>
+          {/* USER NAME, AGE */}
+          <div className="flex absolute bottom-22 left-6 text-white text-2xl font-bold">
+            <p>{user.name || "-"}</p>
+            <span>,</span>
+            <p className="ml-2">{user.age || "-"}</p>
           </div>
 
-          {/* USER LOCATION */}
-          <div className="flex gap-1 px-3 py-0.5 bg-emerald-100 rounded-full">
-            <MapPin className="text-emerald-900 w-4 h-4 mr-1 my-auto" />
-            <p className="text-emerald-900 text-sm capitalize">
-              {user.location || "-"}
+          {/* USER ROLE AND LOCATION */}
+          <div className="flex absolute bottom-15 left-6">
+            {/* USER ROLE */}
+            <div
+              className={`px-3 py-0.5 rounded-full mr-2 ${
+                user?.role === "treater"
+                  ? "bg-blue-200 text-blue-800"
+                  : "bg-secondary text-primary"
+              }`}
+            >
+              <p className="text-sm capitalize">{user.role || "-"}</p>
+            </div>
+
+            {/* USER LOCATION */}
+            <div className="flex gap-1 px-3 py-0.5 bg-emerald-100 rounded-full">
+              <MapPin className="text-emerald-900 w-4 h-4 mr-1 my-auto" />
+              <p className="text-emerald-900 text-sm capitalize">
+                {user.location || "-"}
+              </p>
+            </div>
+          </div>
+
+          {/* USER OCCUPATION */}
+          <div className="flex absolute bottom-8 left-6">
+            <div className="flex items-center">
+              <Folder className="w-4 h-4 mr-2 my-auto text-white" />
+            </div>
+            <p className="text-white text-sm capitalize">
+              {user.occupation || "-"}
             </p>
           </div>
-        </div>
 
-        {/* USER OCCUPATION */}
-        <div className="flex absolute bottom-8 left-6">
-          <div className="flex items-center">
-            <Folder className="w-4 h-4 mr-2 my-auto text-white" />
+          {/* VIEW DETAILS BUTTON */}
+          <div
+            className="absolute bottom-3 right-3 flex items-center gap-2 bg-white/30 backdrop-blur-sm rounded-full p-3 cursor-pointer"
+            onClick={toggleDetails}
+          >
+            {isDetailsShown ? (
+              <ChevronUp className="w-5 h-5 text-white" />
+            ) : (
+              <ChevronDown className="w-5 h-5 text-white" />
+            )}
           </div>
-          <p className="text-white text-sm capitalize">
-            {user.occupation || "-"}
-          </p>
-        </div>
-
-        {/* VIEW DETAILS BUTTON */}
-        <div
-          className="absolute bottom-3 right-3 flex items-center gap-2 bg-white/30 backdrop-blur-sm rounded-full p-3 cursor-pointer"
-          onClick={toggleDetails}
-        >
-          {isDetailsShown ? (
-            <ChevronUp className="w-5 h-5 text-white" />
-          ) : (
-            <ChevronDown className="w-5 h-5 text-white" />
-          )}
         </div>
       </div>
 
@@ -106,6 +146,35 @@ export default function UserProfileCard({
         className="overflow-hidden"
       >
         <div className="p-6 space-y-6">
+          {/* Thumbnail Strip */}
+          {images.length > 1 && (
+            <div className="grid grid-cols-4 gap-2">
+              {images.map((image, index) => (
+                <div
+                  key={index}
+                  className={`aspect-square rounded-lg overflow-hidden cursor-pointer transition-transform hover:scale-105 ${
+                    index === mainImageIndex ? 'ring-2 ring-primary' : ''
+                  }`}
+                  onClick={() => {
+                    if (isDetailsShown) {
+                      if (previewImageIndex === index) {
+                        setPreviewImageIndex(null);
+                      } else {
+                        setPreviewImageIndex(index);
+                      }
+                    }
+                  }}
+                >
+                  <ImageWithFallback
+                    src={image}
+                    alt={`Image ${index + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+
           {/* ABOUT ME SECTION */}
           <div className="space-y-4">
             <h3 className="text-lg font-bold">About Me</h3>
@@ -235,6 +304,63 @@ export default function UserProfileCard({
           </div>
         </div>
       </motion.div>
+
+      {/* Preview Dialog */}
+      <Dialog 
+        open={previewImageIndex !== null && isDetailsShown} 
+        onOpenChange={() => setPreviewImageIndex(null)}
+      >
+        <DialogContent className="max-w-[90vw] max-h-[90vh] p-0 border-none bg-transparent">
+          {previewImageIndex !== null && (
+            <div className="relative w-full h-full">
+              <ImageWithFallback
+                src={images[previewImageIndex]}
+                alt={`Preview ${previewImageIndex + 1}`}
+                className="w-full h-full object-contain"
+              />
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Full Image Dialog */}
+      <Dialog open={showFullImage} onOpenChange={setShowFullImage}>
+        <DialogContent className="max-w-[90vw] max-h-[90vh] p-0 border-none bg-transparent">
+          <div className="relative w-full h-full">
+            <ImageWithFallback
+              src={images[mainImageIndex]}
+              alt="Profile"
+              className="w-full h-full object-contain"
+            />
+            
+            {/* Close Button */}
+            <button
+              className="absolute top-4 right-4 bg-white/30 backdrop-blur-sm rounded-full p-2 cursor-pointer hover:bg-white/40 transition-colors"
+              onClick={() => setShowFullImage(false)}
+            >
+              <X className="w-6 h-6 text-white" />
+            </button>
+
+            {/* Navigation Buttons */}
+            {images.length > 1 && (
+              <>
+                <button
+                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 backdrop-blur-sm rounded-full p-2 cursor-pointer hover:bg-white/40 transition-colors"
+                  onClick={prevImage}
+                >
+                  <ChevronLeft className="w-6 h-6 text-white" />
+                </button>
+                <button
+                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 backdrop-blur-sm rounded-full p-2 cursor-pointer hover:bg-white/40 transition-colors"
+                  onClick={nextImage}
+                >
+                  <ChevronRight className="w-6 h-6 text-white" />
+                </button>
+              </>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </Card>
   );
 }

@@ -81,7 +81,14 @@ export default function InterestedUsersModal({
         }`}>
           {selectedUser && (
             <UserProfileCard
-              user={selectedUser}
+              user={{
+                ...selectedUser,
+                additional_images: [
+                  "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
+                  "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe",
+                  "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445",
+                ],
+              }}
               onShowDetails={setIsDetailsShown}
               onChat={() => {
                 // Handle chat action
