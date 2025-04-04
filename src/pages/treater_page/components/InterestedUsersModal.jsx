@@ -17,7 +17,22 @@ export default function InterestedUsersModal({
   interestedUsers,
 }) {
   const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedUserIndex, setSelectedUserIndex] = useState(null);
   const [isDetailsShown, setIsDetailsShown] = useState(false);
+
+  const handleSwipeLeft = () => {
+    if (selectedUserIndex < interestedUsers.length - 1) {
+      setSelectedUserIndex(selectedUserIndex + 1);
+      setSelectedUser(interestedUsers[selectedUserIndex + 1]);
+    }
+  };
+
+  const handleSwipeRight = () => {
+    if (selectedUserIndex > 0) {
+      setSelectedUserIndex(selectedUserIndex - 1);
+      setSelectedUser(interestedUsers[selectedUserIndex - 1]);
+    }
+  };
 
   return (
     <>
@@ -38,11 +53,14 @@ export default function InterestedUsersModal({
                 </p>
               </div>
             ) : (
-              interestedUsers.map((user) => (
+              interestedUsers.map((user, index) => (
                 <Card
                   key={user.id}
                   className="h-20 p-4 border border-gray-200 shadow-lg cursor-pointer hover:bg-gray-50"
-                  onClick={() => setSelectedUser(user)}
+                  onClick={() => {
+                    setSelectedUser(user);
+                    setSelectedUserIndex(index);
+                  }}
                 >
                   <div className="flex items-center gap-4">
                     <div className="h-12 w-12 rounded-full overflow-hidden">
@@ -75,7 +93,13 @@ export default function InterestedUsersModal({
       </Dialog>
 
       {/* User Profile Dialog */}
-      <Dialog open={!!selectedUser} onOpenChange={() => setSelectedUser(null)}>
+      <Dialog 
+        open={!!selectedUser} 
+        onOpenChange={() => {
+          setSelectedUser(null);
+          setSelectedUserIndex(null);
+        }}
+      >
         <DialogContent className={`sm:max-w-[425px] p-0 bg-white border border-white/20 shadow-xl rounded-2xl overflow-hidden ${
           isDetailsShown ? 'max-h-[95vh] overflow-y-auto' : ''
         }`}>
@@ -90,10 +114,8 @@ export default function InterestedUsersModal({
                 ],
               }}
               onShowDetails={setIsDetailsShown}
-              onChat={() => {
-                // Handle chat action
-                console.log("Chat with", selectedUser.name);
-              }}
+              onSwipeLeft={handleSwipeLeft}
+              onSwipeRight={handleSwipeRight}
             />
           )}
         </DialogContent>

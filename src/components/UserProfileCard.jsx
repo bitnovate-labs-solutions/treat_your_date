@@ -15,16 +15,19 @@ import {
   ChevronUp,
 } from "lucide-react";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function UserProfileCard({
   user,
   showDetails = false,
   onShowDetails,
+  onSwipeLeft,
+  onSwipeRight,
   className = "",
 }) {
   const [isDetailsShown, setIsDetailsShown] = useState(showDetails);
   const [mainImageIndex, setMainImageIndex] = useState(0);
+  const [dragStart, setDragStart] = useState(0);
 
   // Combine avatar with additional images
   const images = [user.avatar, ...(user.additional_images || [])];
@@ -36,12 +39,35 @@ export default function UserProfileCard({
     }
   };
 
+  const handleDragStart = (event, info) => {
+    setDragStart(info.point.x);
+  };
+
+  const handleDragEnd = (event, info) => {
+    const dragDistance = info.point.x - dragStart;
+    const threshold = 100; // minimum distance to trigger swipe
+
+    if (dragDistance > threshold && onSwipeRight) {
+      onSwipeRight();
+    } else if (dragDistance < -threshold && onSwipeLeft) {
+      onSwipeLeft();
+    }
+  };
+
   return (
     <Card
       className={`overflow-hidden border-none shadow-2xl rounded-2xl ${className}`}
     >
       {/* PROFILE IMAGE */}
-      <div className="relative">
+      <motion.div 
+        className="relative"
+        drag="x"
+        dragConstraints={{ left: 0, right: 0 }}
+        dragElastic={0.8}
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+        whileDrag={{ scale: 0.95 }}
+      >
         <div className="h-[620px] w-full relative">
           <ImageWithFallback
             src={images[mainImageIndex]}
@@ -49,6 +75,18 @@ export default function UserProfileCard({
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/5 to-black/10" />
+
+          {/* Swipe Indicators */}
+          <motion.div 
+            className="absolute inset-0 bg-green-500/20 pointer-events-none"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: dragStart ? (dragStart > 0 ? 1 : 0) : 0 }}
+          />
+          <motion.div 
+            className="absolute inset-0 bg-red-500/20 pointer-events-none"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: dragStart ? (dragStart < 0 ? 1 : 0) : 0 }}
+          />
 
           {/* USER NAME, AGE */}
           <div className="flex absolute bottom-22 left-6 text-white text-2xl font-bold">
@@ -101,7 +139,7 @@ export default function UserProfileCard({
             )}
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* USER DETAILS - COLLAPSIBLE */}
       <motion.div
