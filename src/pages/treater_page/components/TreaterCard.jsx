@@ -102,7 +102,7 @@ export default function TreaterCard({
                       className={cn(
                         "h-8 w-8 rounded-full transition-colors duration-200 shrink-0 touch-manipulation",
                         expanded
-                          ? "bg-gray-100 hover:bg-gray-200 active:bg-gray-300 text-gray-700"
+                          ? "bg-gray-200 active:bg-gray-300 text-gray-700"
                           : "bg-primary/10 hover:bg-primary/20 active:bg-primary/30 text-primary"
                       )}
                       onClick={onToggle}
