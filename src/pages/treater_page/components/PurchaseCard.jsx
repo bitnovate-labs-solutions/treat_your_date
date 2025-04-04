@@ -19,7 +19,7 @@ function PurchaseCard({ item, onShowQR, onShowDetails }) {
   return (
     <Card className="overflow-hidden transition-all duration-300 bg-white border border-gray-200 rounded-xl shadow-lg">
       {/* CARD HEADER */}
-      <CardHeader className="p-4">
+      <CardHeader className="p-3">
         <div className="flex items-start gap-3">
           {/* PACKAGE IMAGE */}
           <div className="w-22 h-22 rounded-lg overflow-hidden flex-shrink-0">
@@ -34,12 +34,12 @@ function PurchaseCard({ item, onShowQR, onShowDetails }) {
             <div className="flex items-start justify-between">
               <div>
                 {/* RESTAURANT NAME */}
-                <h6 className="text-sm font-bold text-darkgray">
+                <h6 className="text-sm font-bold text-lightgray">
                   {restaurant?.name || "Unnamed Restaurant"}
                 </h6>
 
                 {/* PACKAGE NAME */}
-                <CardTitle className="text-base font-bold text-gray-900">
+                <CardTitle className="text-md font-bold text-gray-900">
                   {menuPackage?.name || "Unnamed Package"}
                 </CardTitle>
               </div>
@@ -95,8 +95,8 @@ function PurchaseCard({ item, onShowQR, onShowDetails }) {
       </CardHeader>
 
       {/* CARD CONTENT */}
-      <CardContent className="p-3 pt-0">
-        <div className="grid grid-cols-4 gap-2 pb-1">
+      <CardContent className="p-3 pt-1">
+        <div className="grid grid-cols-4 gap-2">
           {/* PACKAGE QUANTITY */}
           <div className="flex items-center gap-2 mx-auto">
             <Package className="h-4 w-4 text-lightgray" />

@@ -15,16 +15,16 @@ export default function PackageDetailsModal({ isOpen, onClose, purchaseItem }) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] bg-white border border-white/20 shadow-xl">
+      <DialogContent className="sm:max-w-[425px] bg-white border border-white/20 shadow-xl rounded-2xl">
         {/* PACKAGE NAME */}
         <DialogHeader>
-          <DialogTitle className="text-xl font-semibold text-center text-gray-800">
+          <DialogTitle className="text-lg font-semibold text-center text-gray-800">
             {menuPackage?.name || "Package Details"}
           </DialogTitle>
         </DialogHeader>
 
         {/* PACKAGE IMAGES */}
-        <div className="relative w-full h-48 rounded-lg overflow-hidden mb-2">
+        <div className="relative w-full h-42 rounded-lg overflow-hidden">
           <ImageWithFallback
             src={menuPackage?.menu_images?.[0]?.image_url}
             alt="Package"
@@ -45,15 +45,15 @@ export default function PackageDetailsModal({ isOpen, onClose, purchaseItem }) {
         </div>
 
         {/* PACKAGE DESCRIPTION */}
-        <div className="px-3 text-sm">
-          <h4 className="font-semibold text-gray-800 mb-2">Description</h4>
+        <div className="px-1 text-sm">
+          <h4 className="font-semibold text-gray-800 mb-2">Package offers</h4>
           <p className="text-lightgray">{menuPackage?.description}</p>
         </div>
 
         {/* RESTAURANT INFO */}
-        <div className="space-y-4 p-0">
+        <div className="space-y-4 p-0 pt-4 border-t-1 border-gray-300">
           <div className="text-sm">
-            <div className="flex items-center gap-3 p-3">
+            <div className="flex items-center gap-3 px-1 pb-4">
               {/* RESTAURANT IMAGE */}
               <div className="w-16 h-16 rounded-lg overflow-hidden">
                 <ImageWithFallback
@@ -74,7 +74,7 @@ export default function PackageDetailsModal({ isOpen, onClose, purchaseItem }) {
 
             <div className="space-y-2">
               {/* RESTAURANT ADDRESS */}
-              <div className="flex justify-between items-center p-2">
+              <div className="flex justify-between px-1">
                 <span className="font-semibold text-gray-800">
                   Restaurant Address
                 </span>
@@ -84,7 +84,7 @@ export default function PackageDetailsModal({ isOpen, onClose, purchaseItem }) {
               </div>
 
               {/* RESTAURANT CONTACT */}
-              <div className="flex justify-between items-center p-2">
+              <div className="flex justify-between items-center p-1">
                 <span className="font-semibold text-gray-800">Contact</span>
                 <span className="text-lightgray text-right max-w-[200px] text-sm">
                   {restaurant?.phone_number}
@@ -93,10 +93,10 @@ export default function PackageDetailsModal({ isOpen, onClose, purchaseItem }) {
             </div>
           </div>
 
-          {/* View on Map Button */}
+          {/* VIEW ON MAP BUTTON */}
           <Button
             variant="outline"
-            className="w-full mt-4 bg-white/50 backdrop-blur-sm border-white/30 hover:bg-white/60 transition-all duration-300"
+            className="w-full mt-1 transition-all duration-300 text-primary"
             onClick={() => {
               window.open(
                 `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
