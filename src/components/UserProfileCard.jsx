@@ -138,13 +138,46 @@ export default function UserProfileCard({
       <AnimatePresence>
         {isDetailsShown && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ 
+              height: "auto",
+              opacity: 1,
+              transition: {
+                height: {
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 30
+                },
+                opacity: {
+                  duration: 0.2,
+                  ease: "easeOut"
+                }
+              }
+            }}
+            exit={{ 
+              height: 0,
+              opacity: 0,
+              transition: {
+                height: {
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 30
+                },
+                opacity: {
+                  duration: 0.15,
+                  ease: "easeIn"
+                }
+              }
+            }}
             className="overflow-hidden"
           >
-            <div className="p-6 space-y-2">
+            <motion.div 
+              className="p-6 space-y-2"
+              initial={{ y: -20 }}
+              animate={{ y: 0 }}
+              exit={{ y: -20 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            >
               {/* Thumbnail Strip */}
               {images.length > 1 && (
                 <div className="grid grid-cols-4 gap-2">
@@ -329,7 +362,7 @@ export default function UserProfileCard({
                   </p>
                 )}
               </div>
-            </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
