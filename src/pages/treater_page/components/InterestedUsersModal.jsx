@@ -79,7 +79,6 @@ export default function InterestedUsersModal({
           {selectedUser && (
             <UserProfileCard
               user={selectedUser}
-              showDetails={true}
               onChat={() => {
                 // Handle chat action
                 console.log("Chat with", selectedUser.name);

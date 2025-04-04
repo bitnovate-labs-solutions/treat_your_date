@@ -3,7 +3,6 @@ import ImageWithFallback from "@/components/ImageWithFallback";
 import { Button } from "@/components/ui/button";
 import {
   MapPin,
-  User,
   GraduationCap,
   Ruler,
   Cigarette,
@@ -13,7 +12,11 @@ import {
   Telescope,
   Church,
   Folder,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
+import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function UserProfileCard({
   user,
@@ -22,32 +25,40 @@ export default function UserProfileCard({
   onChat,
   className = "",
 }) {
+  const [isDetailsShown, setIsDetailsShown] = useState(showDetails);
+
+  const toggleDetails = () => {
+    setIsDetailsShown(!isDetailsShown);
+    if (onShowDetails) {
+      onShowDetails(!isDetailsShown);
+    }
+  };
+
   return (
-    <Card className={`overflow-hidden border-none shadow-2xl rounded-2xl ${className}`}>
+    <Card
+      className={`overflow-hidden border-none shadow-2xl rounded-2xl ${className}`}
+    >
       {/* PROFILE IMAGE */}
-      <div className="h-[450px] w-full relative">
+      <div className="h-[620px] w-full relative">
         <ImageWithFallback
           src={user.avatar}
           alt="Profile"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/5 to-black/10" />
-      </div>
 
-      {/* BASIC INFO SECTION */}
-      <div className="p-6 space-y-4">
-        {/* NAME AND AGE */}
-        <div className="flex items-center gap-2">
-          <h2 className="text-2xl font-bold">{user.name || "-"}</h2>
-          <span className="text-2xl font-bold">,</span>
-          <p className="text-2xl font-bold">{user.age || "-"}</p>
+        {/* USER NAME, AGE */}
+        <div className="flex absolute bottom-22 left-6 text-white text-2xl font-bold">
+          <p>{user.name || "-"}</p>
+          <span>,</span>
+          <p className="ml-2">{user.age || "-"}</p>
         </div>
 
-        {/* ROLE AND LOCATION */}
-        <div className="flex items-center gap-2">
+        {/* USER ROLE AND LOCATION */}
+        <div className="flex absolute bottom-15 left-6">
           {/* USER ROLE */}
           <div
-            className={`px-3 py-0.5 rounded-full ${
+            className={`px-3 py-0.5 rounded-full mr-2 ${
               user?.role === "treater"
                 ? "bg-blue-200 text-blue-800"
                 : "bg-secondary text-primary"
@@ -65,43 +76,39 @@ export default function UserProfileCard({
           </div>
         </div>
 
-        {/* OCCUPATION */}
-        <div className="flex items-center gap-2">
-          <Folder className="w-4 h-4 text-darkgray" />
-          <p className="text-darkgray capitalize">
+        {/* USER OCCUPATION */}
+        <div className="flex absolute bottom-8 left-6">
+          <div className="flex items-center">
+            <Folder className="w-4 h-4 mr-2 my-auto text-white" />
+          </div>
+          <p className="text-white text-sm capitalize">
             {user.occupation || "-"}
           </p>
         </div>
 
         {/* VIEW DETAILS BUTTON */}
-        {onShowDetails && (
-          <div
-            className="flex items-center gap-2 bg-primary/10 rounded-xl p-3 cursor-pointer"
-            onClick={onShowDetails}
-          >
-            <svg
-              className={`w-5 h-5 text-primary transition-transform duration-200 ${
-                showDetails ? "rotate-180" : ""
-              }`}
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-            <span className="text-primary font-medium">View Details</span>
-          </div>
-        )}
+        <div
+          className="absolute bottom-3 right-3 flex items-center gap-2 bg-white/30 backdrop-blur-sm rounded-full p-3 cursor-pointer"
+          onClick={toggleDetails}
+        >
+          {isDetailsShown ? (
+            <ChevronUp className="w-5 h-5 text-white" />
+          ) : (
+            <ChevronDown className="w-5 h-5 text-white" />
+          )}
+        </div>
       </div>
 
       {/* USER DETAILS - COLLAPSIBLE */}
-      {showDetails && (
-        <div className="p-6 space-y-6 border-t border-gray-100">
+      <motion.div
+        animate={{
+          height: isDetailsShown ? "auto" : 0,
+          opacity: isDetailsShown ? 1 : 0,
+        }}
+        transition={{ duration: 0.3 }}
+        className="overflow-hidden"
+      >
+        <div className="p-6 space-y-6">
           {/* ABOUT ME SECTION */}
           <div className="space-y-4">
             <h3 className="text-lg font-bold">About Me</h3>
@@ -118,72 +125,104 @@ export default function UserProfileCard({
               <div className="flex justify-between">
                 <div className="flex items-center">
                   <GraduationCap className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">Education</span>
+                  <span className="text-base font-semibold text-darkgray">
+                    Education
+                  </span>
                 </div>
-                <p className="text-lightgray text-sm text-right">{user.education || "-"}</p>
+                <p className="text-lightgray text-sm text-right">
+                  {user.education || "-"}
+                </p>
               </div>
 
               {/* Height */}
               <div className="flex justify-between">
                 <div className="flex items-center">
                   <Ruler className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">Height</span>
+                  <span className="text-base font-semibold text-darkgray">
+                    Height
+                  </span>
                 </div>
-                <p className="text-lightgray text-sm text-right">{user.height || "-"}</p>
+                <p className="text-lightgray text-sm text-right">
+                  {user.height || "-"}
+                </p>
               </div>
 
               {/* Smoking */}
               <div className="flex justify-between">
                 <div className="flex items-center">
                   <Cigarette className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">Smoking</span>
+                  <span className="text-base font-semibold text-darkgray">
+                    Smoking
+                  </span>
                 </div>
-                <p className="text-lightgray text-sm text-right">{user.smoking || "-"}</p>
+                <p className="text-lightgray text-sm text-right">
+                  {user.smoking || "-"}
+                </p>
               </div>
 
               {/* Drinking */}
               <div className="flex justify-between">
                 <div className="flex items-center">
                   <Wine className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">Drinking</span>
+                  <span className="text-base font-semibold text-darkgray">
+                    Drinking
+                  </span>
                 </div>
-                <p className="text-lightgray text-sm text-right">{user.drinking || "-"}</p>
+                <p className="text-lightgray text-sm text-right">
+                  {user.drinking || "-"}
+                </p>
               </div>
 
               {/* Pets */}
               <div className="flex justify-between">
                 <div className="flex items-center">
                   <PawPrint className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">Pets</span>
+                  <span className="text-base font-semibold text-darkgray">
+                    Pets
+                  </span>
                 </div>
-                <p className="text-lightgray text-sm text-right">{user.pets || "-"}</p>
+                <p className="text-lightgray text-sm text-right">
+                  {user.pets || "-"}
+                </p>
               </div>
 
               {/* Children */}
               <div className="flex justify-between">
                 <div className="flex items-center">
                   <Baby className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">Children</span>
+                  <span className="text-base font-semibold text-darkgray">
+                    Children
+                  </span>
                 </div>
-                <p className="text-lightgray text-sm text-right">{user.children || "-"}</p>
+                <p className="text-lightgray text-sm text-right">
+                  {user.children || "-"}
+                </p>
               </div>
 
               {/* Zodiac */}
               <div className="flex justify-between">
                 <div className="flex items-center">
                   <Telescope className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">Zodiac Sign</span>
+                  <span className="text-base font-semibold text-darkgray">
+                    Zodiac Sign
+                  </span>
                 </div>
-                <p className="text-lightgray text-sm text-right">{user.zodiac || "-"}</p>
+                <p className="text-lightgray text-sm text-right">
+                  {user.zodiac || "-"}
+                </p>
               </div>
 
               {/* Religion */}
               <div className="flex justify-between">
                 <div className="flex items-center">
                   <Church className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">Religion</span>
+                  <span className="text-base font-semibold text-darkgray">
+                    Religion
+                  </span>
                 </div>
-                <p className="text-lightgray text-sm text-right">{user.religion || "-"}</p>
+                <p className="text-lightgray text-sm text-right">
+                  {user.religion || "-"}
+                </p>
               </div>
             </div>
           </div>
@@ -231,7 +270,7 @@ export default function UserProfileCard({
             </div>
           )}
         </div>
-      )}
+      </motion.div>
     </Card>
   );
-} 
+}
