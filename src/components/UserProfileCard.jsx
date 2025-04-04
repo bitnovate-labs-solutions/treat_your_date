@@ -14,7 +14,7 @@ import {
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function UserProfileCard({
@@ -28,6 +28,11 @@ export default function UserProfileCard({
   const [isDetailsShown, setIsDetailsShown] = useState(showDetails);
   const [mainImageIndex, setMainImageIndex] = useState(0);
   const [dragStart, setDragStart] = useState(0);
+
+  // Reset mainImageIndex when user changes
+  useEffect(() => {
+    setMainImageIndex(0);
+  }, [user]);
 
   // Combine avatar with additional images
   const images = [user.avatar, ...(user.additional_images || [])];
@@ -130,202 +135,204 @@ export default function UserProfileCard({
       </motion.div>
 
       {/* USER DETAILS - COLLAPSIBLE */}
-      <motion.div
-        initial={{ height: 0, opacity: 0 }}
-        animate={{
-          height: isDetailsShown ? "auto" : 0,
-          opacity: isDetailsShown ? 1 : 0,
-        }}
-        transition={{ duration: 0.3 }}
-        className="overflow-hidden"
-      >
-        <div className="p-6 space-y-2">
-          {/* Thumbnail Strip */}
-          {images.length > 1 && (
-            <div className="grid grid-cols-4 gap-2">
-              {images.map((image, index) => (
-                <div
-                  key={index}
-                  className={`aspect-square rounded-lg overflow-hidden cursor-pointer transition-transform hover:scale-105 ${
-                    index === mainImageIndex ? "ring-2 ring-primary" : ""
-                  }`}
-                  onClick={() => setMainImageIndex(index)}
-                >
-                  <ImageWithFallback
-                    src={image}
-                    alt={`Image ${index + 1}`}
-                    className="w-full h-full object-cover"
-                  />
+      <AnimatePresence>
+        {isDetailsShown && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="overflow-hidden"
+          >
+            <div className="p-6 space-y-2">
+              {/* Thumbnail Strip */}
+              {images.length > 1 && (
+                <div className="grid grid-cols-4 gap-2">
+                  {images.map((image, index) => (
+                    <div
+                      key={index}
+                      className={`aspect-square rounded-lg overflow-hidden cursor-pointer transition-transform hover:scale-105 ${
+                        index === mainImageIndex ? "ring-2 ring-primary" : ""
+                      }`}
+                      onClick={() => setMainImageIndex(index)}
+                    >
+                      <ImageWithFallback
+                        src={image}
+                        alt={`Image ${index + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          )}
-          <div className="flex justify-center items-center gap-2 mb-4 text-darkgray">
-            <p className="text-center text-xs">Scroll down for more details</p>
-            <ChevronDown className="h-4 w-4" />
-          </div>
+              )}
+              <div className="flex justify-center items-center gap-2 mb-4 text-darkgray">
+                <p className="text-center text-xs">Scroll down for more details</p>
+                <ChevronDown className="h-4 w-4" />
+              </div>
 
-          {/* ABOUT ME SECTION */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-bold">About Me</h3>
-            <p className="text-gray-600">
-              {user.about || "No description available"}
-            </p>
-          </div>
-
-          {/* MY DETAILS SECTION */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-bold">My Details</h3>
-            <div className="space-y-4">
-              {/* Education */}
-              <div className="flex justify-between">
-                <div className="flex items-center">
-                  <GraduationCap className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">
-                    Education
-                  </span>
-                </div>
-                <p className="text-lightgray text-sm text-right">
-                  {user.education || "-"}
+              {/* ABOUT ME SECTION */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-bold">About Me</h3>
+                <p className="text-gray-600">
+                  {user.about || "No description available"}
                 </p>
               </div>
 
-              {/* Height */}
-              <div className="flex justify-between">
-                <div className="flex items-center">
-                  <Ruler className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">
-                    Height
-                  </span>
-                </div>
-                <p className="text-lightgray text-sm text-right">
-                  {user.height || "-"}
-                </p>
-              </div>
-
-              {/* Smoking */}
-              <div className="flex justify-between">
-                <div className="flex items-center">
-                  <Cigarette className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">
-                    Smoking
-                  </span>
-                </div>
-                <p className="text-lightgray text-sm text-right">
-                  {user.smoking || "-"}
-                </p>
-              </div>
-
-              {/* Drinking */}
-              <div className="flex justify-between">
-                <div className="flex items-center">
-                  <Wine className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">
-                    Drinking
-                  </span>
-                </div>
-                <p className="text-lightgray text-sm text-right">
-                  {user.drinking || "-"}
-                </p>
-              </div>
-
-              {/* Pets */}
-              <div className="flex justify-between">
-                <div className="flex items-center">
-                  <PawPrint className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">
-                    Pets
-                  </span>
-                </div>
-                <p className="text-lightgray text-sm text-right">
-                  {user.pets || "-"}
-                </p>
-              </div>
-
-              {/* Children */}
-              <div className="flex justify-between">
-                <div className="flex items-center">
-                  <Baby className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">
-                    Children
-                  </span>
-                </div>
-                <p className="text-lightgray text-sm text-right">
-                  {user.children || "-"}
-                </p>
-              </div>
-
-              {/* Zodiac */}
-              <div className="flex justify-between">
-                <div className="flex items-center">
-                  <Telescope className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">
-                    Zodiac Sign
-                  </span>
-                </div>
-                <p className="text-lightgray text-sm text-right">
-                  {user.zodiac || "-"}
-                </p>
-              </div>
-
-              {/* Religion */}
-              <div className="flex justify-between">
-                <div className="flex items-center">
-                  <Church className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">
-                    Religion
-                  </span>
-                </div>
-                <p className="text-lightgray text-sm text-right">
-                  {user.religion || "-"}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* INTERESTS SECTION */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-bold">I enjoy</h3>
-            {user.interests?.length > 0 ? (
-              <div className="flex flex-wrap gap-2">
-                {user.interests.map((interest) => (
-                  <div
-                    key={interest}
-                    className="flex items-center gap-2 bg-primary/80 rounded-full py-1 px-3"
-                  >
-                    <span className="text-xs text-white">{interest}</span>
+              {/* MY DETAILS SECTION */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-bold">My Details</h3>
+                <div className="space-y-4">
+                  {/* Education */}
+                  <div className="flex justify-between">
+                    <div className="flex items-center">
+                      <GraduationCap className="w-4 h-4 mr-4 text-darkgray" />
+                      <span className="text-base font-semibold text-darkgray">
+                        Education
+                      </span>
+                    </div>
+                    <p className="text-lightgray text-sm text-right">
+                      {user.education || "-"}
+                    </p>
                   </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-sm text-muted-foreground text-lightgray">
-                No interests added yet
-              </p>
-            )}
-          </div>
 
-          {/* LANGUAGES SECTION */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-bold">I communicate in</h3>
-            {user.languages?.length > 0 ? (
-              <div className="flex flex-wrap gap-2">
-                {user.languages.map((language) => (
-                  <div
-                    key={language}
-                    className="flex items-center gap-2 bg-primary/80 rounded-full py-1 px-3"
-                  >
-                    <span className="text-xs text-white">{language}</span>
+                  {/* Height */}
+                  <div className="flex justify-between">
+                    <div className="flex items-center">
+                      <Ruler className="w-4 h-4 mr-4 text-darkgray" />
+                      <span className="text-base font-semibold text-darkgray">
+                        Height
+                      </span>
+                    </div>
+                    <p className="text-lightgray text-sm text-right">
+                      {user.height || "-"}
+                    </p>
                   </div>
-                ))}
+
+                  {/* Smoking */}
+                  <div className="flex justify-between">
+                    <div className="flex items-center">
+                      <Cigarette className="w-4 h-4 mr-4 text-darkgray" />
+                      <span className="text-base font-semibold text-darkgray">
+                        Smoking
+                      </span>
+                    </div>
+                    <p className="text-lightgray text-sm text-right">
+                      {user.smoking || "-"}
+                    </p>
+                  </div>
+
+                  {/* Drinking */}
+                  <div className="flex justify-between">
+                    <div className="flex items-center">
+                      <Wine className="w-4 h-4 mr-4 text-darkgray" />
+                      <span className="text-base font-semibold text-darkgray">
+                        Drinking
+                      </span>
+                    </div>
+                    <p className="text-lightgray text-sm text-right">
+                      {user.drinking || "-"}
+                    </p>
+                  </div>
+
+                  {/* Pets */}
+                  <div className="flex justify-between">
+                    <div className="flex items-center">
+                      <PawPrint className="w-4 h-4 mr-4 text-darkgray" />
+                      <span className="text-base font-semibold text-darkgray">
+                        Pets
+                      </span>
+                    </div>
+                    <p className="text-lightgray text-sm text-right">
+                      {user.pets || "-"}
+                    </p>
+                  </div>
+
+                  {/* Children */}
+                  <div className="flex justify-between">
+                    <div className="flex items-center">
+                      <Baby className="w-4 h-4 mr-4 text-darkgray" />
+                      <span className="text-base font-semibold text-darkgray">
+                        Children
+                      </span>
+                    </div>
+                    <p className="text-lightgray text-sm text-right">
+                      {user.children || "-"}
+                    </p>
+                  </div>
+
+                  {/* Zodiac */}
+                  <div className="flex justify-between">
+                    <div className="flex items-center">
+                      <Telescope className="w-4 h-4 mr-4 text-darkgray" />
+                      <span className="text-base font-semibold text-darkgray">
+                        Zodiac Sign
+                      </span>
+                    </div>
+                    <p className="text-lightgray text-sm text-right">
+                      {user.zodiac || "-"}
+                    </p>
+                  </div>
+
+                  {/* Religion */}
+                  <div className="flex justify-between">
+                    <div className="flex items-center">
+                      <Church className="w-4 h-4 mr-4 text-darkgray" />
+                      <span className="text-base font-semibold text-darkgray">
+                        Religion
+                      </span>
+                    </div>
+                    <p className="text-lightgray text-sm text-right">
+                      {user.religion || "-"}
+                    </p>
+                  </div>
+                </div>
               </div>
-            ) : (
-              <p className="text-sm text-muted-foreground text-lightgray">
-                No languages added yet
-              </p>
-            )}
-          </div>
-        </div>
-      </motion.div>
+
+              {/* INTERESTS SECTION */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-bold">I enjoy</h3>
+                {user.interests?.length > 0 ? (
+                  <div className="flex flex-wrap gap-2">
+                    {user.interests.map((interest) => (
+                      <div
+                        key={interest}
+                        className="flex items-center gap-2 bg-primary/80 rounded-full py-1 px-3"
+                      >
+                        <span className="text-xs text-white">{interest}</span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-muted-foreground text-lightgray">
+                    No interests added yet
+                  </p>
+                )}
+              </div>
+
+              {/* LANGUAGES SECTION */}
+              <div className="space-y-4">
+                <h3 className="text-lg font-bold">I communicate in</h3>
+                {user.languages?.length > 0 ? (
+                  <div className="flex flex-wrap gap-2">
+                    {user.languages.map((language) => (
+                      <div
+                        key={language}
+                        className="flex items-center gap-2 bg-primary/80 rounded-full py-1 px-3"
+                      >
+                        <span className="text-xs text-white">{language}</span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-muted-foreground text-lightgray">
+                    No languages added yet
+                  </p>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </Card>
   );
 }
