@@ -76,18 +76,6 @@ export default function UserProfileCard({
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/5 to-black/10" />
 
-          {/* Swipe Indicators */}
-          <motion.div 
-            className="absolute inset-0 bg-green-500/20 pointer-events-none"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: dragStart ? (dragStart > 0 ? 1 : 0) : 0 }}
-          />
-          <motion.div 
-            className="absolute inset-0 bg-red-500/20 pointer-events-none"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: dragStart ? (dragStart < 0 ? 1 : 0) : 0 }}
-          />
-
           {/* USER NAME, AGE */}
           <div className="flex absolute bottom-22 left-6 text-white text-2xl font-bold">
             <p>{user.name || "-"}</p>
