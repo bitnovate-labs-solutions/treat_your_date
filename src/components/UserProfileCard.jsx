@@ -13,13 +13,9 @@ import {
   Folder,
   ChevronDown,
   ChevronUp,
-  ChevronLeft,
-  ChevronRight,
-  X,
 } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 export default function UserProfileCard({
   user,
@@ -29,52 +25,24 @@ export default function UserProfileCard({
 }) {
   const [isDetailsShown, setIsDetailsShown] = useState(showDetails);
   const [mainImageIndex, setMainImageIndex] = useState(0);
-  const [previewImageIndex, setPreviewImageIndex] = useState(null);
-  const [showFullImage, setShowFullImage] = useState(false);
 
   // Combine avatar with additional images
-  const images = [
-    user.avatar,
-    ...(user.additional_images || []),
-  ];
+  const images = [user.avatar, ...(user.additional_images || [])];
 
   const toggleDetails = () => {
     setIsDetailsShown(!isDetailsShown);
-    setPreviewImageIndex(null); // Close preview when collapsing
     if (onShowDetails) {
       onShowDetails(!isDetailsShown);
     }
   };
 
-  const handlePreviewClick = () => {
-    if (previewImageIndex !== null) {
-      setMainImageIndex(previewImageIndex);
-      setPreviewImageIndex(null);
-    }
-  };
-
-  const nextImage = (e) => {
-    e.stopPropagation();
-    if (showFullImage) {
-      setMainImageIndex((prev) => (prev + 1) % images.length);
-    }
-  };
-
-  const prevImage = (e) => {
-    e.stopPropagation();
-    if (showFullImage) {
-      setMainImageIndex((prev) => (prev - 1 + images.length) % images.length);
-    }
-  };
-
   return (
-    <Card className={`overflow-hidden border-none shadow-2xl rounded-2xl ${className}`}>
+    <Card
+      className={`overflow-hidden border-none shadow-2xl rounded-2xl ${className}`}
+    >
       {/* PROFILE IMAGE */}
       <div className="relative">
-        <div 
-          className="h-[620px] w-full relative cursor-pointer" 
-          onClick={() => setShowFullImage(true)}
-        >
+        <div className="h-[620px] w-full relative">
           <ImageWithFallback
             src={images[mainImageIndex]}
             alt="Profile"
@@ -148,22 +116,14 @@ export default function UserProfileCard({
         <div className="p-6 space-y-6">
           {/* Thumbnail Strip */}
           {images.length > 1 && (
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-4 gap-2 mt-1.5">
               {images.map((image, index) => (
                 <div
                   key={index}
                   className={`aspect-square rounded-lg overflow-hidden cursor-pointer transition-transform hover:scale-105 ${
-                    index === mainImageIndex ? 'ring-2 ring-primary' : ''
+                    index === mainImageIndex ? "ring-2 ring-primary" : ""
                   }`}
-                  onClick={() => {
-                    if (isDetailsShown) {
-                      if (previewImageIndex === index) {
-                        setPreviewImageIndex(null);
-                      } else {
-                        setPreviewImageIndex(index);
-                      }
-                    }
-                  }}
+                  onClick={() => setMainImageIndex(index)}
                 >
                   <ImageWithFallback
                     src={image}
@@ -191,72 +151,104 @@ export default function UserProfileCard({
               <div className="flex justify-between">
                 <div className="flex items-center">
                   <GraduationCap className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">Education</span>
+                  <span className="text-base font-semibold text-darkgray">
+                    Education
+                  </span>
                 </div>
-                <p className="text-lightgray text-sm text-right">{user.education || "-"}</p>
+                <p className="text-lightgray text-sm text-right">
+                  {user.education || "-"}
+                </p>
               </div>
 
               {/* Height */}
               <div className="flex justify-between">
                 <div className="flex items-center">
                   <Ruler className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">Height</span>
+                  <span className="text-base font-semibold text-darkgray">
+                    Height
+                  </span>
                 </div>
-                <p className="text-lightgray text-sm text-right">{user.height || "-"}</p>
+                <p className="text-lightgray text-sm text-right">
+                  {user.height || "-"}
+                </p>
               </div>
 
               {/* Smoking */}
               <div className="flex justify-between">
                 <div className="flex items-center">
                   <Cigarette className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">Smoking</span>
+                  <span className="text-base font-semibold text-darkgray">
+                    Smoking
+                  </span>
                 </div>
-                <p className="text-lightgray text-sm text-right">{user.smoking || "-"}</p>
+                <p className="text-lightgray text-sm text-right">
+                  {user.smoking || "-"}
+                </p>
               </div>
 
               {/* Drinking */}
               <div className="flex justify-between">
                 <div className="flex items-center">
                   <Wine className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">Drinking</span>
+                  <span className="text-base font-semibold text-darkgray">
+                    Drinking
+                  </span>
                 </div>
-                <p className="text-lightgray text-sm text-right">{user.drinking || "-"}</p>
+                <p className="text-lightgray text-sm text-right">
+                  {user.drinking || "-"}
+                </p>
               </div>
 
               {/* Pets */}
               <div className="flex justify-between">
                 <div className="flex items-center">
                   <PawPrint className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">Pets</span>
+                  <span className="text-base font-semibold text-darkgray">
+                    Pets
+                  </span>
                 </div>
-                <p className="text-lightgray text-sm text-right">{user.pets || "-"}</p>
+                <p className="text-lightgray text-sm text-right">
+                  {user.pets || "-"}
+                </p>
               </div>
 
               {/* Children */}
               <div className="flex justify-between">
                 <div className="flex items-center">
                   <Baby className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">Children</span>
+                  <span className="text-base font-semibold text-darkgray">
+                    Children
+                  </span>
                 </div>
-                <p className="text-lightgray text-sm text-right">{user.children || "-"}</p>
+                <p className="text-lightgray text-sm text-right">
+                  {user.children || "-"}
+                </p>
               </div>
 
               {/* Zodiac */}
               <div className="flex justify-between">
                 <div className="flex items-center">
                   <Telescope className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">Zodiac Sign</span>
+                  <span className="text-base font-semibold text-darkgray">
+                    Zodiac Sign
+                  </span>
                 </div>
-                <p className="text-lightgray text-sm text-right">{user.zodiac || "-"}</p>
+                <p className="text-lightgray text-sm text-right">
+                  {user.zodiac || "-"}
+                </p>
               </div>
 
               {/* Religion */}
               <div className="flex justify-between">
                 <div className="flex items-center">
                   <Church className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">Religion</span>
+                  <span className="text-base font-semibold text-darkgray">
+                    Religion
+                  </span>
                 </div>
-                <p className="text-lightgray text-sm text-right">{user.religion || "-"}</p>
+                <p className="text-lightgray text-sm text-right">
+                  {user.religion || "-"}
+                </p>
               </div>
             </div>
           </div>
@@ -304,63 +296,6 @@ export default function UserProfileCard({
           </div>
         </div>
       </motion.div>
-
-      {/* Preview Dialog */}
-      <Dialog 
-        open={previewImageIndex !== null && isDetailsShown} 
-        onOpenChange={() => setPreviewImageIndex(null)}
-      >
-        <DialogContent className="max-w-[90vw] max-h-[90vh] p-0 border-none bg-transparent">
-          {previewImageIndex !== null && (
-            <div className="relative w-full h-full">
-              <ImageWithFallback
-                src={images[previewImageIndex]}
-                alt={`Preview ${previewImageIndex + 1}`}
-                className="w-full h-full object-contain"
-              />
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
-
-      {/* Full Image Dialog */}
-      <Dialog open={showFullImage} onOpenChange={setShowFullImage}>
-        <DialogContent className="max-w-[90vw] max-h-[90vh] p-0 border-none bg-transparent">
-          <div className="relative w-full h-full">
-            <ImageWithFallback
-              src={images[mainImageIndex]}
-              alt="Profile"
-              className="w-full h-full object-contain"
-            />
-            
-            {/* Close Button */}
-            <button
-              className="absolute top-4 right-4 bg-white/30 backdrop-blur-sm rounded-full p-2 cursor-pointer hover:bg-white/40 transition-colors"
-              onClick={() => setShowFullImage(false)}
-            >
-              <X className="w-6 h-6 text-white" />
-            </button>
-
-            {/* Navigation Buttons */}
-            {images.length > 1 && (
-              <>
-                <button
-                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 backdrop-blur-sm rounded-full p-2 cursor-pointer hover:bg-white/40 transition-colors"
-                  onClick={prevImage}
-                >
-                  <ChevronLeft className="w-6 h-6 text-white" />
-                </button>
-                <button
-                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 backdrop-blur-sm rounded-full p-2 cursor-pointer hover:bg-white/40 transition-colors"
-                  onClick={nextImage}
-                >
-                  <ChevronRight className="w-6 h-6 text-white" />
-                </button>
-              </>
-            )}
-          </div>
-        </DialogContent>
-      </Dialog>
     </Card>
   );
 }
