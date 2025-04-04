@@ -31,7 +31,7 @@ export default function RedeemQRModal({
 
         <div className="flex flex-col items-center space-y-4">
           {/* QR Code Display with Navigation */}
-          <div className="flex items-center gap-2 text-primary">
+          <div className="flex items-center text-primary">
             <Button
               variant="outline"
               onClick={onPrevQR}

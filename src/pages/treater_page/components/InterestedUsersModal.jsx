@@ -35,7 +35,7 @@ export default function InterestedUsersModal({
             interestedUsers.map((user) => (
               <Card
                 key={user.id}
-                className="h-20 p-4 border border-gray-300 shadow-lg"
+                className="h-20 p-4 border border-gray-200 shadow-lg"
               >
                 <div className="flex items-center gap-4">
                   <div className="h-12 w-12 rounded-full overflow-hidden">
