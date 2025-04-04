@@ -9,16 +9,22 @@ const getPurchases = async () => {
         purchase_items (
             *,
             menu_packages (
-              *,
-              menu_images (*),
+              id,
+              name,
+              description,
+              price,
+              package_type,
+              menu_images (
+                id,
+                image_url
+              ),
               restaurant:restaurants!inner (
                 id,
                 name,
-                description,
                 location,
                 address,
-                image_url,
-                phone_number
+                phone_number,
+                image_url
               )
             )
         )
@@ -32,9 +38,25 @@ const getPurchases = async () => {
 
 export const usePurchasedItems = () => {
   return useQuery({
-    queryKey: ["restaurants"],
+    queryKey: ["purchases"],
     queryFn: getPurchases,
     staleTime: 1000 * 60 * 5, // Cache for 5 minutes
-    refetchInterval: 1000 * 30, // Refresh every 30 seconds
+    refetchInterval: 1000 * 60, // Refresh every 1 minute instead of 30 seconds
+    cacheTime: 1000 * 60 * 30, // Keep in cache for 30 minutes
+    suspense: true, // Enable React Suspense mode
+    refetchOnWindowFocus: false, // Disable refetch on window focus
+    select: (data) => {
+      // Transform and filter data if needed
+      return data?.map(purchase => ({
+        ...purchase,
+        purchase_items: purchase.purchase_items?.map(item => ({
+          ...item,
+          menu_packages: item.menu_packages ? {
+            ...item.menu_packages,
+            menu_images: item.menu_packages.menu_images || []
+          } : null
+        }))
+      })) || [];
+    }
   });
 };

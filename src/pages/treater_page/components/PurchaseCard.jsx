@@ -1,10 +1,21 @@
+import { memo } from "react";
+
+// COMPONENTS
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { QrCode, Users, Package, Info } from "lucide-react";
 import ImageWithFallback from "@/components/ImageWithFallback";
 
-export default function PurchaseCard({ item, onShowQR, onShowDetails }) {
+function PurchaseCard({ item, onShowQR, onShowDetails }) {
+  // Early return if item is not defined
+  if (!item) return null;
+
+  // Get the first purchase item and its related data safely
+  const purchaseItem = item?.purchase_items?.[0];
+  const menuPackage = purchaseItem?.menu_packages;
+  const restaurant = menuPackage?.restaurant;
+
   return (
     <Card className="overflow-hidden transition-all duration-300 bg-white border border-gray-200 rounded-xl shadow-lg">
       {/* CARD HEADER */}
@@ -13,8 +24,8 @@ export default function PurchaseCard({ item, onShowQR, onShowDetails }) {
           {/* PACKAGE IMAGE */}
           <div className="w-22 h-22 rounded-lg overflow-hidden flex-shrink-0">
             <ImageWithFallback
-              src={item?.purchase_items[0]?.menu_packages?.menu_images?.[0]?.image_url || []}
-              alt={item.name || "Package image"}
+              src={menuPackage?.menu_images?.[0]?.image_url}
+              alt={menuPackage?.name || "Package image"}
               className="w-full h-full object-cover"
             />
           </div>
@@ -24,12 +35,12 @@ export default function PurchaseCard({ item, onShowQR, onShowDetails }) {
               <div>
                 {/* RESTAURANT NAME */}
                 <h6 className="text-sm font-bold text-darkgray">
-                  {item?.purchase_items?.[0]?.menu_packages?.restaurant.name || "Unnamed Restaurant"}
+                  {restaurant?.name || "Unnamed Restaurant"}
                 </h6>
 
                 {/* PACKAGE NAME */}
                 <CardTitle className="text-base font-bold text-gray-900">
-                  {item?.purchase_items?.[0]?.menu_packages?.name || "Unnamed Package"}
+                  {menuPackage?.name || "Unnamed Package"}
                 </CardTitle>
               </div>
 
@@ -55,16 +66,16 @@ export default function PurchaseCard({ item, onShowQR, onShowDetails }) {
                 <Badge
                   variant="outline"
                   className={`font-medium h-8 text-sm px-3 rounded-md flex items-center ${
-                    item?.purchase_items?.[0]?.menu_packages?.package_type === "basic"
+                    menuPackage?.package_type === "basic"
                       ? "bg-sky-200 text-sky-600"
-                      : item?.purchase_items?.[0]?.menu_packages === "mid"
+                      : menuPackage?.package_type === "mid"
                       ? "bg-purple-200 text-purple-600"
-                      : item?.purchase_items?.[0]?.menu_packages === "premium"
+                      : menuPackage?.package_type === "premium"
                       ? "bg-orange-200 text-orange-600"
                       : "bg-gray-200 text-gray-600"
                   }`}
                 >
-                  RM {item?.purchase_items?.[0]?.menu_packages?.price || 0}
+                  RM {menuPackage?.price || 0}
                 </Badge>
               </div>
 
@@ -90,7 +101,7 @@ export default function PurchaseCard({ item, onShowQR, onShowDetails }) {
           <div className="flex items-center gap-2 mx-auto">
             <Package className="h-4 w-4 text-lightgray" />
             <span className="text-sm text-gray-600">
-              x {item?.purchase_items?.[0]?.quantity || 0}
+              x {purchaseItem?.quantity || 0}
             </span>
           </div>
 
@@ -106,3 +117,13 @@ export default function PurchaseCard({ item, onShowQR, onShowDetails }) {
     </Card>
   );
 }
+
+// Memoize the component to prevent unnecessary re-renders
+export default memo(PurchaseCard, (prevProps, nextProps) => {
+  return (
+    prevProps.item?.id === nextProps.item?.id &&
+    prevProps.item?.purchase_items?.[0]?.quantity ===
+      nextProps.item?.purchase_items?.[0]?.quantity &&
+    prevProps.item?.interested_count === nextProps.item?.interested_count
+  );
+});

@@ -1,18 +1,21 @@
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { usePurchasedItems } from "@/hooks/usePurchases";
-import LoadingComponent from "@/components/LoadingComponent";
+
+// COMPONENTS
 import ErrorComponent from "@/components/ErrorComponent";
 import PurchaseCard from "../components/PurchaseCard";
-import RedeemQRDialog from "../components/RedeemQRModal";
-import PackageDetailsDialog from "../components/PackageDetailsModal";
+import RedeemQRModal from "../components/RedeemQRModal";
+import PackageDetailsModal from "../components/PackageDetailsModal";
 
-export default function Purchased() {
+// Separate component for the purchase list to enable suspense
+function PurchaseList() {
   const [showQRCode, setShowQRCode] = useState(null);
   const [showPackageDetails, setShowPackageDetails] = useState(null);
-  const { data: purchasedItems, isLoading, error } = usePurchasedItems();
+
+  // HOOKS
+  const { data: purchasedItems, error } = usePurchasedItems();
 
   // LOADING AND ERROR HANDLERS
-  if (isLoading) return <LoadingComponent type="screen" text="Loading..." />;
   if (error) return <ErrorComponent message={error.message} />;
 
   const selectedItem = purchasedItems?.find(
@@ -20,7 +23,7 @@ export default function Purchased() {
   );
 
   return (
-    <div className="space-y-4">
+    <>
       {purchasedItems?.map((item) => (
         <PurchaseCard
           key={item.id}
@@ -36,17 +39,42 @@ export default function Purchased() {
         </div>
       )}
 
-      <RedeemQRDialog
+      <RedeemQRModal
         isOpen={!!showQRCode}
         onClose={() => setShowQRCode(null)}
         purchaseItem={selectedItem}
       />
 
-      <PackageDetailsDialog
+      <PackageDetailsModal
         isOpen={!!showPackageDetails}
         onClose={() => setShowPackageDetails(null)}
         purchaseItem={selectedItem}
       />
+    </>
+  );
+}
+
+// Loading skeleton for purchase cards
+function PurchaseCardSkeleton() {
+  return (
+    <div className="space-y-4">
+      {[1, 2].map((i) => (
+        <div
+          key={i}
+          className="h-32 bg-gray-100 rounded-xl animate-pulse"
+        ></div>
+      ))}
+    </div>
+  );
+}
+
+// Main Purchased component
+export default function Purchased() {
+  return (
+    <div className="space-y-4">
+      <Suspense fallback={<PurchaseCardSkeleton />}>
+        <PurchaseList />
+      </Suspense>
     </div>
   );
 }
