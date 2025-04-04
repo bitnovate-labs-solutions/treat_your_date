@@ -113,10 +113,10 @@ export default function UserProfileCard({
         transition={{ duration: 0.3 }}
         className="overflow-hidden"
       >
-        <div className="p-6 space-y-6">
+        <div className="p-6 space-y-2">
           {/* Thumbnail Strip */}
           {images.length > 1 && (
-            <div className="grid grid-cols-4 gap-2 mt-1.5">
+            <div className="grid grid-cols-4 gap-2">
               {images.map((image, index) => (
                 <div
                   key={index}
@@ -134,6 +134,10 @@ export default function UserProfileCard({
               ))}
             </div>
           )}
+          <div className="flex justify-center items-center gap-2 mb-4 text-darkgray">
+            <p className="text-center text-xs">Scroll down for more details</p>
+            <ChevronDown className="h-4 w-4" />
+          </div>
 
           {/* ABOUT ME SECTION */}
           <div className="space-y-4">
