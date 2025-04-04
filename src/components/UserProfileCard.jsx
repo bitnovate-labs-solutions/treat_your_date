@@ -1,6 +1,5 @@
 import { Card } from "@/components/ui/card";
 import ImageWithFallback from "@/components/ImageWithFallback";
-import { Button } from "@/components/ui/button";
 import {
   MapPin,
   GraduationCap,
@@ -22,7 +21,6 @@ export default function UserProfileCard({
   user,
   showDetails = false,
   onShowDetails,
-  onChat,
   className = "",
 }) {
   const [isDetailsShown, setIsDetailsShown] = useState(showDetails);
@@ -35,9 +33,7 @@ export default function UserProfileCard({
   };
 
   return (
-    <Card
-      className={`overflow-hidden border-none shadow-2xl rounded-2xl ${className}`}
-    >
+    <Card className={`overflow-hidden border-none shadow-2xl rounded-2xl ${className}`}>
       {/* PROFILE IMAGE */}
       <div className="h-[620px] w-full relative">
         <ImageWithFallback
@@ -101,6 +97,7 @@ export default function UserProfileCard({
 
       {/* USER DETAILS - COLLAPSIBLE */}
       <motion.div
+        initial={{ height: 0, opacity: 0 }}
         animate={{
           height: isDetailsShown ? "auto" : 0,
           opacity: isDetailsShown ? 1 : 0,
@@ -125,112 +122,80 @@ export default function UserProfileCard({
               <div className="flex justify-between">
                 <div className="flex items-center">
                   <GraduationCap className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">
-                    Education
-                  </span>
+                  <span className="text-base font-semibold text-darkgray">Education</span>
                 </div>
-                <p className="text-lightgray text-sm text-right">
-                  {user.education || "-"}
-                </p>
+                <p className="text-lightgray text-sm text-right">{user.education || "-"}</p>
               </div>
 
               {/* Height */}
               <div className="flex justify-between">
                 <div className="flex items-center">
                   <Ruler className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">
-                    Height
-                  </span>
+                  <span className="text-base font-semibold text-darkgray">Height</span>
                 </div>
-                <p className="text-lightgray text-sm text-right">
-                  {user.height || "-"}
-                </p>
+                <p className="text-lightgray text-sm text-right">{user.height || "-"}</p>
               </div>
 
               {/* Smoking */}
               <div className="flex justify-between">
                 <div className="flex items-center">
                   <Cigarette className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">
-                    Smoking
-                  </span>
+                  <span className="text-base font-semibold text-darkgray">Smoking</span>
                 </div>
-                <p className="text-lightgray text-sm text-right">
-                  {user.smoking || "-"}
-                </p>
+                <p className="text-lightgray text-sm text-right">{user.smoking || "-"}</p>
               </div>
 
               {/* Drinking */}
               <div className="flex justify-between">
                 <div className="flex items-center">
                   <Wine className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">
-                    Drinking
-                  </span>
+                  <span className="text-base font-semibold text-darkgray">Drinking</span>
                 </div>
-                <p className="text-lightgray text-sm text-right">
-                  {user.drinking || "-"}
-                </p>
+                <p className="text-lightgray text-sm text-right">{user.drinking || "-"}</p>
               </div>
 
               {/* Pets */}
               <div className="flex justify-between">
                 <div className="flex items-center">
                   <PawPrint className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">
-                    Pets
-                  </span>
+                  <span className="text-base font-semibold text-darkgray">Pets</span>
                 </div>
-                <p className="text-lightgray text-sm text-right">
-                  {user.pets || "-"}
-                </p>
+                <p className="text-lightgray text-sm text-right">{user.pets || "-"}</p>
               </div>
 
               {/* Children */}
               <div className="flex justify-between">
                 <div className="flex items-center">
                   <Baby className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">
-                    Children
-                  </span>
+                  <span className="text-base font-semibold text-darkgray">Children</span>
                 </div>
-                <p className="text-lightgray text-sm text-right">
-                  {user.children || "-"}
-                </p>
+                <p className="text-lightgray text-sm text-right">{user.children || "-"}</p>
               </div>
 
               {/* Zodiac */}
               <div className="flex justify-between">
                 <div className="flex items-center">
                   <Telescope className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">
-                    Zodiac Sign
-                  </span>
+                  <span className="text-base font-semibold text-darkgray">Zodiac Sign</span>
                 </div>
-                <p className="text-lightgray text-sm text-right">
-                  {user.zodiac || "-"}
-                </p>
+                <p className="text-lightgray text-sm text-right">{user.zodiac || "-"}</p>
               </div>
 
               {/* Religion */}
               <div className="flex justify-between">
                 <div className="flex items-center">
                   <Church className="w-4 h-4 mr-4 text-darkgray" />
-                  <span className="text-base font-semibold text-darkgray">
-                    Religion
-                  </span>
+                  <span className="text-base font-semibold text-darkgray">Religion</span>
                 </div>
-                <p className="text-lightgray text-sm text-right">
-                  {user.religion || "-"}
-                </p>
+                <p className="text-lightgray text-sm text-right">{user.religion || "-"}</p>
               </div>
             </div>
           </div>
 
           {/* INTERESTS SECTION */}
-          {user.interests?.length > 0 && (
-            <div className="space-y-4">
-              <h3 className="text-lg font-bold">I enjoy</h3>
+          <div className="space-y-4">
+            <h3 className="text-lg font-bold">I enjoy</h3>
+            {user.interests?.length > 0 ? (
               <div className="flex flex-wrap gap-2">
                 {user.interests.map((interest) => (
                   <div
@@ -241,13 +206,17 @@ export default function UserProfileCard({
                   </div>
                 ))}
               </div>
-            </div>
-          )}
+            ) : (
+              <p className="text-sm text-muted-foreground text-lightgray">
+                No interests added yet
+              </p>
+            )}
+          </div>
 
           {/* LANGUAGES SECTION */}
-          {user.languages?.length > 0 && (
-            <div className="space-y-4">
-              <h3 className="text-lg font-bold">I communicate in</h3>
+          <div className="space-y-4">
+            <h3 className="text-lg font-bold">I communicate in</h3>
+            {user.languages?.length > 0 ? (
               <div className="flex flex-wrap gap-2">
                 {user.languages.map((language) => (
                   <div
@@ -258,17 +227,12 @@ export default function UserProfileCard({
                   </div>
                 ))}
               </div>
-            </div>
-          )}
-
-          {/* ACTION BUTTONS */}
-          {onChat && (
-            <div className="flex gap-3 pt-4">
-              <Button className="flex-1 rounded-xl text-white" onClick={onChat}>
-                Chat
-              </Button>
-            </div>
-          )}
+            ) : (
+              <p className="text-sm text-muted-foreground text-lightgray">
+                No languages added yet
+              </p>
+            )}
+          </div>
         </div>
       </motion.div>
     </Card>

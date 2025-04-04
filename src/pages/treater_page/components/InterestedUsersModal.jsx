@@ -17,6 +17,7 @@ export default function InterestedUsersModal({
   interestedUsers,
 }) {
   const [selectedUser, setSelectedUser] = useState(null);
+  const [isDetailsShown, setIsDetailsShown] = useState(false);
 
   return (
     <>
@@ -75,10 +76,13 @@ export default function InterestedUsersModal({
 
       {/* User Profile Dialog */}
       <Dialog open={!!selectedUser} onOpenChange={() => setSelectedUser(null)}>
-        <DialogContent className="sm:max-w-[425px] p-0 bg-white border border-white/20 shadow-xl rounded-2xl overflow-hidden">
+        <DialogContent className={`sm:max-w-[425px] p-0 bg-white border border-white/20 shadow-xl rounded-2xl overflow-hidden ${
+          isDetailsShown ? 'max-h-[95vh] overflow-y-auto' : ''
+        }`}>
           {selectedUser && (
             <UserProfileCard
               user={selectedUser}
+              onShowDetails={setIsDetailsShown}
               onChat={() => {
                 // Handle chat action
                 console.log("Chat with", selectedUser.name);
