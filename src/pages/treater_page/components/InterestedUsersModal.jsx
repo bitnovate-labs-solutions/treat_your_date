@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import ImageWithFallback from "@/components/ImageWithFallback";
 import { Users } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import UserProfileCard from "@/components/UserProfileCard";
 
 export default function InterestedUsersModal({
@@ -19,6 +20,7 @@ export default function InterestedUsersModal({
   const [selectedUser, setSelectedUser] = useState(null);
   const [selectedUserIndex, setSelectedUserIndex] = useState(null);
   const [isDetailsShown, setIsDetailsShown] = useState(false);
+  const navigate = useNavigate();
 
   // HANDLE SWIPE LEFT
   const handleSwipeLeft = () => {
@@ -34,6 +36,13 @@ export default function InterestedUsersModal({
       setSelectedUserIndex(selectedUserIndex - 1);
       setSelectedUser(interestedUsers[selectedUserIndex - 1]);
     }
+  };
+
+  // HANDLE CHAT
+  const handleChatClick = (e, userId) => {
+    e.stopPropagation(); // Prevent card click event
+    onClose(); // Close the modal
+    navigate('/messages'); // Navigate to messages page
   };
 
   return (
@@ -86,7 +95,12 @@ export default function InterestedUsersModal({
                         </div>
 
                         {/* CHAT BUTTON */}
-                        <Button className="rounded-xl text-white">Chat</Button>
+                        <Button 
+                          className="rounded-xl text-white"
+                          onClick={(e) => handleChatClick(e, user.id)}
+                        >
+                          Chat
+                        </Button>
                       </div>
                     </div>
                   </div>
