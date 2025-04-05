@@ -187,6 +187,13 @@ const bookedItems = [
   },
 ];
 
+// User additional images for profile
+export const userAdditionalImages = [
+  "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
+  "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe",
+  "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445",
+];
+
 // Mock data store
 const mockData = {
   // menu: menu_packages,
@@ -263,6 +270,11 @@ export const MOCK_INTERESTED_USERS = [
     age: 27,
     occupation: "Software Developer",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=John",
+    additional_images: [
+      "https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1607799279861-4dd421887fb3?auto=format&fit=crop&q=80"
+    ]
   },
   {
     id: 2,
@@ -270,6 +282,11 @@ export const MOCK_INTERESTED_USERS = [
     age: 28,
     occupation: "Lawyer",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Tom",
+    additional_images: [
+      "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1590330297626-d7aff25a0431?auto=format&fit=crop&q=80"
+    ]
   },
   {
     id: 3,
@@ -277,6 +294,11 @@ export const MOCK_INTERESTED_USERS = [
     age: 34,
     occupation: "Accountant",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Timothy",
+    additional_images: [
+      "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1591696205602-2f950c417cb9?auto=format&fit=crop&q=80"
+    ]
   },
   {
     id: 4,
@@ -284,6 +306,11 @@ export const MOCK_INTERESTED_USERS = [
     age: 25,
     occupation: "UX Designer",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
+    additional_images: [
+      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80"
+    ]
   },
   {
     id: 5,
@@ -291,6 +318,11 @@ export const MOCK_INTERESTED_USERS = [
     age: 31,
     occupation: "Product Manager",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Mike",
+    additional_images: [
+      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552581234-26160f608093?auto=format&fit=crop&q=80"
+    ]
   },
   {
     id: 6,
@@ -298,6 +330,11 @@ export const MOCK_INTERESTED_USERS = [
     age: 29,
     occupation: "Data Scientist",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Emily",
+    additional_images: [
+      "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80"
+    ]
   },
   {
     id: 7,
@@ -305,6 +342,11 @@ export const MOCK_INTERESTED_USERS = [
     age: 33,
     occupation: "Marketing Manager",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Raj",
+    additional_images: [
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1542744094-3a31f272c490?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80"
+    ]
   },
   {
     id: 8,
@@ -312,6 +354,11 @@ export const MOCK_INTERESTED_USERS = [
     age: 26,
     occupation: "Graphic Designer",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Lisa",
+    additional_images: [
+      "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80"
+    ]
   },
   {
     id: 9,
@@ -319,6 +366,11 @@ export const MOCK_INTERESTED_USERS = [
     age: 30,
     occupation: "Financial Analyst",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=David",
+    additional_images: [
+      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1551836022-deb4988cc6c0?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1590650153855-d9e808231d41?auto=format&fit=crop&q=80"
+    ]
   },
   {
     id: 10,
@@ -326,6 +378,11 @@ export const MOCK_INTERESTED_USERS = [
     age: 32,
     occupation: "Project Manager",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Anna",
+    additional_images: [
+      "https://images.unsplash.com/photo-1522071901873-411886a10004?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1573497491765-dccce02b29df?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552581234-26160f608093?auto=format&fit=crop&q=80"
+    ]
   },
   {
     id: 11,
@@ -333,6 +390,11 @@ export const MOCK_INTERESTED_USERS = [
     age: 28,
     occupation: "Business Consultant",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Mohammed",
+    additional_images: [
+      "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1556761223-4c4282c73f77?auto=format&fit=crop&q=80"
+    ]
   },
   {
     id: 12,
@@ -340,6 +402,11 @@ export const MOCK_INTERESTED_USERS = [
     age: 27,
     occupation: "Content Creator",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sophie",
+    additional_images: [
+      "https://images.unsplash.com/photo-1587614382346-4ec70e388b28?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1587614297882-0954399fb56f?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80"
+    ]
   },
   {
     id: 13,
@@ -347,6 +414,11 @@ export const MOCK_INTERESTED_USERS = [
     age: 35,
     occupation: "Chef",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Carlos",
+    additional_images: [
+      "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1556909172-8c2f1c876cd2?auto=format&fit=crop&q=80"
+    ]
   },
   {
     id: 14,
@@ -354,6 +426,11 @@ export const MOCK_INTERESTED_USERS = [
     age: 29,
     occupation: "HR Manager",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Nina",
+    additional_images: [
+      "https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?auto=format&fit=crop&q=80"
+    ]
   },
   {
     id: 15,
@@ -361,5 +438,10 @@ export const MOCK_INTERESTED_USERS = [
     age: 31,
     occupation: "Sales Director",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=James",
+    additional_images: [
+      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1560264280-88b68371db39?auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80"
+    ]
   },
 ];

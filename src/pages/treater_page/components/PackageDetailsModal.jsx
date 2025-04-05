@@ -15,10 +15,10 @@ export default function PackageDetailsModal({ isOpen, onClose, purchaseItem }) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] bg-white border border-white/20 shadow-xl rounded-2xl">
+      <DialogContent className="sm:max-w-[425px] bg-white border border-white/20 shadow-xl rounded-2xl p-4">
         {/* PACKAGE NAME */}
         <DialogHeader>
-          <DialogTitle className="text-lg font-semibold text-center text-gray-800">
+          <DialogTitle className="text-md font-semibold text-center text-gray-800">
             {menuPackage?.name || "Package Details"}
           </DialogTitle>
         </DialogHeader>

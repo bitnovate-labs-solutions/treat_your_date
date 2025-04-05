@@ -20,6 +20,7 @@ export default function InterestedUsersModal({
   const [selectedUserIndex, setSelectedUserIndex] = useState(null);
   const [isDetailsShown, setIsDetailsShown] = useState(false);
 
+  // HANDLE SWIPE LEFT
   const handleSwipeLeft = () => {
     if (selectedUserIndex < interestedUsers.length - 1) {
       setSelectedUserIndex(selectedUserIndex + 1);
@@ -27,6 +28,7 @@ export default function InterestedUsersModal({
     }
   };
 
+  // HANDLE SWIPE RIGHT
   const handleSwipeRight = () => {
     if (selectedUserIndex > 0) {
       setSelectedUserIndex(selectedUserIndex - 1);
@@ -37,13 +39,16 @@ export default function InterestedUsersModal({
   return (
     <>
       <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="sm:max-w-[425px] p-2 py-6 bg-white border border-white/20 shadow-xl rounded-2xl">
+        <DialogContent className="sm:max-w-[425px] p-2 py-5 bg-white border border-white/20 shadow-xl rounded-2xl">
+          {/* MODAL TITLE */}
           <DialogHeader>
             <DialogTitle className="text-primary text-base">
               Interested Users
             </DialogTitle>
           </DialogHeader>
-          <div className="space-y-3 max-h-[60vh] overflow-y-auto">
+
+          {/* MODAL CONTENT */}
+          <div className="space-y-3 max-h-[58vh] overflow-y-auto">
             {interestedUsers?.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-8 text-gray-500">
                 <Users className="h-12 w-12 mb-3 text-gray-400" />
@@ -93,26 +98,21 @@ export default function InterestedUsersModal({
       </Dialog>
 
       {/* User Profile Dialog */}
-      <Dialog 
-        open={!!selectedUser} 
+      <Dialog
+        open={!!selectedUser}
         onOpenChange={() => {
           setSelectedUser(null);
           setSelectedUserIndex(null);
         }}
       >
-        <DialogContent className={`sm:max-w-[425px] p-0 bg-white border border-white/20 shadow-xl rounded-2xl overflow-hidden ${
-          isDetailsShown ? 'max-h-[95vh] overflow-y-auto' : ''
-        }`}>
+        <DialogContent
+          className={`sm:max-w-[425px] p-0 bg-white border border-white/20 shadow-xl rounded-2xl overflow-hidden ${
+            isDetailsShown ? "max-h-[95vh] overflow-y-auto" : ""
+          }`}
+        >
           {selectedUser && (
             <UserProfileCard
-              user={{
-                ...selectedUser,
-                additional_images: [
-                  "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
-                  "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe",
-                  "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445",
-                ],
-              }}
+              user={selectedUser}
               onShowDetails={setIsDetailsShown}
               onSwipeLeft={handleSwipeLeft}
               onSwipeRight={handleSwipeRight}

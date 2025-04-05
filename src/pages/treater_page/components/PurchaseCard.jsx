@@ -36,15 +36,15 @@ function PurchaseCard({ item, onShowQR, onShowDetails }) {
           />
 
           {/* IMAGE OVERLAY */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/40" />
 
-          {/* CARD LABEL - Food, Location and Date */}
-          <div className="w-full absolute top-5 flex flex-col px-4">
+          {/* CARD LABEL - RESTAURANT & PACKAGE NAME */}
+          <div className="w-full absolute top-5 flex flex-col px-5">
             <div>
-              <h6 className="text-xs font-light text-gray-100 leading-3">
+              <h6 className="text-xs font-medium text-gray-100 leading-3">
                 {restaurant?.name || "Unnamed Restaurant"}
               </h6>
-              <CardTitle className="text-lg font-bold text-white mb-2.5">
+              <CardTitle className="text-lg font-bold text-white mb-2">
                 {menuPackage?.name || "Unnamed Package"}
               </CardTitle>
             </div>
@@ -53,7 +53,6 @@ function PurchaseCard({ item, onShowQR, onShowDetails }) {
             <div className="grid grid-cols-3">
               {/* PACKAGE PRICE */}
               <Badge
-                variant="outline"
                 className={`col-span-2 font-medium h-7 text-sm px-2 rounded-md flex items-center ${
                   menuPackage?.package_type === "basic"
                     ? "bg-sky-200 text-sky-600"
@@ -83,9 +82,9 @@ function PurchaseCard({ item, onShowQR, onShowDetails }) {
           {/* DETAILS */}
           <div className="flex justify-between">
             <Button
-              variant="outline"
+              variant="ghost"
               size="sm"
-              className="h-8 bg-blue-100 border border-blue-400 shadow-md"
+              className="h-8 bg-blue-100 shadow-md"
               onClick={(e) => {
                 e.stopPropagation();
                 onShowDetails(item.id);
@@ -97,9 +96,9 @@ function PurchaseCard({ item, onShowQR, onShowDetails }) {
 
             {/* INTERESTED TREATEES */}
             <Button
-              variant="outline"
+              variant="ghost"
               size="sm"
-              className="h-8 bg-secondary border border-primary shadow-md"
+              className="h-8 bg-secondary shadow-md"
               onClick={() => setShowInterestedUsers(true)}
             >
               <Users className="h-4 w-4 text-primary" />

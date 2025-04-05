@@ -1,8 +1,9 @@
 // To replace the fallback image with a Lucide React CircleAlert icon (or any other image) when an image fails to load
 import { useState } from "react";
 import { CircleAlert } from "lucide-react";
+import { motion } from "framer-motion";
 
-const ImageWithFallback = ({ src, alt, className }) => {
+const ImageWithFallback = ({ src, alt, className, ...props }) => {
   const [error, setError] = useState(false);
 
   return error ? (
@@ -10,11 +11,12 @@ const ImageWithFallback = ({ src, alt, className }) => {
       <CircleAlert size={48} className="text-gray-400" />
     </div>
   ) : (
-    <img
+    <motion.img
       src={src}
       alt={alt}
       className={className}
       onError={() => setError(true)}
+      {...props}
     />
   );
 };

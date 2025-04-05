@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import ImageViewerModal from "./ImageViewerModal";
 
 export default function UserProfileCard({
   user,
@@ -28,6 +29,8 @@ export default function UserProfileCard({
   const [isDetailsShown, setIsDetailsShown] = useState(showDetails);
   const [mainImageIndex, setMainImageIndex] = useState(0);
   const [dragStart, setDragStart] = useState(0);
+  const [isImageViewerOpen, setIsImageViewerOpen] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   // Reset mainImageIndex when user changes
   useEffect(() => {
@@ -59,118 +62,98 @@ export default function UserProfileCard({
     }
   };
 
+  const openImageViewer = (index) => {
+    setSelectedImageIndex(index);
+    setIsImageViewerOpen(true);
+  };
+
+  const handlePreviousImage = () => {
+    setSelectedImageIndex((prev) => (prev > 0 ? prev - 1 : prev));
+  };
+
+  const handleNextImage = () => {
+    setSelectedImageIndex((prev) => (prev < images.length - 1 ? prev + 1 : prev));
+  };
+
   return (
-    <Card
-      className={`overflow-hidden border-none shadow-2xl rounded-2xl ${className}`}
-    >
-      {/* PROFILE IMAGE */}
-      <motion.div 
-        className="relative"
-        drag="x"
-        dragConstraints={{ left: 0, right: 0 }}
-        dragElastic={0.8}
-        onDragStart={handleDragStart}
-        onDragEnd={handleDragEnd}
-        whileDrag={{ scale: 0.95 }}
+    <>
+      <Card
+        className={`overflow-hidden border-none shadow-2xl rounded-2xl ${className}`}
       >
-        <div className="h-[620px] w-full relative">
-          <ImageWithFallback
-            src={images[mainImageIndex]}
-            alt="Profile"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/5 to-black/10" />
+        {/* PROFILE IMAGE */}
+        <motion.div 
+          className="relative"
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={0.8}
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
+          whileDrag={{ scale: 0.95 }}
+        >
+          <div className="h-[620px] w-full relative">
+            <ImageWithFallback
+              src={images[mainImageIndex]}
+              alt="Profile"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/5 to-black/10" />
 
-          {/* USER NAME, AGE */}
-          <div className="flex absolute bottom-22 left-6 text-white text-2xl font-bold">
-            <p>{user.name || "-"}</p>
-            <span>,</span>
-            <p className="ml-2">{user.age || "-"}</p>
-          </div>
-
-          {/* USER ROLE AND LOCATION */}
-          <div className="flex absolute bottom-15 left-6">
-            {/* USER ROLE */}
-            <div
-              className={`px-3 py-0.5 rounded-full mr-2 ${
-                user?.role === "treater"
-                  ? "bg-blue-200 text-blue-800"
-                  : "bg-secondary text-primary"
-              }`}
-            >
-              <p className="text-sm capitalize">{user.role || "-"}</p>
+            {/* USER NAME, AGE */}
+            <div className="flex absolute bottom-22 left-6 text-white text-2xl font-bold">
+              <p>{user.name || "-"}</p>
+              <span>,</span>
+              <p className="ml-2">{user.age || "-"}</p>
             </div>
 
-            {/* USER LOCATION */}
-            <div className="flex gap-1 px-3 py-0.5 bg-emerald-100 rounded-full">
-              <MapPin className="text-emerald-900 w-4 h-4 mr-1 my-auto" />
-              <p className="text-emerald-900 text-sm capitalize">
-                {user.location || "-"}
+            {/* USER ROLE AND LOCATION */}
+            <div className="flex absolute bottom-15 left-6">
+              {/* USER ROLE */}
+              <div
+                className={`px-3 py-0.5 rounded-full mr-2 ${
+                  user?.role === "treater"
+                    ? "bg-blue-200 text-blue-800"
+                    : "bg-secondary text-primary"
+                }`}
+              >
+                <p className="text-sm capitalize">{user.role || "-"}</p>
+              </div>
+
+              {/* USER LOCATION */}
+              <div className="flex gap-1 px-3 py-0.5 bg-emerald-100 rounded-full">
+                <MapPin className="text-emerald-900 w-4 h-4 mr-1 my-auto" />
+                <p className="text-emerald-900 text-sm capitalize">
+                  {user.location || "-"}
+                </p>
+              </div>
+            </div>
+
+            {/* USER OCCUPATION */}
+            <div className="flex absolute bottom-8 left-6">
+              <div className="flex items-center">
+                <Folder className="w-4 h-4 mr-2 my-auto text-white" />
+              </div>
+              <p className="text-white text-sm capitalize">
+                {user.occupation || "-"}
               </p>
             </div>
-          </div>
 
-          {/* USER OCCUPATION */}
-          <div className="flex absolute bottom-8 left-6">
-            <div className="flex items-center">
-              <Folder className="w-4 h-4 mr-2 my-auto text-white" />
+            {/* VIEW DETAILS BUTTON */}
+            <div
+              className="absolute bottom-3 right-3 flex items-center gap-2 bg-white/30 backdrop-blur-sm rounded-full p-3 cursor-pointer"
+              onClick={toggleDetails}
+            >
+              {isDetailsShown ? (
+                <ChevronUp className="w-5 h-5 text-white" />
+              ) : (
+                <ChevronDown className="w-5 h-5 text-white" />
+              )}
             </div>
-            <p className="text-white text-sm capitalize">
-              {user.occupation || "-"}
-            </p>
           </div>
+        </motion.div>
 
-          {/* VIEW DETAILS BUTTON */}
-          <div
-            className="absolute bottom-3 right-3 flex items-center gap-2 bg-white/30 backdrop-blur-sm rounded-full p-3 cursor-pointer"
-            onClick={toggleDetails}
-          >
-            {isDetailsShown ? (
-              <ChevronUp className="w-5 h-5 text-white" />
-            ) : (
-              <ChevronDown className="w-5 h-5 text-white" />
-            )}
-          </div>
-        </div>
-      </motion.div>
-
-      {/* USER DETAILS - COLLAPSIBLE */}
-      <AnimatePresence>
-        {isDetailsShown && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ 
-              height: "auto",
-              opacity: 1,
-              transition: {
-                height: {
-                  type: "spring",
-                  stiffness: 300,
-                  damping: 30
-                },
-                opacity: {
-                  duration: 0.2,
-                  ease: "easeOut"
-                }
-              }
-            }}
-            exit={{ 
-              height: 0,
-              opacity: 0,
-              transition: {
-                height: {
-                  type: "spring",
-                  stiffness: 300,
-                  damping: 30
-                },
-                opacity: {
-                  duration: 0.15,
-                  ease: "easeIn"
-                }
-              }
-            }}
-            className="overflow-hidden"
-          >
+        {/* USER DETAILS - COLLAPSIBLE */}
+        <AnimatePresence>
+          {isDetailsShown && (
             <motion.div 
               className="p-6 space-y-2"
               initial={{ y: -20 }}
@@ -187,7 +170,7 @@ export default function UserProfileCard({
                       className={`aspect-square rounded-lg overflow-hidden cursor-pointer transition-transform hover:scale-105 ${
                         index === mainImageIndex ? "ring-2 ring-primary" : ""
                       }`}
-                      onClick={() => setMainImageIndex(index)}
+                      onClick={() => openImageViewer(index)}
                     >
                       <ImageWithFallback
                         src={image}
@@ -363,9 +346,19 @@ export default function UserProfileCard({
                 )}
               </div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </Card>
+          )}
+        </AnimatePresence>
+      </Card>
+
+      {/* Image Viewer Modal */}
+      <ImageViewerModal
+        isOpen={isImageViewerOpen}
+        onClose={() => setIsImageViewerOpen(false)}
+        images={images}
+        currentImageIndex={selectedImageIndex}
+        onPrevious={handlePreviousImage}
+        onNext={handleNextImage}
+      />
+    </>
   );
 }
