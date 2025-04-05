@@ -4,6 +4,7 @@ import { sortOptions, states } from "@/lib/constants";
 import { useCuisineTypeEnum, useFoodCategoryEnum } from "@/hooks/useEnumValues";
 import { useFilters } from "@/context/FilterContext";
 import { version } from "../../package.json";
+import { useUserProfile } from "@/hooks/useUserProfile";
 
 // COMPONENTS
 import { ChevronDown, LogOut, Settings2, RefreshCw } from "lucide-react";
@@ -21,12 +22,13 @@ import LoadingComponent from "./LoadingComponent";
 import ErrorComponent from "./ErrorComponent";
 
 export default function AppHeader({ title, isHomePage, isProfilePage }) {
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const activeTab = searchParams.get("tab") || "menu";
   const { filters, setFilters } = useFilters(); // Global filter state
+  const { data: userProfile } = useUserProfile(user);
 
   // HOOKS
   const {
@@ -161,7 +163,7 @@ export default function AppHeader({ title, isHomePage, isProfilePage }) {
                 onValueChange={handleTabChange}
                 className="w-full px-4"
               >
-                <TabsList className="grid grid-cols-3 h-10 items-stretch px-1.5">
+                <TabsList className={`grid ${userProfile?.role === 'treatee' ? 'grid-cols-2' : 'grid-cols-3'} h-10 items-stretch px-1.5`}>
                   {/* MENU TAB */}
                   <TabsTrigger
                     value="menu"
@@ -169,17 +171,19 @@ export default function AppHeader({ title, isHomePage, isProfilePage }) {
                   >
                     Menu
                   </TabsTrigger>
-                  {/* PURCHASED TAB */}
-                  <TabsTrigger
-                    value="purchased"
-                    className="text-sm text-primary data-[state=active]:bg-primary data-[state=active]:text-white border-primary rounded-none border-1 border-l-0"
-                  >
-                    Purchased
-                  </TabsTrigger>
+                  {/* PURCHASED TAB - Only show if user is not a treatee */}
+                  {userProfile?.role !== 'treatee' && (
+                    <TabsTrigger
+                      value="purchased"
+                      className="text-sm text-primary data-[state=active]:bg-primary data-[state=active]:text-white border-primary rounded-none border-1 border-l-0"
+                    >
+                      Purchased
+                    </TabsTrigger>
+                  )}
                   {/* BOOKED TAB */}
                   <TabsTrigger
                     value="booked"
-                    className="text-sm text-primary data-[state=active]:bg-primary data-[state=active]:text-white border-primary rounded-l-none border-1 border-l-0"
+                    className={`text-sm text-primary data-[state=active]:bg-primary data-[state=active]:text-white border-primary ${userProfile?.role === 'treatee' ? 'rounded-l-none' : 'rounded-l-none'} border-1 border-l-0`}
                   >
                     Booked
                   </TabsTrigger>

@@ -27,6 +27,8 @@ function App() {
             <AppRoutes />
           </FilterProvider>
           <Toaster
+            position="top-center"
+            duration={2000}
             toastOptions={{
               style: {
                 background: "white",

@@ -1,4 +1,4 @@
-import { Suspense, useCallback } from "react";
+import { Suspense } from "react";
 // import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 // import { supabase } from "@/lib/supabase";
 
@@ -11,7 +11,6 @@ import { CardSkeleton } from "@/components/LoadingSkeleton";
 // import { toast } from "sonner";
 import { useLocation } from "react-router-dom";
 import Menu from "./subpages/Menu";
-import Purchased from "./subpages/Purchased";
 import Booked from "./subpages/Booked";
 
 // function FoodItems() {
@@ -162,8 +161,6 @@ export default function Treatee() {
     switch (activeTab) {
       case "menu":
         return <Menu />;
-      case "purchased":
-        return <Purchased />;
       case "booked":
         return <Booked />;
       default:
