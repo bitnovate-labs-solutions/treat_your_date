@@ -152,14 +152,17 @@ export default function UserProfileCard({
         </motion.div>
 
         {/* USER DETAILS - COLLAPSIBLE */}
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
           {isDetailsShown && (
             <motion.div 
               className="p-6 space-y-2"
-              initial={{ y: -20 }}
-              animate={{ y: 0 }}
-              exit={{ y: -20 }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ 
+                duration: 0.2,
+                ease: "easeInOut"
+              }}
             >
               {/* Thumbnail Strip */}
               {images.length > 1 && (
