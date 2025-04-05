@@ -1,7 +1,7 @@
 import { memo, useState } from "react";
 
 // COMPONENTS
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { QrCode, Users, Package, Info } from "lucide-react";
@@ -11,7 +11,7 @@ import { MOCK_INTERESTED_USERS } from "@/data/mock_data";
 
 function PurchaseCard({ item, onShowQR, onShowDetails }) {
   const [showInterestedUsers, setShowInterestedUsers] = useState(false);
-  
+
   // Early return if item is not defined
   if (!item) return null;
 
@@ -25,104 +25,98 @@ function PurchaseCard({ item, onShowQR, onShowDetails }) {
 
   return (
     <>
-      <Card className="overflow-hidden transition-all duration-300 bg-white border border-gray-200 rounded-xl shadow-lg">
+      <Card className="overflow-hidden transition-all duration-300 bg-white border border-gray-200 rounded-xl shadow-xl">
         {/* CARD HEADER */}
-        <CardHeader className="p-3">
-          <div className="flex items-start gap-3">
-            {/* PACKAGE IMAGE */}
-            <div className="w-22 h-22 rounded-lg overflow-hidden flex-shrink-0">
-              <ImageWithFallback
-                src={menuPackage?.menu_images?.[0]?.image_url}
-                alt={menuPackage?.name || "Package image"}
-                className="w-full h-full object-cover"
-              />
+        <div className="relative w-full h-[110px] overflow-hidden">
+          {/* CARD IMAGE */}
+          <ImageWithFallback
+            src={menuPackage?.menu_images?.[0]?.image_url}
+            alt={menuPackage?.name || "Package image"}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+
+          {/* IMAGE OVERLAY */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/10" />
+
+          {/* CARD LABEL - Food, Location and Date */}
+          <div className="w-full absolute top-5 flex flex-col px-4">
+            <div>
+              <h6 className="text-xs font-light text-gray-100 leading-3">
+                {restaurant?.name || "Unnamed Restaurant"}
+              </h6>
+              <CardTitle className="text-lg font-bold text-white mb-2.5">
+                {menuPackage?.name || "Unnamed Package"}
+              </CardTitle>
             </div>
 
-            <div className="flex-1 min-w-0">
-              <div className="flex items-start justify-between">
-                <div>
-                  {/* RESTAURANT NAME */}
-                  <h6 className="text-sm font-bold text-lightgray">
-                    {restaurant?.name || "Unnamed Restaurant"}
-                  </h6>
+            {/* PACKAGE PRICE & QUANTITY */}
+            <div className="grid grid-cols-3">
+              {/* PACKAGE PRICE */}
+              <Badge
+                variant="outline"
+                className={`col-span-2 font-medium h-7 text-sm px-2 rounded-md flex items-center ${
+                  menuPackage?.package_type === "basic"
+                    ? "bg-sky-200 text-sky-600"
+                    : menuPackage?.package_type === "mid"
+                    ? "bg-purple-200 text-purple-600"
+                    : menuPackage?.package_type === "premium"
+                    ? "bg-orange-200 text-orange-600"
+                    : "bg-gray-200 text-gray-600"
+                }`}
+              >
+                RM {menuPackage?.price || 0}
+              </Badge>
 
-                  {/* PACKAGE NAME */}
-                  <CardTitle className="text-md font-bold text-gray-900">
-                    {menuPackage?.name || "Unnamed Package"}
-                  </CardTitle>
-                </div>
-
-                {/* ABOUT PACKAGE */}
-                <div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-6 w-6 p-0 active:bg-gray-200 rounded-full touch-manipulation"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onShowDetails(item.id);
-                    }}
-                  >
-                    <Info className="h-4 w-4 text-gray-400" />
-                  </Button>
-                </div>
-              </div>
-
-              {/* PACKAGE PRICE & BUTTON */}
-              <div className="grid grid-cols-2 mt-2.5">
-                <div>
-                  <Badge
-                    variant="outline"
-                    className={`font-medium h-8 text-sm px-3 rounded-md flex items-center ${
-                      menuPackage?.package_type === "basic"
-                        ? "bg-sky-200 text-sky-600"
-                        : menuPackage?.package_type === "mid"
-                        ? "bg-purple-200 text-purple-600"
-                        : menuPackage?.package_type === "premium"
-                        ? "bg-orange-200 text-orange-600"
-                        : "bg-gray-200 text-gray-600"
-                    }`}
-                  >
-                    RM {menuPackage?.price || 0}
-                  </Badge>
-                </div>
-
-                <div>
-                  <Button
-                    size="sm"
-                    className="w-full shadow-xl"
-                    onClick={() => onShowQR(item.id)}
-                  >
-                    <QrCode className="h-4 w-4 mr-1 text-white" />
-                    <span className="text-white">Redeem</span>
-                  </Button>
-                </div>
+              {/* PACKAGE QUANTITY */}
+              <div className="w-full flex justify-center items-center gap-2 ml-2 text-white">
+                <Package className="h-4 w-4" />
+                <span className="text-sm font-bold">
+                  x {purchaseItem?.quantity || 0}
+                </span>
               </div>
             </div>
           </div>
-        </CardHeader>
+        </div>
 
         {/* CARD CONTENT */}
-        <CardContent className="p-3 pt-1">
-          <div className="grid grid-cols-4 gap-2">
-            {/* PACKAGE QUANTITY */}
-            <div className="flex items-center gap-2 mx-auto">
-              <Package className="h-4 w-4 text-lightgray" />
-              <span className="text-sm text-gray-600">
-                x {purchaseItem?.quantity || 0}
-              </span>
-            </div>
+        <CardContent className="px-4 py-3.5">
+          {/* DETAILS */}
+          <div className="flex justify-between">
+            <Button
+              variant="outline"
+              size="sm"
+              className="h-8 bg-blue-100 border border-blue-400 shadow-md"
+              onClick={(e) => {
+                e.stopPropagation();
+                onShowDetails(item.id);
+              }}
+            >
+              <Info className="h-4 w-4 text-blue-400" />
+              <p className="text-xs text-blue-400">Details</p>
+            </Button>
 
             {/* INTERESTED TREATEES */}
-            <div 
-              className="col-span-3 flex gap-2 ml-4 cursor-pointer hover:text-primary transition-colors group"
+            <Button
+              variant="outline"
+              size="sm"
+              className="h-8 bg-secondary border border-primary shadow-md"
               onClick={() => setShowInterestedUsers(true)}
             >
-              <Users className="h-4 w-4 text-primary group-hover:text-primary" />
-              <span className="text-sm text-gray-600 group-hover:text-primary">
+              <Users className="h-4 w-4 text-primary" />
+              <span className="text-xs text-primary">
                 {interestedUsers.length || 0} interested
               </span>
-            </div>
+            </Button>
+
+            {/* REDEEM BUTTON */}
+            <Button
+              size="sm"
+              className="h-8 shadow-md"
+              onClick={() => onShowQR(item.id)}
+            >
+              <QrCode className="h-4 w-4 text-white" />
+              <p className="text-white">Redeem</p>
+            </Button>
           </div>
         </CardContent>
       </Card>
@@ -142,6 +136,7 @@ export default memo(PurchaseCard, (prevProps, nextProps) => {
     prevProps.item?.id === nextProps.item?.id &&
     prevProps.item?.purchase_items?.[0]?.quantity ===
       nextProps.item?.purchase_items?.[0]?.quantity &&
-    prevProps.item?.interested_users?.length === nextProps.item?.interested_users?.length
+    prevProps.item?.interested_users?.length ===
+      nextProps.item?.interested_users?.length
   );
 });
