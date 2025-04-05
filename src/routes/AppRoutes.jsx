@@ -9,7 +9,7 @@ import { CardSkeleton } from "@/components/LoadingSkeleton";
 
 // Pages
 import Onboarding from "@/pages/onboarding_page/Onboarding";
-import Auth from "@/pages/auth/Auth";
+import Auth from "@/pages/auth_page/Auth";
 import Profile from "@/pages/Profile";
 import Treater from "@/pages/treater_page/Treater";
 import Treatee from "@/pages/treatee_page/Treatee";

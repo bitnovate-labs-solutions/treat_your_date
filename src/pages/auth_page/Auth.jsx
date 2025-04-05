@@ -16,7 +16,7 @@ import { ChevronLeft, KeyRound, Lock, Mail, User } from "lucide-react";
 import {
   ResetPasswordConfirmation,
   EmailConfirmation,
-} from "@/pages/auth/components/ConfirmationScreens";
+} from "@/pages/auth_page/components/ConfirmationScreens";
 
 // ASSETS
 import Logo from "@/assets/tyd_logo.png";
